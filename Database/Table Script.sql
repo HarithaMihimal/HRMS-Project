@@ -3,8 +3,8 @@ use hrms;
 
 CREATE TABLE `Supervisor` (
   `Supervisor_ID` VARCHAR(255),
-  `SUbordinate_ID` VARCHAR(255),
-  PRIMARY KEY (`Supervisor_ID`, `SUbordinate_ID`)
+  `Subordinate_ID` VARCHAR(255),
+  PRIMARY KEY (`Supervisor_ID`, `Subordinate_ID`)
 );
 
 CREATE TABLE `Dependent_Information` (
@@ -56,7 +56,7 @@ CREATE TABLE `Employee_Data` (
   `Birthday` DATE,
   `Contact_number` VARCHAR(255),
   `Email` VARCHAR(255),
-  `Employment_status` ENUM('Intern fulltime', 'Intern parttime', 'Contract fulltime', 'Contract parttime', 'Permanent', 'Freelance'),
+  `Employment_status`  VARCHAR(255),
   `Job_Title` ENUM('HR Manager', 'Accountant', 'Software Engineer', 'QA Engineer'),
   `Pay_Grade_ID` VARCHAR(255),
   `Branch_No` VARCHAR(255),
@@ -66,7 +66,8 @@ CREATE TABLE `Employee_Data` (
   FOREIGN KEY (`Dependent_ID`) REFERENCES `Dependent_Information`(`Dependent_ID`),
   FOREIGN KEY (`Dept_ID`) REFERENCES `Department`(`Dept_ID`),
   FOREIGN KEY (`Branch_No`) REFERENCES `Branch`(`Branch_No`),
-  FOREIGN KEY (`Pay_Grade_ID`) REFERENCES `Pay_Grade`(`Pay_Grade_ID`)
+  FOREIGN KEY (`Pay_Grade_ID`) REFERENCES `Pay_Grade`(`Pay_Grade_ID`),
+  FOREIGN KEY (`Employment_status`) REFERENCES `Employment_Status`(`Status_ID`)
 );
 
 CREATE TABLE `Leave_Limit` (
@@ -116,5 +117,12 @@ CREATE TABLE `Employee_Account` (
   `Profile_Pic` Blob,
   PRIMARY KEY (`User_ID`)
 );
+
+CREATE TABLE `Employment_Status` (
+  `Status_ID` INT(12),
+  `Status` VARCHAR(255),
+  PRIMARY KEY (`Status_ID`)
+);
+
 
 show tables;
