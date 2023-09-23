@@ -74,7 +74,7 @@ CREATE TABLE `Leave_Limit` (
   `Pay_Grade_ID` VARCHAR(255) NOT NULL,
   `Annual` INT(3) NOT NULL,
   `Casual` INT(3) NOT NULL,
-  `No-Pay` INT(3) NOT NULL,
+  `No_Pay` INT(3) NOT NULL,
   `Maternity_Leave` INT(3) NOT NULL,
   PRIMARY KEY (`Pay_Grade_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -105,7 +105,7 @@ CREATE TABLE `Employee_Leave_Count` (
   `Employee_ID` INT(12) NOT NULL,
   `Annual` INT(3) NOT NULL,
   `Casual` INT(3) NOT NULL,
-  `No-Pay` INT(3)NOT NULL,
+  `No_Pay` INT(3)NOT NULL,
   `Maternity_Leave` INT(3) NOT NULL,
   PRIMARY KEY (`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
