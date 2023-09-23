@@ -2,7 +2,7 @@ create database HRMS;
 use hrms;
 
 CREATE TABLE `Supervisor` (
-  `Supervisor_ID` VARCHAR(255) NOT NULL AUTO_INCREMENT,
+  `Supervisor_ID` VARCHAR(255) NOT NULL,
   `Subordinate_ID` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`Supervisor_ID`, `Subordinate_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `Leave_Request` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Branch` (
-  `Branch_No` VARCHAR(255) NOT NULL AUTO_INCREMENT,
+  `Branch_No` INT(12) NOT NULL AUTO_INCREMENT,
   `Branch_Name` VARCHAR(255) NOT NULL,
   `Address` VARCHAR(255) NOT NULL,
   `Currency` VARCHAR(3) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `Department` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Pay_Grade` (
-  `Pay_Grade_ID` VARCHAR(255) NOT NULL AUTO_INCREMENT,
+  `Pay_Grade_ID` INT(12) NOT NULL AUTO_INCREMENT,
   `Pay_Grade` VARCHAR(255) NOT NULL,
   `Basic _salary` NUMERIC(10 ,2) NOT NULL,
   PRIMARY KEY (`Pay_Grade_ID`)
@@ -56,10 +56,10 @@ CREATE TABLE `Employee_Data` (
   `Birthday` DATE NOT NULL,
   `Contact_number` VARCHAR(255) NOT NULL,
   `Email` VARCHAR(255) ,
-  `Employment_status`  VARCHAR(255) NOT NULL,
+  `Employment_status`  INT(12) NOT NULL,
   `Job_Title` ENUM('HR Manager', 'Accountant', 'Software Engineer', 'QA Engineer') NOT NULL,
-  `Pay_Grade_ID` VARCHAR(255) NOT NULL,
-  `Branch_No` VARCHAR(255) NOT NULL,
+  `Pay_Grade_ID` INT(12) NOT NULL,
+  `Branch_No` INT(12) NOT NULL,
   `Dept_ID` INT(5) NOT NULL,
   `Dependent_ID` INT(12),
   PRIMARY KEY (`Employee_ID`),
