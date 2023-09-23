@@ -20,14 +20,16 @@ CREATE TABLE `Dependent_Information` (
 CREATE TABLE `Leave_Request` (
   `Leave_Req_ID` INT(12) NOT NULL AUTO_INCREMENT,
   `Employee_ID` INT(12) NOT NULL,
-  `Date` DATE NOT NULL,
+  `Start_Date` DATE NOT NULL,
+  `No_of_Days` INT(3) NOT NULL,
   `Type` ENUM('Annual', 'Casual', 'Maternity', 'No-pay') NOT NULL,
   `Status` ENUM('Approved', 'Pending', 'Rejected') NOT NULL,
-  PRIMARY KEY (`Leave_Req_ID`)
+  PRIMARY KEY (`Leave_Req_ID`),
+  FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Branch` (
-  `Branch_No` INT(12) NOT NULL AUTO_INCREMENT,
+  `Branch_No` INT(5) NOT NULL AUTO_INCREMENT,
   `Branch_Name` VARCHAR(255) NOT NULL,
   `Address` VARCHAR(255) NOT NULL,
   `Currency` VARCHAR(3) NOT NULL,
@@ -42,7 +44,7 @@ CREATE TABLE `Department` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Pay_Grade` (
-  `Pay_Grade_ID` INT(12) NOT NULL AUTO_INCREMENT,
+  `Pay_Grade_ID` INT(3) NOT NULL AUTO_INCREMENT,
   `Pay_Grade` VARCHAR(255) NOT NULL,
   `Basic _salary` NUMERIC(10 ,2) NOT NULL,
   PRIMARY KEY (`Pay_Grade_ID`)
@@ -54,11 +56,10 @@ CREATE TABLE `Employee_Data` (
   `Last_name` VARCHAR(255) NOT NULL,
   `Marital_status` ENUM('Married', 'Unmarried', 'Other', 'Prefer not to say') NOT NULL,
   `Birthday` DATE NOT NULL,
-  `Contact_number` VARCHAR(255) NOT NULL,
-  `Email` VARCHAR(255) ,
+  `Email` VARCHAR(255),
   `Employment_status`  INT(12) NOT NULL,
   `Job_Title` ENUM('HR Manager', 'Accountant', 'Software Engineer', 'QA Engineer') NOT NULL,
-  `Pay_Grade_ID` INT(12) NOT NULL,
+  `Pay_Grade_ID` INT(3) NOT NULL,
   `Branch_No` INT(12) NOT NULL,
   `Dept_ID` INT(5) NOT NULL,
   `Dependent_ID` INT(12),
@@ -71,24 +72,26 @@ CREATE TABLE `Employee_Data` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Leave_Limit` (
-  `Pay_Grade_ID` VARCHAR(255) NOT NULL,
+  `Pay_Grade_ID` INT(3) NOT NULL,
   `Annual` INT(3) NOT NULL,
   `Casual` INT(3) NOT NULL,
   `No_Pay` INT(3) NOT NULL,
   `Maternity_Leave` INT(3) NOT NULL,
-  PRIMARY KEY (`Pay_Grade_ID`)
+  PRIMARY KEY (`Pay_Grade_ID`),
+  FOREIGN KEY (`Pay_Grade_ID`) REFERENCES `Pay_Grade`(`Pay_Grade_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Employee_Custom_Attribute` (
-  `Attribute_ID` INT(12) NOT NULL,
+  `Attribute_ID` INT(3) NOT NULL,
   `Employee_ID` INT(12) NOT NULL,
   `Value` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`Attribute_ID`, `Employee_ID`),
-  FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
+  FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`),
+  FOREIGN KEY (`Attribute_ID`) REFERENCES `Custom_Attribute_Definition`(`Attribute_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Custom_Attribute_Definition` (
-  `Attribute_ID` INT(12) NOT NULL AUTO_INCREMENT,
+  `Attribute_ID` INT(3) NOT NULL AUTO_INCREMENT,
   `Attribute_Name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`Attribute_ID`),
   FOREIGN KEY (`Attribute_ID`) REFERENCES `Employee_Custom_Attribute`(`Attribute_ID`)
@@ -107,7 +110,8 @@ CREATE TABLE `Employee_Leave_Count` (
   `Casual` INT(3) NOT NULL,
   `No_Pay` INT(3)NOT NULL,
   `Maternity_Leave` INT(3) NOT NULL,
-  PRIMARY KEY (`Employee_ID`)
+  PRIMARY KEY (`Employee_ID`),
+  FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Employee_Account` (
@@ -115,7 +119,8 @@ CREATE TABLE `Employee_Account` (
   `Employee_ID` INT(12) NOT NULL,
   `Password` VARCHAR(255) NOT NULL,
   `Profile_Pic` Blob,
-  PRIMARY KEY (`User_ID`)
+  PRIMARY KEY (`User_ID`),
+  FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Employment_Status` (
