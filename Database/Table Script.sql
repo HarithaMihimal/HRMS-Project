@@ -93,8 +93,7 @@ CREATE TABLE `Employee_Custom_Attribute` (
 CREATE TABLE `Custom_Attribute_Definition` (
   `Attribute_ID` INT(3) NOT NULL AUTO_INCREMENT,
   `Attribute_Name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`Attribute_ID`),
-  FOREIGN KEY (`Attribute_ID`) REFERENCES `Employee_Custom_Attribute`(`Attribute_ID`)
+  PRIMARY KEY (`Attribute_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Contact_Number_Details` (
