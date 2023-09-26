@@ -6,7 +6,7 @@ BEGIN
     IF NEW.Status = 'Approved' AND NEW.Type = 'Annual' THEN
         SET @annual_leave_count := 0;
 
-        SELECT Annual INTO @annual_leave_count
+       SELECT Annual INTO @annual_leave_count
         FROM employee_leave_count
         WHERE Employee_ID = NEW.Employee_ID;
 
@@ -65,3 +65,16 @@ BEGIN
     END IF;
 END;
 //
+
+DELIMITER //
+
+CREATE TRIGGER InsertNewEmployee
+AFTER INSERT ON employee_data
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_leave_count (Employee_ID, Annual, Casual, No_Pay, Maternity_Leave)
+    VALUES (NEW.Employee_ID, 0, 0, 0, 0);
+END;
+//
+
+DELIMITER ;
