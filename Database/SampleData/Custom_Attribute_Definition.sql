@@ -1,0 +1,35 @@
+
+INSERT INTO `Custom_Attribute_Definition` (`Attribute_Name`) VALUES
+('Skill Level'),
+('Certification'),
+('Languages Spoken'),
+('Specialization'),
+('Professional Membership'),
+('Previous Experience'),
+('Education Level'),
+('Technical Skills'),
+('Project Management Certification'),
+('Programming Languages'),
+('Industry Certifications'),
+('Soft Skills'),
+('Publications'),
+('Volunteer Experience'),
+('Awards and Honors'),
+('Hobbies and Interests'),
+('References'),
+('Leadership Experience'),
+('Research Projects'),
+('Additional Training'),
+('Job-specific Skills'),
+('Social Media Profiles'),
+('Workshops Attended'),
+('Presentation Skills'),
+('Customer Service Skills'),
+('Sales Achievements'),
+('Public Speaking Experience'),
+('Analytical Skills'),
+('Team Collaboration Skills'),
+('Conflict Resolution Skills');
+
+
+-- select * from Custom_Attribute_Definition;
