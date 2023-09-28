@@ -22,3 +22,8 @@
     height: 400px;
     border-radius: 50%;
 }
+
+.custom-button {
+    margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  

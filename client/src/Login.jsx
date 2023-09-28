@@ -13,12 +13,12 @@ function Login() {
       
         function handleSubmit(event) {
           event.preventDefault(); 
-          if (formData.email === 'user@gmail.com') {
+          if (formData.email === 'emp@gmail.com') {
             // Navigate to page one
-            navigate('/pageemp');
+            navigate('/PageEMP');
           } else if (formData.email === 'HR@gmail.com') {
             // Navigate to page two
-            navigate('/pagehr');
+            navigate('/PageHR');
           } else {
             alert('Invalid username');
           }

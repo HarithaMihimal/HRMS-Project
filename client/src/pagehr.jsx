@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function pagehr() {
+function PageHR() {
   return (
     <div>
       <h1>Page for the HR Manager</h1>
@@ -10,4 +10,4 @@ function pagehr() {
   );
 }
 
-export default pagehr;
+export default PageHR;
