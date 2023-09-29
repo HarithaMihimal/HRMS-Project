@@ -18,7 +18,7 @@ BEGIN
             WHERE Employee_ID = NEW.Employee_ID;
         END IF;
 
-    ELSE IF  NEW.Status = 'Approved' AND NEW.Type = 'Casual' THEN
+    ELSEIF  NEW.Status = 'Approved' AND NEW.Type = 'Casual' THEN
         SET @casual_leave_count := 0;
 
         SELECT Casual INTO @casual_leave_count
@@ -33,7 +33,7 @@ BEGIN
             WHERE Employee_ID = NEW.Employee_ID;
         END IF;
 
-    ELSE IF  NEW.Status = 'Approved' AND NEW.Type = 'No Pay' THEN
+    ELSEIF  NEW.Status = 'Approved' AND NEW.Type = 'No_Pay' THEN
         SET @no_pay_leave_count := 0;
 
         SELECT No_Pay INTO @no_pay_leave_count
@@ -48,7 +48,7 @@ BEGIN
             WHERE Employee_ID = NEW.Employee_ID;
         END IF;
 
-    ELSE IF  NEW.Status = 'Approved' AND NEW.Type = 'Maternity Leave' THEN
+    ELSEIF  NEW.Status = 'Approved' AND NEW.Type = 'Maternity_Leave' THEN
         SET @maternity_leave_count := 0;
 
         SELECT Maternity_Leave INTO @maternity_leave_count
