@@ -49,7 +49,7 @@ CREATE TABLE `Employee_Data` (
   `Employee_ID` INT(12) NOT NULL AUTO_INCREMENT,
   `First_name` VARCHAR(255) NOT NULL,
   `Last_name` VARCHAR(255) NOT NULL,
-  `Gender` ENUM(`Male`, `Female`, `Prefer not to say`) NOT NULL,
+  `Gender` ENUM('Male', 'Female', 'Prefer not to say') NOT NULL,
   `Marital_status` ENUM('Married', 'Unmarried', 'Other', 'Prefer not to say') NOT NULL,
   `Birthday` DATE NOT NULL,
   `Email` VARCHAR(255),
@@ -72,7 +72,7 @@ CREATE TABLE `Leave_Request` (
   `Employee_ID` INT(12) NOT NULL,
   `Start_Date` DATE NOT NULL,
   `No_of_Days` INT(3) NOT NULL,
-  `Type` ENUM('Annual', 'Casual', 'Maternity', 'No-pay') NOT NULL,
+  `Type` ENUM('Annual', 'Casual', 'Maternity', 'No_pay') NOT NULL,
   `Status` ENUM('Approved', 'Pending', 'Rejected') NOT NULL,
   PRIMARY KEY (`Leave_Req_ID`),
   FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
