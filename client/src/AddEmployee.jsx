@@ -23,18 +23,24 @@ function AddEmployee() {
     relation: ""
   });
 
+  const [accountData, setAccountData] = React.useState({
+    username: "",
+    password: "",
+    confirmPassword: ""
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(employeeData);
     console.log(dependentData);
+    console.log(accountData);
   }
 
   return (
     <div>
-      <h1>Here we can add new employees</h1>
       <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
         <div>
-          <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Information</h4>
+          <h4 style={{ marginBottom: '30px', marginTop: '40px' }}>Employee Information</h4>
         </div>
         <div className="row">
           <div className="form-group col-md-6">
@@ -51,9 +57,9 @@ function AddEmployee() {
         <div className="row">
           <div className="form-group col-md-4">
             <label htmlFor="inputGender">Gender</label>
-            <select id="inputGender" className="form-control" style={{ width: '100%', marginBottom: '15px' }} 
+            <select id="inputGender" className="form-control" style={{ width: '100%', marginBottom: '15px' }} defaultValue="Choose..."
             onChange={(event) => setEmployeeData({...employeeData, gender: event.target.value})} >
-              <option selected>Choose...</option>
+              <option>Choose...</option>
               <option>Male</option>
               <option>Female</option>
               <option>Other</option>
@@ -62,9 +68,9 @@ function AddEmployee() {
           </div>
           <div className="form-group col-md-4">
             <label htmlFor="inputMaritalStatus">Marital Status</label>
-            <select id="inputMaritalStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} 
+            <select id="inputMaritalStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} defaultValue="Choose..."
             onChange={(event) => setEmployeeData({...employeeData, maritalStatus: event.target.value})} >
-              <option selected>Choose...</option>
+              <option>Choose...</option>
               <option>Married</option>
               <option>Unmarried</option>
               <option>Other</option>
@@ -85,9 +91,9 @@ function AddEmployee() {
         <div className="row">
           <div className="form-group col-md-4">
             <label htmlFor="inputEmploymentStatus">Employment Status</label>
-            <select id="inputEmploymentStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }}
+            <select id="inputEmploymentStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} defaultValue="Choose..."
             onChange={(event) => setEmployeeData({...employeeData, employmentStatus: event.target.value})} >
-              <option selected>Choose...</option>
+              <option>Choose...</option>
               <option>Intern (Full-time)</option>
               <option>Intern (Part-time)</option>
               <option>Contract (Full-time)</option>
@@ -99,9 +105,9 @@ function AddEmployee() {
           </div>
           <div className="form-group col-md-4">
             <label htmlFor="inputJobTitle">Job Title</label>
-            <select id="inputJobTitle" className="form-control" style={{ width: '100%', marginBottom: '15px' }}
+            <select id="inputJobTitle" className="form-control" style={{ width: '100%', marginBottom: '15px' }} defaultValue="Choose..."
             onChange={(event) => setEmployeeData({...employeeData, jobTitle: event.target.value})} >
-              <option selected>Choose...</option>
+              <option>Choose...</option>
               <option>HR Manager</option>
               <option>Accountant</option>
               <option>Software Engineer</option>
@@ -121,7 +127,7 @@ function AddEmployee() {
         </div>
         <div className="form-group col-md-5">
           <label htmlFor="inputBranch">Branch</label>
-          <input type="text" className="form-control" id="inputBrach" placeholder="Branch" style={{ width: '100%', marginBottom: '15px' }} 
+          <input type="text" className="form-control" id="inputBranch" placeholder="Branch" style={{ width: '100%', marginBottom: '15px' }} 
           onChange={(event) => setEmployeeData({...employeeData, branch: event.target.value})} />
         </div>
 
@@ -142,9 +148,9 @@ function AddEmployee() {
         </div>
         <div className="form-group col-md-4">
           <label htmlFor="inputDependentGender">Gender</label>
-          <select id="inputDependentGender" className="form-control" style={{ width: '100%', marginBottom: '15px' }} 
+          <select id="inputDependentGender" className="form-control" style={{ width: '100%', marginBottom: '15px' } } defaultValue="Choose..."
           onChange={(event) => setDependentData({...dependentData, gender: event.target.value})} >
-            <option selected>Choose...</option>
+            <option>Choose...</option>
             <option>Male</option>
             <option>Female</option>
             <option>Other</option>
@@ -162,16 +168,35 @@ function AddEmployee() {
           onChange={(event) => setDependentData({...dependentData, relation: event.target.value})} />
         </div>
 
+        <div>
+          <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Account Information</h4>
+        </div>
+        <div className="form-group col-md-6">
+          <label htmlFor="inputUsername">Username</label>
+          <input type="text" className="form-control" id="inputUsername" placeholder="New Username" style={{ width: '100%', marginBottom: '15px' }} 
+          onChange={(event) => setAccountData({...accountData, username: event.target.value})} />
+        </div>
+        <div className="form-group col-md-6">
+          <label htmlFor="inputPassword">Password</label>
+          <input type="password" className="form-control" id="inputPassword" placeholder="New Password" style={{ width: '100%', marginBottom: '15px' }} 
+          onChange={(event) => setAccountData({...accountData, password: event.target.value})} />
+        </div>
+        <div className="form-group col-md-6">
+          <label htmlFor="inputConfirmPassword">Confirm Password</label>
+          <input type="password" className="form-control" id="inputConfirmPassword" placeholder="Confirm Password" style={{ width: '100%', marginBottom: '15px' }} 
+          onChange={(event) => setAccountData({...accountData, confirmPassword: event.target.value})} />
+        </div>
+
         
         <div className="form-group">
-          <div className="form-check">
+          <div className="form-check" style={{ marginTop: '30px', marginBottom: '10px' }}>
             <input className="form-check-input" type="checkbox" id="gridCheck" />
             <label className="form-check-label" htmlFor="gridCheck">
               Check me out
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Submit</button>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '30px' }}>Submit</button>
       </form>
     </div>
   );
