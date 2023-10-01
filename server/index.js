@@ -22,7 +22,7 @@ app.post("/createLeaveReq", (req, res) => {
   console.log(id, startDate, day_no, type);
 
   db.query(
-    "INSERT INTO leave_request (Employee_ID, Start_Date, No_of_Days, Type, Status) VALUES (?,?,?,?,Pending)",
+    "INSERT INTO leave_request (Employee_ID, Start_Date, No_of_Days, Type, Status) VALUES (?,?,?,?,'Pending')",
     [id, startDate, day_no, type],
     (err, result) => {
       if (err) {
