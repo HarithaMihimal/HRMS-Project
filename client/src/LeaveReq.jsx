@@ -1,12 +1,24 @@
 import React from "react";
 import { useState } from "react";
 import "./style.css";
+import Axios from "axios";
 
 function LeaveReq() {
   const [id, setid] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [day_no, setNumDays] = useState(0);
   const [type, setType] = useState("");
+
+  const addEmployee = () => {
+    Axios.post("http://localhost:3000/createLeaveReq", {
+      id: id,
+      startDate: startDate,
+      day_no: day_no,
+      type: type,
+    }).then(() => {
+      console.log("success");
+    });
+  };
 
   return (
     <div className="container mt-5">
@@ -68,7 +80,7 @@ function LeaveReq() {
             <option value="maternity">Maternity</option>
           </select>
         </div>
-        <button className="btn btn-primary">Submit Request</button>
+        <button className="btn btn-primary" onClick={addEmployee}>Submit Request</button>
       </div>
     </div>
   );
