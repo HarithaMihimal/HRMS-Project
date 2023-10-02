@@ -22,7 +22,8 @@ app.post("/createLeaveReq", (req, res) => {
 
   console.log(id, startDate, day_no, type);
 
-  db.query("INSERT INTO leave_request (Employee_ID, Start_Date, No_of_Days, Type, Status) VALUES (?,?,?,?,'Pending')",
+  db.query(
+    "INSERT INTO leave_request (Employee_ID, Start_Date, No_of_Days, Type, Status) VALUES (?,?,?,?,'Pending')",
     [id, startDate, day_no, type],
     (err, result) => {
       if (err) {
@@ -30,7 +31,8 @@ app.post("/createLeaveReq", (req, res) => {
       } else {
         res.send("Values Inserted");
       }
-  });
+    }
+  );
 });
 
 app.get("/employee_data", (req, res) => {
@@ -43,7 +45,16 @@ app.get("/employee_data", (req, res) => {
   });
 });
 
+app.get("/getPass", (req, res) => {
+  db.query("SELECT * FROM employee_account", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log("Yey, your server is running on port 3000");
 });
-
