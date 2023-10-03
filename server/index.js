@@ -33,8 +33,8 @@ app.post("/createLeaveReq", (req, res) => {
   });
 });
 
-app.get("/employee_data", (req, res) => {
-  db.query("SELECT * FROM employee_data", (err, result) => {
+app.get("/emp_view", (req, res) => {
+  db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
     if (err) {
       console.log(err);
     } else {
