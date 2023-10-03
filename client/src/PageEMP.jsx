@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useState,useEffect} from "react";
+import Axios from 'axios';
 
 function PageEMP() {
   const navigate = useNavigate(); // Define the navigate function
