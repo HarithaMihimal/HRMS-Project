@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "Isara4242580",
-  database: "hrms_3",
+  password: "dg@Root623",
+  database: "hrms",
 });
 
 app.post("/createLeaveReq", (req, res) => {
@@ -32,6 +32,24 @@ app.post("/createLeaveReq", (req, res) => {
       }
   });
 });
+
+app.post("/addEmployee", (req, res) => {
+  const { employeeData, dependentData, accountData } = req.body;
+
+  const sql = "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_No`, `Dept_ID`, `Dependent_ID`) VALUES (?)";
+  const values = [req.body.employeeData.firstName,
+                  req.body.employeeData.lastName,
+                  req.body.employeeData.gender,
+                  req.body.employeeData.maritalStatus,
+                  req.body.employeeData.birthday,
+                  req.body.employeeData.email,
+                  req.body.employeeData.employmentStatus,
+                  req.body.employeeData.jobTitle,
+                  req.body.employeeData.payGrade,
+                  req.body.employeeData.branch,
+                  req.body.employeeData.department ];
+  
+})
 
 app.get("/employee_data", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {

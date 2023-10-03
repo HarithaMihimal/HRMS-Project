@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Axios from 'axios';
 
 function AddEmployee() {
   const [employeeData, setEmployeeData] = React.useState({
@@ -31,9 +32,14 @@ function AddEmployee() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(employeeData);
-    console.log(dependentData);
-    console.log(accountData);
+    const data = {
+      employeeData: employeeData,
+      dependentData: dependentData,
+      accountData: accountData
+    }
+    Axios.post("http://localhost:3000/addEmployee", data)
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err));
   }
 
   return (
