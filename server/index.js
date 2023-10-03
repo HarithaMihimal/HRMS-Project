@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "Isara4242580",
-  database: "hrms_3",
+  password: "1234",
+  database: "hrms",
 });
 
 app.post("/createLeaveReq", (req, res) => {
