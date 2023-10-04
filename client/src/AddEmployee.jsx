@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 function AddEmployee() {
+  const navigate = useNavigate();
+
   const [employeeData, setEmployeeData] = React.useState({
     firstName: "",
     lastName: "",
@@ -16,25 +19,20 @@ function AddEmployee() {
     branch: ""
   });
 
-  const [dependentData, setDependentData] = React.useState({
-    firstName: "",
-    lastName: "",
-    gender: "",
-    age: "",
-    relation: ""
-  });
-
   const [accountData, setAccountData] = React.useState({
     username: "",
     password: "",
     confirmPassword: ""
   });
 
+  const handleAddDependent = () => {
+    navigate('/PageHR/AddEmployee/AddDependent');
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
       employeeData: employeeData,
-      dependentData: dependentData,
       accountData: accountData
     }
     Axios.post("http://localhost:3000/addEmployee", data)
@@ -105,7 +103,7 @@ function AddEmployee() {
               <option>Contract (Full-time)</option>
               <option>Contract (Part-time)</option>
               <option>Permanent</option>
-              <option>Free Lance</option>
+              <option>Freelance</option>
               <option>Other</option>
             </select>
           </div>
@@ -136,42 +134,12 @@ function AddEmployee() {
           <input type="text" className="form-control" id="inputBranch" placeholder="Branch" style={{ width: '100%', marginBottom: '15px' }} 
           onChange={(event) => setEmployeeData({...employeeData, branch: event.target.value})} />
         </div>
-
+        
         <div>
-          <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent Information</h4>
-        </div>
-        <div className="row">
-          <div className="form-group col-md-6">
-            <label htmlFor="inputDependentFirstName">First Name</label>
-            <input type="text" className="form-control" id="inputDependentFirstName" placeholder="Dependent's First Name" style={{ width: '100%', marginBottom: '15px' }} 
-            onChange={(event) => setDependentData({...dependentData, firstName: event.target.value})} />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="inputDependentLastName">Last Name</label>
-            <input type="text" className="form-control" id="inputDependentLastName" placeholder="Dependent's Last Name" style={{ width: '100%', marginBottom: '15px' }} 
-            onChange={(event) => setDependentData({...dependentData, lastName: event.target.value})} />
-          </div>
-        </div>
-        <div className="form-group col-md-4">
-          <label htmlFor="inputDependentGender">Gender</label>
-          <select id="inputDependentGender" className="form-control" style={{ width: '100%', marginBottom: '15px' } } defaultValue="Choose..."
-          onChange={(event) => setDependentData({...dependentData, gender: event.target.value})} >
-            <option>Choose...</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
-            <option>Prefer not to say</option>
-          </select>
-        </div>
-        <div className="form-group col-md-5">
-          <label htmlFor="inputDependentAge">Age</label>
-          <input type="number" className="form-control" id="inputDependentAge" placeholder="Age" style={{ width: '100%', marginBottom: '15px' }} 
-          onChange={(event) => setDependentData({...dependentData, age: event.target.value})} />
-        </div>
-        <div className="form-group col-md-5">
-          <label htmlFor="inputRelation">Relation</label>
-          <input type="text" className="form-control" id="inputRelation" placeholder="Relation" style={{ width: '100%', marginBottom: '15px' }} 
-          onChange={(event) => setDependentData({...dependentData, relation: event.target.value})} />
+          <h6 style={{ marginBottom: '30px', marginTop: '50px' }}>Do you want to add dependent</h6>
+          <button type="button"  onClick={handleAddDependent}>
+            Add Dependent
+          </button>
         </div>
 
         <div>

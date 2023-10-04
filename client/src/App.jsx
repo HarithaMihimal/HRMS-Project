@@ -8,6 +8,7 @@ import PasswordChange from './PasswordChange';
 import Supervisor from './Supervisor';
 import AddEmployee from './AddEmployee';
 import AddCustom from './AddCustom';
+import AddDependent from './AddDependent';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/PageEMP/PasswordChange" element={<PasswordChange />} />
         <Route path="/PageEMP/Supervisor" element={<Supervisor />} />
         <Route path="/PageHR/AddEmployee" element={<AddEmployee />} />
+        <Route path="/PageHR/AddEmployee/AddDependent" element={<AddDependent />} />
         <Route path="/PageHR/AddCustom" element={<AddCustom />} />
       </Routes>
     </BrowserRouter>
