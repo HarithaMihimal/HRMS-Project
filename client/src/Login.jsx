@@ -30,7 +30,7 @@ function Login() {
 
     const user_0 = passwordList.find((user) => user.User_ID === formData.email);
     console.log(formData.email);
-    console.log(user_0);
+    console.log(user_0.Job_Title);
 
     if (formData.password === user_0.Password) {
       // Navigate to page one
@@ -39,7 +39,7 @@ function Login() {
       // Navigate to page two
       navigate('/PageHR');
     } else {
-      alert('Invalid username');
+      alert('Invalid username or Password');
     }
   };
 

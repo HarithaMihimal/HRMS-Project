@@ -46,7 +46,7 @@ app.get("/employee_data", (req, res) => {
 });
 
 app.get("/getPass", (req, res) => {
-  db.query("SELECT * FROM employee_account", (err, result) => {
+  db.query("SELECT * FROM password_check", (err, result) => {
     if (err) {
       console.log(err);
     } else {
