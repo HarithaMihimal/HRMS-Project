@@ -15,6 +15,8 @@ const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem('haveDependent', JSON.stringify(true));
+
     Axios.post("http://localhost:3000/addEmployee/addDependent", dependentData)
     .then(res => console.log(res.data))
     .catch(err => console.log(err));

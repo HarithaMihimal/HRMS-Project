@@ -34,7 +34,8 @@ app.post("/createLeaveReq", (req, res) => {
 });
 
 app.post("/addEmployee", async (req, res) => {
-  const { employeeData, accountData } = req.body;
+  const { employeeData, accountData, haveDependent } = req.body;
+  console.log("haveDependent:", haveDependent);
 
   try {
     const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
@@ -52,6 +53,20 @@ app.post("/addEmployee", async (req, res) => {
     employeeData.branch = branchResult[0].Branch_No;
     employeeData.department = departmentResult[0].Dept_ID;
 
+    let dependentId = null; // Default to null
+    if (haveDependent === true) {
+      const dependentQuery = "SELECT Dependent_ID FROM Dependent_Information ORDER BY Timestamp DESC LIMIT 1";
+      const dependentResult = await queryDatabase(dependentQuery);
+
+      // Check if dependentResult exists and has a valid Dependent_ID property
+      if (dependentResult && dependentResult[0] && dependentResult[0].Dependent_ID !== undefined) {
+        dependentId = dependentResult[0].Dependent_ID;
+      } else {
+        console.error("Error fetching Dependent_ID or no dependent found.");
+        // Handle the error or provide a default value if needed.
+      }
+    }
+
     const sql = "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_No`, `Dept_ID`, `Dependent_ID`) VALUES ?";
     const values = [
       [
@@ -66,11 +81,20 @@ app.post("/addEmployee", async (req, res) => {
         employeeData.payGrade,
         employeeData.branch,
         employeeData.department,
-        1,
+        dependentId
       ],
     ];
 
     await queryDatabase(sql, [values]);
+
+    const employeeIDQuery = "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
+    const employeeIDResult = await queryDatabase(employeeIDQuery);
+    const employeeID = employeeIDResult[0].Employee_ID;
+
+    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountValues = [[employeeID, accountData.username, accountData.password]];
+    await queryDatabase(accountSql, [accountValues]);
+
     console.log("Employee Data Inserted.");
     res.status(200).json({ message: "Employee data inserted successfully" });
   } catch (err) {
