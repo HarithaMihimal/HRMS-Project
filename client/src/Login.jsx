@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
+    User_ID: '', // Change 'email' to 'User_ID'
     password: '',
   });
 
@@ -28,18 +28,17 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const user_0 = passwordList.find((user) => user.User_ID === formData.email);
-    console.log(formData.email);
-    console.log(user_0.Job_Title);
-
-    if (formData.password === user_0.Password) {
-      // Navigate to page one
-      navigate('/PageEMP');
-    } else if (formData.email === 'HR@gmail.com') {
-      // Navigate to page two
-      navigate('/PageHR');
+    const user_0 = passwordList.find((user) => user.User_ID === formData.User_ID); // Use 'User_ID' instead of 'email'
+    console.log(formData.User_ID);
+    
+    if (user_0 && formData.password === user_0.Password) {
+      if (user_0.Job_Title === 'HR Manager') {
+        navigate('/PageHR');
+      } else {
+        navigate('/PageEMP');
+      }
     } else {
-      alert('Invalid username or Password');
+      alert('Invalid username or password');
     }
   };
 
@@ -55,14 +54,14 @@ function Login() {
         <h2 style={{ textAlign: 'center' }}>Login</h2>
         <form>
           <div className='mb-3'>
-            <label htmlFor='email'><strong>Email</strong></label>
+            <label htmlFor='User_ID'><strong>Username</strong></label> {/* Change 'email' to 'User_ID' */}
             <input
-              type='email'
-              placeholder='Enter Email'
-              name='email'
+              type='text' // Change 'email' to 'text'
+              placeholder='Enter Username' // Change 'Email' to 'Username'
+              name='User_ID' // Change 'email' to 'User_ID'
               className='form-control rounded-0'
               autoComplete='off'
-              value={formData.email}
+              value={formData.User_ID}
               onChange={handleInputChange}
             />
           </div>
