@@ -34,6 +34,20 @@ app.post("/createLeaveReq", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+//fetching emplyee details
+app.get("/emp_view", (req, res) => {
+  db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+>>>>>>> 16cc69a664643d9decb8ee34bc31d752c71a13e1
 app.post("/addEmployee", async (req, res) => {
   const { employeeData, accountData, haveDependent } = req.body;
   console.log("haveDependent:", haveDependent);
@@ -130,6 +144,7 @@ app.post("/AddEmployee/AddDependent", (req, res) => {
   })
 });
 
+<<<<<<< HEAD
 //fetching emplyee details
 app.get("/emp_view", (req, res) => {
   db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
@@ -141,6 +156,10 @@ app.get("/emp_view", (req, res) => {
   });
 });
 
+=======
+app.get("/employee_data", (req, res) => {
+  db.query("SELECT * FROM employee_data", (err, result) => {
+>>>>>>> 16cc69a664643d9decb8ee34bc31d752c71a13e1
 
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {
@@ -175,7 +194,12 @@ app.post("/changePassword",(req,res)=>
       }
       else
       {
-        const storedPassword = results[0].Password;
+        const storedPassword = results[0].password;
+        console.log("Received request to change password for userId:", userId);
+        console.log("Old password provided:", oldPassword);
+
+        // Check the stored password
+        console.log("Stored password:", storedPassword);
 
         if (oldPassword == storedPassword)
         {
@@ -196,6 +220,7 @@ app.post("/changePassword",(req,res)=>
           );
         }
         else{
+          console.log("Old password is incorrect");
           res.status(401).json({message:"Old password is incorrect"})
         }
       }
