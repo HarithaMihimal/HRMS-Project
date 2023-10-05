@@ -144,6 +144,13 @@ app.post("/AddEmployee/AddDependent", (req, res) => {
 
 app.get("/employee_data", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {
@@ -153,6 +160,7 @@ app.get("/getPass", (req, res) => {
       res.send(result);
     }
   });
+});
 
 // password changing
 app.post("/changePassword",(req,res)=>
