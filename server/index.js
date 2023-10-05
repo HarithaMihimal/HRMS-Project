@@ -67,7 +67,12 @@ app.post("/changePassword",(req,res)=>
       }
       else
       {
-        const storedPassword = results[0].Password;
+        const storedPassword = results[0].password;
+        console.log("Received request to change password for userId:", userId);
+        console.log("Old password provided:", oldPassword);
+
+        // Check the stored password
+        console.log("Stored password:", storedPassword);
 
         if (oldPassword == storedPassword)
         {
@@ -88,6 +93,7 @@ app.post("/changePassword",(req,res)=>
           );
         }
         else{
+          console.log("Old password is incorrect");
           res.status(401).json({message:"Old password is incorrect"})
         }
       }
