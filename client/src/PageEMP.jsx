@@ -8,6 +8,7 @@ function PageEMP() {
 
   const [employee,setEmployee]=useState([]);
 
+
   const getEmployee = () => {
     Axios.get("http://localhost:3000/emp_view").then((response) => {
       setEmployee(response.data[0]);
