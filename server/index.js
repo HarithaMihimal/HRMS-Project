@@ -31,7 +31,8 @@ app.post("/createLeaveReq", (req, res) => {
       } else {
         res.send("Values Inserted");
       }
-  });
+    }
+  );
 });
 
 //fetching emplyee details
@@ -141,9 +142,8 @@ app.post("/AddEmployee/AddDependent", (req, res) => {
   })
 });
 
-//fetching emplyee details
-app.get("/emp_view", (req, res) => {
-  db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
+app.get("/employee_data", (req, res) => {
+  db.query("SELECT * FROM employee_data", (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -151,7 +151,6 @@ app.get("/emp_view", (req, res) => {
     }
   });
 });
-
 
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {
@@ -186,7 +185,12 @@ app.post("/changePassword",(req,res)=>
       }
       else
       {
-        const storedPassword = results[0].Password;
+        const storedPassword = results[0].password;
+        console.log("Received request to change password for userId:", userId);
+        console.log("Old password provided:", oldPassword);
+
+        // Check the stored password
+        console.log("Stored password:", storedPassword);
 
         if (oldPassword == storedPassword)
         {
@@ -207,6 +211,7 @@ app.post("/changePassword",(req,res)=>
           );
         }
         else{
+          console.log("Old password is incorrect");
           res.status(401).json({message:"Old password is incorrect"})
         }
       }
@@ -218,4 +223,3 @@ app.post("/changePassword",(req,res)=>
 app.listen(3000, () => {
   console.log("Yey, your server is running on port 3000");
 });
-
