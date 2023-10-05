@@ -49,7 +49,7 @@ CREATE TABLE `Employee_Data` (
   `Employee_ID` INT(12) NOT NULL AUTO_INCREMENT,
   `First_name` VARCHAR(255) NOT NULL,
   `Last_name` VARCHAR(255) NOT NULL,
-  `Gender` ENUM('Male', 'Female', 'Prefer not to say') NOT NULL,
+  `Gender` ENUM('Male', 'Female', 'Other', 'Prefer not to say') NOT NULL,
   `Marital_status` ENUM('Married', 'Unmarried', 'Other', 'Prefer not to say') NOT NULL,
   `Birthday` DATE NOT NULL,
   `Email` VARCHAR(255),
