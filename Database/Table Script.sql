@@ -13,7 +13,8 @@ CREATE TABLE `Dependent_Information` (
   `Last_name` VARCHAR(255) NOT NULL,
   `Age` INT(3),
   `Relation` VARCHAR(255) NOT NULL,
-  `Gender` ENUM('Male', 'Female', 'Prefer not to say') NOT NULL,
+  `Gender` ENUM('Male', 'Female', 'Other', 'Prefer not to say') NOT NULL,
+  `Timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Dependent_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -49,7 +50,7 @@ CREATE TABLE `Employee_Data` (
   `Employee_ID` INT(12) NOT NULL AUTO_INCREMENT,
   `First_name` VARCHAR(255) NOT NULL,
   `Last_name` VARCHAR(255) NOT NULL,
-  `Gender` ENUM('Male', 'Female', 'Prefer not to say') NOT NULL,
+  `Gender` ENUM('Male', 'Female', 'Other', 'Prefer not to say') NOT NULL,
   `Marital_status` ENUM('Married', 'Unmarried', 'Other', 'Prefer not to say') NOT NULL,
   `Birthday` DATE NOT NULL,
   `Email` VARCHAR(255),
@@ -59,6 +60,7 @@ CREATE TABLE `Employee_Data` (
   `Branch_No` INT(12) NOT NULL,
   `Dept_ID` INT(5) NOT NULL,
   `Dependent_ID` INT(12),
+  `Timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Employee_ID`),
   FOREIGN KEY (`Dependent_ID`) REFERENCES `Dependent_Information`(`Dependent_ID`),
   FOREIGN KEY (`Dept_ID`) REFERENCES `Department`(`Dept_ID`),
