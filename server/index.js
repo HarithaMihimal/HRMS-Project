@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "Isara4242580",
-  database: "hrms_3",
+  password: "1234",
+  database: "hrms",
 });
 
 app.post("/createLeaveReq", (req, res) => {
@@ -35,8 +35,9 @@ app.post("/createLeaveReq", (req, res) => {
   );
 });
 
-app.get("/employee_data", (req, res) => {
-  db.query("SELECT * FROM employee_data", (err, result) => {
+//fetching emplyee details
+app.get("/emp_view", (req, res) => {
+  db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -44,6 +45,7 @@ app.get("/employee_data", (req, res) => {
     }
   });
 });
+
 
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {
@@ -53,6 +55,57 @@ app.get("/getPass", (req, res) => {
       res.send(result);
     }
   });
+
+// password changing
+app.post("/changePassword",(req,res)=>
+{
+  const userId = req.body.userId;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  db.query
+  (
+    "select password from employee_account where user_id =?",
+    [userId],
+    (err, results)=>
+    {
+      if (err){
+        console.log(err);
+        res.status.apply(500).json({message:"Internal server error"});
+      }
+      else if(results.length==0)
+      {
+        res.status(404).json({message:"User not found"});
+      }
+      else
+      {
+        const storedPassword = results[0].Password;
+
+        if (oldPassword == storedPassword)
+        {
+          db.query(
+            "update employee_account set password =? where user_id = ?",
+            [newPassword,userId],
+            (err,updateResult)=> 
+            {
+              if(err){
+                console.log(err);
+                res.status(500).json({message:"Password update failed"});
+              }
+              else{
+                res.status(200).json({message:"Password changed successfully"});
+              }
+        
+            }
+          );
+        }
+        else{
+          res.status(401).json({message:"Old password is incorrect"})
+        }
+      }
+    }
+  )
+
 });
 
 app.listen(3000, () => {
