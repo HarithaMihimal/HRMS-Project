@@ -33,6 +33,7 @@ app.post("/createLeaveReq", (req, res) => {
   });
 });
 
+//fetching emplyee details
 app.get("/emp_view", (req, res) => {
   db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
     if (err) {
@@ -41,6 +42,57 @@ app.get("/emp_view", (req, res) => {
       res.send(result);
     }
   });
+});
+
+// password changing
+app.post("/changePassword",(req,res)=>
+{
+  const userId = req.body.userId;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  db.query
+  (
+    "select password from employee_account where user_id =?",
+    [userId],
+    (err, results)=>
+    {
+      if (err){
+        console.log(err);
+        res.status.apply(500).json({message:"Internal server error"});
+      }
+      else if(results.length==0)
+      {
+        res.status(404).json({message:"User not found"});
+      }
+      else
+      {
+        const storedPassword = results[0].Password;
+
+        if (oldPassword == storedPassword)
+        {
+          db.query(
+            "update employee_account set password =? where user_id = ?",
+            [newPassword,userId],
+            (err,updateResult)=> 
+            {
+              if(err){
+                console.log(err);
+                res.status(500).json({message:"Password update failed"});
+              }
+              else{
+                res.status(200).json({message:"Password changed successfully"});
+              }
+        
+            }
+          );
+        }
+        else{
+          res.status(401).json({message:"Old password is incorrect"})
+        }
+      }
+    }
+  )
 });
 
 app.listen(3000, () => {
