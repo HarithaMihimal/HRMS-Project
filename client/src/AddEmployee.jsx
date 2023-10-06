@@ -76,6 +76,18 @@ function AddEmployee() {
     }
   }, []);
 
+  const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
+  useEffect(() => {
+    Axios.get('/api/employment-status')
+      .then(response => {
+        const options = response.data;
+        setEmploymentStatusOptions(options);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
@@ -134,13 +146,19 @@ function AddEmployee() {
             <select id="inputEmploymentStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.employmentStatus}
             onChange={(event) => setEmployeeData({...employeeData, employmentStatus: event.target.value})} >
               <option>Choose...</option>
-              <option>Intern (Full-time)</option>
+              {employmentStatusOptions.map(option => (
+                <option>
+                  {option.name}
+                </option>
+              ))}
+
+              {/* <option>Intern (Full-time)</option>
               <option>Intern (Part-time)</option>
               <option>Contract (Full-time)</option>
               <option>Contract (Part-time)</option>
               <option>Permanent</option>
               <option>Freelance</option>
-              <option>Other</option>
+              <option>Other</option> */}
             </select>
           </div>
           <div className="form-group col-md-4">
