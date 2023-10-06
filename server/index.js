@@ -10,8 +10,51 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "Isara4242580",
-  database: "hrms_3",
+  password: "s2000r@P",
+  database: "hrms",
+});
+
+app.post("/createCustomAttribute", (req, res) => {
+  const attributeName = req.body.attributeName;
+
+  db.query("INSERT INTO Custom_Attribute_Definition (Attribute_Name) VALUES (?)",
+    [attributeName],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error creating custom attribute");
+      } else {
+        res.status(200).send("Custom attribute created successfully");
+      }
+  });
+});
+
+app.post("/associateCustomAttribute", (req, res) => {
+  const employeeID = req.body.employeeID;
+  const attributeID = req.body.attributeID;
+  const value = req.body.value;
+
+  db.query("INSERT INTO Employee_Custom_Attribute (Attribute_ID, Employee_ID, Value) VALUES (?,?,?)",
+    [attributeID, employeeID, value],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error associating custom attribute with employee");
+      } else {
+        res.status(200).send("Custom attribute associated with employee successfully");
+      }
+  });
+});
+
+app.get("/customAttributes", (req, res) => {
+  db.query("SELECT * FROM Custom_Attribute_Definition", (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching custom attributes");
+    } else {
+      res.status(200).send(result);
+    }
+  });
 });
 
 app.post("/createLeaveReq", (req, res) => {
@@ -43,7 +86,7 @@ app.get("/employee_data", (req, res) => {
   });
 });
 
+
 app.listen(3000, () => {
   console.log("Yey, your server is running on port 3000");
 });
-
