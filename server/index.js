@@ -142,6 +142,19 @@ app.post("/AddEmployee/AddDependent", (req, res) => {
   })
 });
 
+app.get("/api/employment-status", (req, res) => {
+  const sql = "SELECT Status FROM Employment_Status";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const employmentStatuses = result.map((row) => row.Status);
+      res.status(200).json({ employmentStatuses });
+    }
+  });
+});
+
 app.get("/employee_data", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
     if (err) {
