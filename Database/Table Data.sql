@@ -215,3 +215,9 @@ VALUES
   ('EMP0007', '2023-12-10', 4, 'Casual', 'Pending'),
   ('EMP0008', '2023-09-15', 30, 'Maternity', 'Approved'),
   ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending');
+
+-- Insert sample values into Employee_Leave_Count table
+
+UPDATE `hrms`.`employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
+UPDATE `hrms`.`employee_leave_count` SET `Casual` = '7' WHERE (`Employee_ID` = 'EMP0004');
+UPDATE `hrms`.`employee_leave_count` SET `Maternity_Leave` = '30' WHERE (`Employee_ID` = 'EMP0008');
