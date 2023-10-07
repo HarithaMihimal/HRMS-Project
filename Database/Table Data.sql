@@ -1,28 +1,17 @@
 
-use hrms1;
--- Insert sample values into Dependent_Information table
-INSERT INTO `Dependent_Information` (`First_Name`, `Last_Name`, `Age`, `Relation`, `Gender`)
+use hrms;
+-- Insert sample values into Organization table
+INSERT INTO `Organization` (`Name`, `Main_Branch`, `Start_Date`)
 VALUES
-  ( 'Michael', 'Johnson', 18, 'Child', 'Male'),
-  ('Emily', 'Davis', 22, 'Child', 'Female'),
-  ('Daniel', 'Brown', 12, 'Child', 'Male'),
-  ( 'Olivia', 'Lee', 19, 'Child', 'Female'),
-  ('William', 'Martinez', 16, 'Child', 'Male'),
-  ( 'Sophia', 'Garcia', 27, 'Child', 'Female'),
-  ('Ethan', 'Thomas', 21, 'Child', 'Male'),
-  ( 'Ava', 'White', 32, 'Child', 'Female'),
-  ( 'Noah', 'Harris', 14, 'Child', 'Male'),
-  ('Isabella', 'Martin', 23, 'Child', 'Female'),
-  ( 'Liam', 'Smith', 10, 'Child', 'Male'),
-  ( 'Emma', 'Wilson', 8, 'Child', 'Female'),
-  ( 'Henry', 'Johnson', 15, 'Child', 'Male'),
-  ( 'Oliver', 'Davis', 20, 'Child', 'Male'),
-  ( 'Sophia', 'Martinez', 17, 'Child', 'Female'),
-  ( 'Noah', 'Brown', 12, 'Child', 'Male'),
-  ( 'Ava', 'Lee', 9, 'Child', 'Female'),
-  ( 'William', 'Garcia', 14, 'Child', 'Male'),
-  ( 'Isabella', 'Thomas', 22, 'Child', 'Female'),
-  ( 'Mia', 'White', 18, 'Child', 'Female');
+  ( 'ABC Company', 'BR001', '2023-01-01'),
+  ('XYZ Inc.', 'BR002', '2023-02-15'),
+  ( 'ABC Company', 'BR001', '2023-01-01'),
+  ( 'XYZ Inc.', 'BR002', '2023-02-15'),
+  ( 'LMN Corporation', 'BR003', '2023-03-10'),
+  ( 'PQR Ltd.', 'BR004', '2023-04-20');
+
+-- Insert sample values into Dependent_Information table
+
 
 -- Insert sample values into Branch table
 INSERT INTO `Branch` (`Branch_Name`, `Address`, `Currency`)
@@ -73,6 +62,16 @@ VALUES
   ( 'Customer Relations', 105000.00),
   ( 'Purchasing', 135000.00);
 
+-- Insert sample values into Employment_Status table
+INSERT INTO `Employment_Status` (`Status`)
+VALUES
+  ('Intern(Full-time)'),
+  ('Intern(Part-time)'),
+  ('Contract(full-time)'),
+  ('Contract(part-time)'),
+  ('Permanent'),
+  ('Freelance');
+  
 -- Insert sample values into Pay_Grade table
 INSERT INTO `Pay_Grade` (`Pay_Grade`, `Basic_Salary`)
 VALUES
@@ -87,16 +86,38 @@ VALUES
   ('Level9', 12000.00),
   ('Level10', 10000.00);
 
-
--- Insert sample values into Employment_Status table
-INSERT INTO `Employment_Status` (`Status`)
+-- Insert sample values into Leave_Limit table
+INSERT INTO `Leave_Limit` (`Pay_Grade_ID`, `Annual`, `Casual`, `No_Pay`, `Maternity_Leave`)
 VALUES
-  ('Intern(Full-time)'),
-  ('Intern(Part-time)'),
-  ('Contract(full-time)'),
-  ('Contract(part-time)'),
-  ('Permanent'),
-  ('Freelance');
+  (1, 20, 10, 5, 12),
+  (2, 25, 15, 7, 14),
+  (3, 18, 8, 4, 11),
+  (4, 22, 12, 6, 13),
+  (5, 15, 7, 3, 10);
+
+INSERT INTO `Dependent_Information` (`First_Name`, `Last_Name`, `Age`, `Relation`, `Gender`)
+VALUES
+  ( 'Michael', 'Johnson', 18, 'Child', 'Male'),
+  ('Emily', 'Davis', 22, 'Child', 'Female'),
+  ('Daniel', 'Brown', 12, 'Child', 'Male'),
+  ( 'Olivia', 'Lee', 19, 'Child', 'Female'),
+  ('William', 'Martinez', 16, 'Child', 'Male'),
+  ( 'Sophia', 'Garcia', 27, 'Child', 'Female'),
+  ('Ethan', 'Thomas', 21, 'Child', 'Male'),
+  ( 'Ava', 'White', 32, 'Child', 'Female'),
+  ( 'Noah', 'Harris', 14, 'Child', 'Male'),
+  ('Isabella', 'Martin', 23, 'Child', 'Female'),
+  ( 'Liam', 'Smith', 10, 'Child', 'Male'),
+  ( 'Emma', 'Wilson', 8, 'Child', 'Female'),
+  ( 'Henry', 'Johnson', 15, 'Child', 'Male'),
+  ( 'Oliver', 'Davis', 20, 'Child', 'Male'),
+  ( 'Sophia', 'Martinez', 17, 'Child', 'Female'),
+  ( 'Noah', 'Brown', 12, 'Child', 'Male'),
+  ( 'Ava', 'Lee', 9, 'Child', 'Female'),
+  ( 'William', 'Garcia', 14, 'Child', 'Male'),
+  ( 'Isabella', 'Thomas', 22, 'Child', 'Female'),
+  ( 'Mia', 'White', 18, 'Child', 'Female');
+
 
 -- Insert sample values into Employee_Data table
 INSERT INTO `Employee_Data` (`First_Name`, `Last_Name`, `Gender`, `Marital_Status`, `Birthday`, `Email`, `Employment_Status`, `Job_Title`, `Pay_Grade_ID`, `Branch_ID`, `Dept_ID`, `Dependent_ID`)
@@ -121,6 +142,29 @@ VALUES
   ( 'Avery', 'Hall', 'Female', 'Unmarried', '1993-02-14', 'avery.hall@gmail.com',6, 'Accountant', 9, 'BR009', 'DEPT009', 'DEP0016'),
   ( 'Benjamin', 'Adams', 'Male', 'Married', '1992-04-27', 'benjamin.adams@gmail.com', 4, 'Software Engineer', 10, 'BR010', 'DEPT007', 'DEP0017');
 
+-- Insert sample values into Contact_Number_Details table
+INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`)
+VALUES
+  ('EMP0001', '0724567890'),
+  ('EMP0002', '0776543210'),
+  ('EMP0003', '0711234567'), 
+  ('EMP0004', '0112345678'), 
+  ('EMP0005', '0779876543'), 
+  ('EMP0006', '0813456789'); 
+
+
+-- Insert sample values into Employee_Account table
+INSERT INTO `Employee_Account` (`User_ID`, `Employee_ID`, `Password`, `Profile_Picture`)
+VALUES
+  ('john.doe', 'EMP0001', 'password123', 'profile_pic1.jpg'),
+  ('jane.smith', 'EMP0002', 'secret456', 'profile_pic2.jpg'),
+  ('arachchi.p', 'EMP0003', 'password123', 'profile_pic1.jpg'),
+  ('harih.smith', 'EMP0004', 'secret456', 'profile_pic2.jpg'),
+  ('michael.johnson', 'EMP0005', 'confidential789', 'profile_pic3.jpg'),
+  ('emily.davis', 'EMP0006', 'topsecret123', 'profile_pic4.jpg'),
+  ('daniel.brown', 'EMP0007', 'securepassword', 'profile_pic5.jpg');
+
+
 -- Insert sample values into Supervisor table
 INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`)
 VALUES
@@ -140,27 +184,6 @@ VALUES
   ('EMP0001', 'EMP0014');
 
 
--- Insert sample values into Leave_Request table
-INSERT INTO `Leave_Request` (`Employee_ID`, `Start_Date`, `No_of_Days`, `Type`, `Status`)
-VALUES
-  ('EMP0001', '2023-10-10', 5, 'Annual', 'Pending'),
-  ('EMP0002', '2023-11-15', 3, 'Casual', 'Approved'),
-  ('EMP0003', '2023-09-20', 2, 'Annual', 'Pending'),
-  ('EMP0004', '2023-10-05', 7, 'Casual', 'Approved'),
-  ('EMP0005', '2023-11-01', 1, 'Annual', 'Pending'),
-  ('EMP0006', '2023-12-10', 4, 'Casual', 'Pending'),
-  ('EMP0007', '2023-09-15', 5, 'Maternity', 'Approved'),
-  ('EMP0008', '2023-11-20', 2, 'Annual', 'Pending');
-
--- Insert sample values into Leave_Limit table
-INSERT INTO `Leave_Limit` (`Pay_Grade_ID`, `Annual`, `Casual`, `No_Pay`, `Maternity_Leave`)
-VALUES
-  (1, 20, 10, 5, 12),
-  (2, 25, 15, 7, 14),
-  (3, 18, 8, 4, 11),
-  (4, 22, 12, 6, 13),
-  (5, 15, 7, 3, 10);
-
 -- Insert sample values into Custom_Attribute_Definition table
 INSERT INTO `Custom_Attribute_Definition` (`Attribute_Name`)
 VALUES
@@ -174,7 +197,6 @@ VALUES
 ('Address'),
 ('Nationality');
 
-
 -- Insert sample values into Employee_Custom_Attribute table
 INSERT INTO `Employee_Custom_Attribute` (`Attribute_ID`, `Employee_ID`, `Value`)
 VALUES
@@ -186,16 +208,6 @@ VALUES
   (4, 'EMP0003', 'Networking Skills');
 
 
--- Insert sample values into Contact_Number_Details table
-INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`)
-VALUES
-  ('EMP0001', '0724567890'),
-  ('EMP0002', '0776543210'),
-  ('EMP0003', '0711234567'), 
-  ('EMP0004', '0112345678'), 
-  ('EMP0005', '0779876543'), 
-  ('EMP0006', '0813456789'); 
-
 -- Insert sample values into Employee_Leave_Count table
 INSERT INTO `Employee_Leave_Count` (`Employee_ID`, `Annual`, `Casual`, `No_Pay`, `Maternity_Leave`)
 VALUES
@@ -206,30 +218,17 @@ VALUES
   ('EMP0005', 17, 7, 3, 9),
   ('EMP0006', 20, 8, 4, 12);
 
--- You can continue to add more data or let me know if you need assistance with anything else!
-
--- Insert sample values into Employee_Account table
-INSERT INTO `Employee_Account` (`User_ID`, `Employee_ID`, `Password`, `Profile_Picture`)
+-- Insert sample values into Leave_Request table
+INSERT INTO `Leave_Request` (`Employee_ID`, `Start_Date`, `No_of_Days`, `Type`, `Status`)
 VALUES
-  ('john.doe', 'EMP0001', 'password123', 'profile_pic1.jpg'),
-  ('jane.smith', 'EMP0002', 'secret456', 'profile_pic2.jpg'),
-  ('arachchi.p', 'EMP0003', 'password123', 'profile_pic1.jpg'),
-  ('harih.smith', 'EMP0004', 'secret456', 'profile_pic2.jpg'),
-  ('michael.johnson', 'EMP0005', 'confidential789', 'profile_pic3.jpg'),
-  ('emily.davis', 'EMP0006', 'topsecret123', 'profile_pic4.jpg'),
-  ('daniel.brown', 'EMP0007', 'securepassword', 'profile_pic5.jpg');
+  ('EMP0001', '2023-10-10', 5, 'Annual', 'Pending'),
+  ('EMP0002', '2023-11-15', 3, 'Casual', 'Approved'),
+  ('EMP0003', '2023-09-20', 2, 'Annual', 'Pending'),
+  ('EMP0004', '2023-10-05', 7, 'Casual', 'Approved'),
+  ('EMP0005', '2023-11-01', 1, 'Annual', 'Pending'),
+  ('EMP0006', '2023-12-10', 4, 'Casual', 'Pending'),
+  ('EMP0007', '2023-09-15', 5, 'Maternity', 'Approved'),
+  ('EMP0008', '2023-11-20', 2, 'Annual', 'Pending');
 
--- You can continue to add more data or let me know if you need further assistance!
-
-
--- Insert sample values into Organization table
-INSERT INTO `Organization` (`Name`, `Main_Branch`, `Start_Date`)
-VALUES
-  ( 'ABC Company', 'BR001', '2023-01-01'),
-  ('XYZ Inc.', 'BR002', '2023-02-15'),
-  ( 'ABC Company', 'BR001', '2023-01-01'),
-  ( 'XYZ Inc.', 'BR002', '2023-02-15'),
-  ( 'LMN Corporation', 'BR003', '2023-03-10'),
-  ( 'PQR Ltd.', 'BR004', '2023-04-20');
 
 
