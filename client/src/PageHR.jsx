@@ -1,15 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function PageHR() {
+  const { id_to_transfer } = useParams();
+  console.log('id_to_transfer in PageHR:', id_to_transfer);
   const navigate = useNavigate(); // Define the navigate function
 
   // Handler for the "Leave Request" button click
   const handleLeaveRequestClick_1 = () => {
-    navigate('/PageHR/AddEmployee');
+    navigate(`/PageHR/${id_to_transfer}/AddEmployee`);
   };
   const handleLeaveRequestClick_2 = () => {
-    navigate('/PageHR/AddCustom'); 
+    navigate(`/PageHR/${id_to_transfer}/AddCustom`); 
   };
 
   return (

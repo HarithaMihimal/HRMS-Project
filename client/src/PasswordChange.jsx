@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function PasswordChange() {
+  const { id_to_transfer } = useParams();
   // State variables
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');

@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "s2000r@P",
-  database: "hrms",
+  password: "Isara4242580",
+  database: "hrms_4",
 });
 
 app.post("/createCustomAttribute", (req, res) => {

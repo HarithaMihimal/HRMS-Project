@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function AddCustom() {
+  const { id_to_transfer } = useParams();
   const [customAttributes, setCustomAttributes] = useState([]);
   const [selectedAttributeID, setSelectedAttributeID] = useState('');
   const [customAttributeValue, setCustomAttributeValue] = useState('');

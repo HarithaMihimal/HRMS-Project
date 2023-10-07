@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function AddEmployee() {
+  const { id_to_transfer } = useParams();
   const navigate = useNavigate();
 
   const emptyEmployeeData = {
@@ -34,7 +36,7 @@ function AddEmployee() {
     localStorage.setItem('employeeData', JSON.stringify(employeeData));
     localStorage.setItem('accountData', JSON.stringify(accountData));
 
-    navigate('/PageHR/AddEmployee/AddDependent');
+    navigate(`/PageHR/${id_to_transfer}/AddEmployee/AddDependent`);
   };
 
   const handleSubmit = (event) => {
