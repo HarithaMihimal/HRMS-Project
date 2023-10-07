@@ -208,15 +208,7 @@ VALUES
   (4, 'EMP0003', 'Networking Skills');
 
 
--- Insert sample values into Employee_Leave_Count table
-INSERT INTO `Employee_Leave_Count` (`Employee_ID`, `Annual`, `Casual`, `No_Pay`, `Maternity_Leave`)
-VALUES
-  ('EMP0001', 15, 5, 2, 8),
-  ('EMP0002', 18, 7, 3, 10),
-('EMP0003', 12, 4, 1, 6),
-('EMP0004', 14, 6, 2, 7),
-  ('EMP0005', 17, 7, 3, 9),
-  ('EMP0006', 20, 8, 4, 12);
+
 
 -- Insert sample values into Leave_Request table
 INSERT INTO `Leave_Request` (`Employee_ID`, `Start_Date`, `No_of_Days`, `Type`, `Status`)
