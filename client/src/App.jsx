@@ -15,14 +15,14 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/PageEMP" element={<PageEMP />} />
-        <Route path="/PageHR" element={<PageHR />} />
-        <Route path="/PageEMP/LeaveReq" element={<LeaveReq />} />
-        <Route path="/PageEMP/PasswordChange" element={<PasswordChange />} />
-        <Route path="/PageEMP/Supervisor" element={<Supervisor />} />
-        <Route path="/PageHR/AddEmployee" element={<AddEmployee />} />
-        <Route path="/PageHR/AddEmployee/AddDependent" element={<AddDependent />} />
-        <Route path="/PageHR/AddCustom" element={<AddCustom />} />
+        <Route path="/PageHR/:id_to_transfer" element={<PageHR />} />
+      <Route path="/PageEMP/:id_to_transfer" element={<PageEMP />} />
+        <Route path="/PageEMP/:id_to_transfer/LeaveReq" element={<LeaveReq />} />
+        <Route path="/PageEMP/:id_to_transfer/PasswordChange" element={<PasswordChange />} />
+        <Route path="/PageEMP/:id_to_transfer/Supervisor" element={<Supervisor />} />
+        <Route path="/PageHR/:id_to_transfer/AddEmployee" element={<AddEmployee />} />
+        <Route path="/PageHR/:id_to_transfer/AddEmployee/AddDependent" element={<AddDependent />} />
+        <Route path="/PageHR/:id_to_transfer/AddCustom" element={<AddCustom />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
 
 function Supervisor() {
+  const { id_to_transfer } = useParams();
   return (
     <div>
       <h1>This is the page for supervisor</h1>

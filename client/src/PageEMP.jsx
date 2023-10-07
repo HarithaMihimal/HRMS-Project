@@ -2,8 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState,useEffect} from "react";
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function PageEMP() {
+  const { id_to_transfer } = useParams();
+  console.log('id_to_transfer in PageEMP:', id_to_transfer);
   const navigate = useNavigate(); // Define the navigate function
 
   const [employee,setEmployee]=useState([]);
@@ -25,13 +28,13 @@ function PageEMP() {
 
   // Handler for the "Leave Request" button click
   const handleLeaveRequestClick_1 = () => {
-    navigate('/PageEMP/LeaveReq'); // Navigate to the '/LeaveReq' route
+    navigate(`/PageEMP/${id_to_transfer}/LeaveReq`); // Navigate to the '/LeaveReq' route
   };
   const handleLeaveRequestClick_2 = () => {
-    navigate('/PageEMP/PasswordChange'); 
+    navigate(`/PageEMP/${id_to_transfer}/PasswordChange`); 
   };
   const handleLeaveRequestClick_3 = () => {
-    navigate('/PageEMP/Supervisor');
+    navigate(`/PageEMP/${id_to_transfer}/Supervisor`);
   };
 
   return (

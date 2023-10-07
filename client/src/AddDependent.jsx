@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function AddDependent() {
+  const { id_to_transfer } = useParams();
 const navigate = useNavigate();
 
   const [dependentData, setDependentData] = React.useState({

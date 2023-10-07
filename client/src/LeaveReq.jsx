@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import "./style.css";
 import Axios from "axios";
+import { useParams } from 'react-router-dom';
 
 function LeaveReq() {
+  const { id_to_transfer } = useParams();
+  console.log('id_to_transfer in LeaveReq:', id_to_transfer);
   const [id, setid] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [day_no, setNumDays] = useState(0);
