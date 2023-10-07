@@ -3,15 +3,17 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 
+require("dotenv").config();
+
 app.use(cors());
 
 app.use(express.json());
 
 const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "Isara4242580",
-  database: "hrms_4",
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 app.post("/createCustomAttribute", (req, res) => {
