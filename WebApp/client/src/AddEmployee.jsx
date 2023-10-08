@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
 
 function AddEmployee() {
   const { id_to_transfer } = useParams();
@@ -16,9 +18,9 @@ function AddEmployee() {
     email: "",
     employmentStatus: "Choose...",
     jobTitle: "Choose...",
-    payGrade: "",
-    department: "",
-    branch: ""
+    payGrade: "Choose...",
+    department: "Choose...",
+    branch: "Choose..."
   };
 
   const emptyAccountData = {
@@ -80,10 +82,42 @@ function AddEmployee() {
 
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
   useEffect(() => {
-    Axios.get('/api/employment-status')
+    Axios.get("http://localhost:3000/addEmployee/employmentStatus")
       .then(response => {
-        const options = response.data;
-        setEmploymentStatusOptions(options);
+        setEmploymentStatusOptions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const [payGradeOptions, setPayGradeOptions] = useState ([]);
+  useEffect(() => {
+    Axios.get("http://localhost:3000/addEmployee/payGrade")
+      .then(response => {
+        setPayGradeOptions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const [departmentOptions, setDepartmentOptions] = useState ([]);
+  useEffect(() => {
+    Axios.get("http://localhost:3000/addEmployee/department")
+      .then(response => {
+        setDepartmentOptions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const [branchOptions, setBranchOptions] = useState ([]);
+  useEffect(() => {
+    Axios.get("http://localhost:3000/addEmployee/branch")
+      .then(response => {
+        setBranchOptions(response.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -149,18 +183,10 @@ function AddEmployee() {
             onChange={(event) => setEmployeeData({...employeeData, employmentStatus: event.target.value})} >
               <option>Choose...</option>
               {employmentStatusOptions.map(option => (
-                <option>
-                  {option.name}
+                <option key={option.Status_ID}>
+                  {option.Status}
                 </option>
               ))}
-
-              {/* <option>Intern (Full-time)</option>
-              <option>Intern (Part-time)</option>
-              <option>Contract (Full-time)</option>
-              <option>Contract (Part-time)</option>
-              <option>Permanent</option>
-              <option>Freelance</option>
-              <option>Other</option> */}
             </select>
           </div>
           <div className="form-group col-md-4">
@@ -176,19 +202,40 @@ function AddEmployee() {
           </div>
           <div className="form-group col-md-4">
             <label htmlFor="inputPayGrade">Pay Grade</label>
-            <input type="text" className="form-control" id="inputPayGrade" placeholder="Pay Grade" value={employeeData.payGrade} style={{ width: '100%', marginBottom: '15px' }} 
-            onChange={(event) => setEmployeeData({...employeeData, payGrade: event.target.value})} />
+            <select id="inputPayGrade" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.payGrade}
+            onChange={(event) => setEmployeeData({...employeeData, payGrade: event.target.value})} >
+              <option>Choose...</option>
+              {payGradeOptions.map(option => (
+                <option key={option.Pay_Grade_ID}>
+                  {option.Pay_Grade}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="form-group col-md-5">
           <label htmlFor="inputDepartment">Department</label>
-          <input type="text" className="form-control" id="inputDepartment" placeholder="Department" value={employeeData.department} style={{ width: '100%', marginBottom: '15px' }} 
-          onChange={(event) => setEmployeeData({...employeeData, department: event.target.value})} />
+          <select id="inputDepartment" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.department}
+          onChange={(event) => setEmployeeData({...employeeData, department: event.target.value})} >
+            <option>Choose...</option>
+            {departmentOptions.map(option => (
+              <option key={option.Dept_ID}>
+                {option.Dept_Name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group col-md-5">
           <label htmlFor="inputBranch">Branch</label>
-          <input type="text" className="form-control" id="inputBranch" placeholder="Branch" value={employeeData.branch} style={{ width: '100%', marginBottom: '15px' }} 
-          onChange={(event) => setEmployeeData({...employeeData, branch: event.target.value})} />
+          <select id="inputBranch" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.branch}
+          onChange={(event) => setEmployeeData({...employeeData, branch: event.target.value})} >
+            <option>Choose...</option>
+            {branchOptions.map(option => (
+              <option key={option.Branch_ID}>
+                {option.Branch_Name}
+              </option>
+            ))}
+          </select>
         </div>
         
         <div>
@@ -217,16 +264,7 @@ function AddEmployee() {
           onChange={(event) => setAccountData({...accountData, confirmPassword: event.target.value})} />
         </div>
 
-        
-        <div className="form-group">
-          <div className="form-check" style={{ marginTop: '30px', marginBottom: '10px' }}>
-            <input className="form-check-input" type="checkbox" id="gridCheck" />
-            <label className="form-check-label" htmlFor="gridCheck">
-              Check me out
-            </label>
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '30px' }}>Submit</button>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '50px' }}>Submit</button>
       </form>
     </div>
   );

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 function AddDependent() {
   const { id_to_transfer } = useParams();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [dependentData, setDependentData] = React.useState({
     firstName: "",
