@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import Axios from "axios";
 import { useParams } from 'react-router-dom';
@@ -11,21 +10,37 @@ function LeaveReq() {
   const [startDate, setStartDate] = useState(new Date());
   const [day_no, setNumDays] = useState(0);
   const [type, setType] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
+  const [successMessage, setSuccessMessage] = useState(""); // State variable for success message
 
   const addEmployee = () => {
-    Axios.post("http://localhost:3000/createLeaveReq", {
-      id: id,
-      startDate: startDate,
-      day_no: day_no,
-      type: type,
-    }).then(() => {
-      console.log("success");
-    });
+    if (id === id_to_transfer) {
+      Axios.post("http://localhost:3000/createLeaveReq", {
+        id: id,
+        startDate: startDate,
+        day_no: day_no,
+        type: type,
+      })
+      .then(() => {
+        setSuccessMessage("Your request submitted"); // Set success message state
+        setErrorMessage(""); // Clear any previous error messages
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setSuccessMessage(""); // Clear success message on error
+        setErrorMessage("Failed to submit request");
+      });
+    } else {
+      setErrorMessage("Invalid ID"); // Set error message state
+      setSuccessMessage(""); // Clear success message on error
+    }
   };
 
   return (
     <div className="container mt-5">
       <div className="information">
+        {errorMessage && <p className="text-danger">{errorMessage}</p>} {/* Render error message */}
+        {successMessage && <p className="text-success">{successMessage}</p>} {/* Render success message */}
         <div className="mb-3">
           <label htmlFor="employeeId" className="form-label">
             Employee ID:
