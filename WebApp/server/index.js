@@ -281,6 +281,37 @@ app.post("/changePassword",(req,res)=>
 });
 
 
+
+// Route to fetch leave requests
+app.get('/leave_request', (req, res) => {
+  const query = 'SELECT * FROM leave_request';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching leave requests:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+// Route to update the status of a leave request
+app.put('/leave_request/:leaveReqID', (req, res) => {
+  const { leaveReqID } = req.params;
+  const { status } = req.body;
+
+  const query = 'UPDATE leave_request SET Status = ? WHERE Leave_Req_ID = ?';
+  db.query(query, [status, leaveReqID], (error, results) => {
+    if (error) {
+      console.error('Error updating status:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json({ message: 'Status updated successfully' });
+    }
+  });
+});
+
+
 app.listen(3000, () => {
   console.log("Yey, your server is running on port 3000");
 });
