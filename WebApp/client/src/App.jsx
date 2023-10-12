@@ -9,6 +9,12 @@ import Supervisor from './Supervisor';
 import AddEmployee from './AddEmployee';
 import AddCustom from './AddCustom';
 import AddDependent from './AddDependent';
+import ReportGenaration from './Report';
+import Report1 from './Report1';
+import Report2 from './Report2';
+import Report3 from './Report3';
+import Report4 from './Report4';
+import Report5 from './Report5';
 
 function App() {
   return (
@@ -21,6 +27,14 @@ function App() {
         <Route path="/PageEMP/:id_to_transfer/PasswordChange" element={<PasswordChange />} />
         <Route path="/PageEMP/:id_to_transfer/Supervisor" element={<Supervisor />} />
         <Route path="/PageHR/:id_to_transfer/AddEmployee" element={<AddEmployee />} />
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration" element={<ReportGenaration />} />
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report1" element={<Report1 />} />
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report2" element={<Report2 />} />
+
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report3" element={<Report3 />} />
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report4" element={<Report4 />} />
+        <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report5" element={<Report5 />} />
+
         <Route path="/PageHR/:id_to_transfer/AddEmployee/AddDependent" element={<AddDependent />} />
         <Route path="/PageHR/:id_to_transfer/AddCustom" element={<AddCustom />} />
       </Routes>

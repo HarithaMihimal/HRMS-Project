@@ -14,6 +14,9 @@ function PageHR() {
   const handleLeaveRequestClick_2 = () => {
     navigate(`/PageHR/${id_to_transfer}/AddCustom`); 
   };
+  const handleLeaveRequestClick_3 = () => {
+    navigate(`/PageHR/${id_to_transfer}/ReportGenaration`); 
+  };
 
   return (
     <div>
@@ -26,6 +29,11 @@ function PageHR() {
       <div className="d-flex justify-content-center">
         <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_2}>
           Add Custom Attribute
+        </button>
+      </div>
+      <div className="d-flex justify-content-center">
+        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_3}>
+          Report Generation
         </button>
       </div>
     </div>
