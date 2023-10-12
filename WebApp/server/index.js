@@ -19,7 +19,8 @@ const db = mysql.createConnection({
 app.post("/createCustomAttribute", (req, res) => {
   const attributeName = req.body.attributeName;
 
-  db.query("INSERT INTO Custom_Attribute_Definition (Attribute_Name) VALUES (?)",
+  db.query(
+    "INSERT INTO Custom_Attribute_Definition (Attribute_Name) VALUES (?)",
     [attributeName],
     (err, result) => {
       if (err) {
@@ -28,7 +29,8 @@ app.post("/createCustomAttribute", (req, res) => {
       } else {
         res.status(200).send("Custom attribute created successfully");
       }
-  });
+    }
+  );
 });
 
 app.post("/associateCustomAttribute", (req, res) => {
@@ -36,16 +38,22 @@ app.post("/associateCustomAttribute", (req, res) => {
   const attributeID = req.body.attributeID;
   const value = req.body.value;
 
-  db.query("INSERT INTO Employee_Custom_Attribute (Attribute_ID, Employee_ID, Value) VALUES (?,?,?)",
+  db.query(
+    "INSERT INTO Employee_Custom_Attribute (Attribute_ID, Employee_ID, Value) VALUES (?,?,?)",
     [attributeID, employeeID, value],
     (err, result) => {
       if (err) {
         console.log(err);
-        res.status(500).send("Error associating custom attribute with employee");
+        res
+          .status(500)
+          .send("Error associating custom attribute with employee");
       } else {
-        res.status(200).send("Custom attribute associated with employee successfully");
+        res
+          .status(200)
+          .send("Custom attribute associated with employee successfully");
       }
-  });
+    }
+  );
 });
 
 app.get("/customAttributes", (req, res) => {
@@ -81,6 +89,7 @@ app.post("/createLeaveReq", (req, res) => {
 });
 
 //fetching emplyee details
+
 app.get("/emp_view/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer;
   console.log("id_to_transfer:", id_to_transfer);
@@ -99,7 +108,7 @@ app.get("/emp_view/:id_to_transfer", (req, res) => {
         res.status(404).json({ error: "Employee not found" });
       }
     }
-  });
+  );
 });
 
 
@@ -109,15 +118,26 @@ app.post("/addEmployee", async (req, res) => {
   console.log("haveDependent:", haveDependent);
 
   try {
-    const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery = "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
+    const employmentStatusQuery =
+      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
+    const payGradeQuery =
+      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
     const branchQuery = "SELECT Branch_No FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery = "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
+    const departmentQuery =
+      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
 
-    const employmentStatusResult = await queryDatabase(employmentStatusQuery, [employeeData.employmentStatus]);
-    const payGradeResult = await queryDatabase(payGradeQuery, [employeeData.payGrade]);
-    const branchResult = await queryDatabase(branchQuery, [employeeData.branch]);
-    const departmentResult = await queryDatabase(departmentQuery, [employeeData.department]);
+    const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
+      employeeData.employmentStatus,
+    ]);
+    const payGradeResult = await queryDatabase(payGradeQuery, [
+      employeeData.payGrade,
+    ]);
+    const branchResult = await queryDatabase(branchQuery, [
+      employeeData.branch,
+    ]);
+    const departmentResult = await queryDatabase(departmentQuery, [
+      employeeData.department,
+    ]);
 
     employeeData.employmentStatus = employmentStatusResult[0].Status_ID;
     employeeData.payGrade = payGradeResult[0].Pay_Grade_ID;
@@ -126,11 +146,16 @@ app.post("/addEmployee", async (req, res) => {
 
     let dependentId = null; // Default to null
     if (haveDependent === true) {
-      const dependentQuery = "SELECT Dependent_ID FROM Dependent_Information ORDER BY Timestamp DESC LIMIT 1";
+      const dependentQuery =
+        "SELECT Dependent_ID FROM Dependent_Information ORDER BY Timestamp DESC LIMIT 1";
       const dependentResult = await queryDatabase(dependentQuery);
 
       // Check if dependentResult exists and has a valid Dependent_ID property
-      if (dependentResult && dependentResult[0] && dependentResult[0].Dependent_ID !== undefined) {
+      if (
+        dependentResult &&
+        dependentResult[0] &&
+        dependentResult[0].Dependent_ID !== undefined
+      ) {
         dependentId = dependentResult[0].Dependent_ID;
       } else {
         console.error("Error fetching Dependent_ID or no dependent found.");
@@ -138,7 +163,8 @@ app.post("/addEmployee", async (req, res) => {
       }
     }
 
-    const sql = "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_No`, `Dept_ID`, `Dependent_ID`) VALUES ?";
+    const sql =
+      "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_No`, `Dept_ID`, `Dependent_ID`) VALUES ?";
     const values = [
       [
         employeeData.firstName,
@@ -152,18 +178,22 @@ app.post("/addEmployee", async (req, res) => {
         employeeData.payGrade,
         employeeData.branch,
         employeeData.department,
-        dependentId
+        dependentId,
       ],
     ];
 
     await queryDatabase(sql, [values]);
 
-    const employeeIDQuery = "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
+    const employeeIDQuery =
+      "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
-    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [[employeeID, accountData.username, accountData.password]];
+    const accountSql =
+      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountValues = [
+      [employeeID, accountData.username, accountData.password],
+    ];
     await queryDatabase(accountSql, [accountValues]);
 
     console.log("Employee Data Inserted.");
@@ -188,16 +218,23 @@ function queryDatabase(sql, params) {
 }
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
-  const sql = "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
-  const values = [req.body.firstName, req.body.lastName, req.body.gender, req.body.age, req.body.relation];
+  const sql =
+    "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
+  const values = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.gender,
+    req.body.age,
+    req.body.relation,
+  ];
 
   db.query(sql, [values], (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Dependent Data Inserted.")
+      console.log("Dependent Data Inserted.");
     }
-  })
+  });
 });
 
 app.get("/api/employment-status", (req, res) => {
@@ -223,8 +260,6 @@ app.get("/employee_data", (req, res) => {
   });
 });
 
-
-
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {
     if (err) {
@@ -236,28 +271,21 @@ app.get("/getPass", (req, res) => {
 });
 
 // password changing
-app.post("/changePassword",(req,res)=>
-{
+app.post("/changePassword", (req, res) => {
   const userId = req.body.userId;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
-  db.query
-  (
+  db.query(
     "select password from employee_account where user_id =?",
     [userId],
-    (err, results)=>
-    {
-      if (err){
+    (err, results) => {
+      if (err) {
         console.log(err);
-        res.status.apply(500).json({message:"Internal server error"});
-      }
-      else if(results.length==0)
-      {
-        res.status(404).json({message:"User not found"});
-      }
-      else
-      {
+        res.status.apply(500).json({ message: "Internal server error" });
+      } else if (results.length == 0) {
+        res.status(404).json({ message: "User not found" });
+      } else {
         const storedPassword = results[0].password;
         console.log("Received request to change password for userId:", userId);
         console.log("Old password provided:", oldPassword);
@@ -265,34 +293,111 @@ app.post("/changePassword",(req,res)=>
         // Check the stored password
         console.log("Stored password:", storedPassword);
 
-        if (oldPassword == storedPassword)
-        {
+        if (oldPassword == storedPassword) {
           db.query(
             "update employee_account set password =? where user_id = ?",
-            [newPassword,userId],
-            (err,updateResult)=> 
-            {
-              if(err){
+            [newPassword, userId],
+            (err, updateResult) => {
+              if (err) {
                 console.log(err);
-                res.status(500).json({message:"Password update failed"});
+                res.status(500).json({ message: "Password update failed" });
+              } else {
+                res
+                  .status(200)
+                  .json({ message: "Password changed successfully" });
               }
-              else{
-                res.status(200).json({message:"Password changed successfully"});
-              }
-        
             }
           );
-        }
-        else{
+        } else {
           console.log("Old password is incorrect");
-          res.status(401).json({message:"Old password is incorrect"})
+          res.status(401).json({ message: "Old password is incorrect" });
         }
       }
     }
-  )
-
+  );
 });
 
+// Route to fetch leave requests
+app.get("/leave_request", (req, res) => {
+  const query = "SELECT * FROM leave_request";
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching leave requests:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+// Route to update the status of a leave request
+app.put("/leave_request/:leaveReqID", (req, res) => {
+  const { leaveReqID } = req.params;
+  const { status } = req.body;
+
+  const query = "UPDATE leave_request SET Status = ? WHERE Leave_Req_ID = ?";
+  db.query(query, [status, leaveReqID], (error, results) => {
+    if (error) {
+      console.error("Error updating status:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json({ message: "Status updated successfully" });
+    }
+  });
+});
+
+app.get("/pendingLeaveRequests/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query = "SELECT * FROM leave_request WHERE Employee_ID = ?";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave requests:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get("/fetchAllLeaves/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query = "SELECT * FROM leave_count WHERE Employee_ID = ?";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave limits:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get("/fetchtakenLeaves/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query = "SELECT * FROM employee_leave_count WHERE Employee_ID = ?";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave limits:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
+  const requestId = req.params.requestId;
+
+  const query = "DELETE FROM leave_request WHERE Leave_Req_ID = ?";
+  db.query(query, [requestId], (error, results) => {
+    if (error) {
+      console.error("Error deleting leave request:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json({ message: "Request deleted successfully" });
+    }
+  });
+});
 
 app.listen(3001, () => {
   console.log("Yey, your server is running on port 3001");

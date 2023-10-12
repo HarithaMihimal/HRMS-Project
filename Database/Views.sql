@@ -18,3 +18,6 @@ create view password_check as
 select Employee_ID,User_ID,Password,Job_Title 
 from employee_account join employee_data 
 using (Employee_ID);
+
+create view leave_count as
+select Employee_ID,Annual,Casual,No_Pay,Maternity_Leave from Employee_data join leave_limit using (Pay_Grade_ID);
