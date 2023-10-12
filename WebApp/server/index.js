@@ -348,6 +348,32 @@ app.get("/pendingLeaveRequests/:id_to_transfer", (req, res) => {
   });
 });
 
+app.get("/fetchAllLeaves/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query = "SELECT * FROM leave_count WHERE Employee_ID = ?";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave limits:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get("/fetchtakenLeaves/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query = "SELECT * FROM employee_leave_count WHERE Employee_ID = ?";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave limits:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
   const requestId = req.params.requestId;
 
