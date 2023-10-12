@@ -92,7 +92,7 @@ app.get("/emp_view", (req, res) => {
 });
 
 app.post("/addEmployee", async (req, res) => {
-  const { employeeData, accountData, haveDependent } = req.body;
+  const { employeeData, haveDependent } = req.body;
 
   try {
     const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
@@ -149,7 +149,7 @@ app.post("/addEmployee", async (req, res) => {
     const employeeID = employeeIDResult[0].Employee_ID;
 
     const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [[employeeID, accountData.username, accountData.password]];
+    const accountValues = [[employeeID, employeeData.username, employeeData.password]];
     await queryDatabase(accountSql, [accountValues]);
 
     console.log("Employee Data Inserted.");
@@ -247,8 +247,6 @@ app.get("/employee_data", (req, res) => {
     }
   });
 });
-
-
 
 app.get("/getPass", (req, res) => {
   db.query("SELECT * FROM password_check", (err, result) => {

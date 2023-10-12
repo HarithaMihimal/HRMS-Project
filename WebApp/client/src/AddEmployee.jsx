@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useFormik, Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
 
 function AddEmployee() {
   const { id_to_transfer } = useParams();
   const navigate = useNavigate();
 
-  const emptyEmployeeData = {
+  const initialEmployeeData = {
     firstName: "",
     lastName: "",
     gender: "Choose...",
@@ -20,61 +20,19 @@ function AddEmployee() {
     jobTitle: "Choose...",
     payGrade: "Choose...",
     department: "Choose...",
-    branch: "Choose..."
-  };
-
-  const emptyAccountData = {
+    branch: "Choose...",
     username: "",
     password: "",
     confirmPassword: ""
   }
 
-  const [employeeData, setEmployeeData] = useState(emptyEmployeeData);
-  const [accountData, setAccountData] = useState(emptyAccountData);
   const [haveDependent, setHaveDependent] = useState(false);
-
-  const handleAddDependent = () => {
-    // Save the current employee data to local storage
-    localStorage.setItem('employeeData', JSON.stringify(formik.values.employeeData));
-    localStorage.setItem('accountData', JSON.stringify(formik.values.accountData));
-
-    navigate(`/PageHR/${id_to_transfer}/AddEmployee/AddDependent`);
-  };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = {
-  //     employeeData: formik.employeeData,
-  //     accountData: formik.accountData,
-  //     haveDependent: formik.haveDependent
-  //   }
-  //   Axios.post("http://localhost:3000/addEmployee", data)
-  //   .then(res => console.log(res.data))
-  //   .catch(err => console.log(err));
-
-  //   // Clear the saved data from local storage
-  //   localStorage.removeItem('employeeData');
-  //   localStorage.removeItem('accountData');
-  //   localStorage.removeItem('haveDependent');
-  // }
-
-  // Use useEffect to load data from local storage when the component mounts
-  // useEffect(() => {
-  //   const savedEmployeeData = JSON.parse(localStorage.getItem('employeeData'));
-  //   if (savedEmployeeData) {
-  //     formik.setFieldValue('employeeData', savedEmployeeData);
-  //   }
-
-  //   const savedAccountData = JSON.parse(localStorage.getItem('accountData'));
-  //   if (savedAccountData) {
-  //     formik.setFieldValue('accountData', savedAccountData);
-  //   }
-
-  //   const savedHaveDependent = JSON.parse(localStorage.getItem('haveDependent'));
-  //   if (savedHaveDependent) {
-  //     formik.setFieldValue('haveDependent', savedHaveDependent);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const savedHaveDependent = JSON.parse(localStorage.getItem('haveDependent'));
+    if (savedHaveDependent) {
+      setHaveDependent(true);
+    }
+  }, []);
 
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
   useEffect(() => {
@@ -120,119 +78,80 @@ function AddEmployee() {
       });
   }, []);
 
-  const formik = useFormik({
-    initialValues: {
-      employeeData: emptyEmployeeData,
-      accountData: emptyAccountData,
-      haveDependent: false
-    },
-    validationSchema: addEmployeeSchema,
-    onSubmit: (values, { setSubmitting }) => {
-      console.log('Hello');
-      console.log('Form data', values);
-      const data = {
-        employeeData: values.employeeData,
-        accountData: values.accountData,
-        haveDependent: haveDependent
-      }
-      Axios.post("http://localhost:3000/addEmployee", data)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
-      .finally(() => {
-        setSubmitting(false);
-        formik.resetForm();
-        // Clear the saved data from local storage
-        // localStorage.removeItem('employeeData');
-        // localStorage.removeItem('accountData');
-        // localStorage.removeItem('haveDependent');
-      })
-    },
-  });
-
   return (
     <div>
-      <Formik initialValues={formik.initialValues} validationSchema={addEmployeeSchema}>
-        {({errors}) => (
-          <Form onSubmit={formik.handleSubmit} style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      <Formik 
+        initialValues={localStorage.getItem('employeeData') && localStorage.getItem('haveDependent') ? JSON.parse(localStorage.getItem('employeeData')) : initialEmployeeData} 
+        validationSchema={addEmployeeSchema}
+        onSubmit={(employeeData , { resetForm }) => {
+          const data = {
+            employeeData: employeeData,
+            haveDependent: haveDependent
+          }
+          Axios.post("http://localhost:3000/addEmployee", data)
+          .then(res => {
+            console.log(res.data);
+            localStorage.removeItem('employeeData');
+            localStorage.removeItem('haveDependent');
+            resetForm();
+          }) 
+          .catch(err => console.log(err))
+        }}>
+        {({errors, values}) => (
+          <Form style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '40px' }}>Employee Information</h4>
             </div>
             <div className="row">
               <div className="form-group col-md-6">
-                <label htmlFor="inputFirstName">First Name</label>
-                <Field type="text" className="form-control" id="inputFirstName" name="employeeData.firstName" placeholder="First Name" value={employeeData.firstName} style={{ width: '100%', marginBottom: '15px' }} 
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, firstName: event.target.value});
-                  formik.setFieldValue(employeeData.firstName);}
-                } />
-                <ErrorMessage name="employeeData.firstName" component="div" className="error-message" />
+                <label htmlFor="inputFirstName" style={{marginTop: '15px'}}>First Name</label>
+                <Field type="text" className="form-control" id="inputFirstName" name="firstName" placeholder="First Name" />
+                <ErrorMessage name="firstName" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="inputLastName">Last Name</label>
-                <Field type="text" className="form-control" id="inputLastName" placeholder="Last Name" value={employeeData.lastName} style={{ width: '100%', marginBottom: '15px' }} 
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, lastName: event.target.value});
-                  formik.setFieldValue(employeeData.lastName);}
-                } />
-                <ErrorMessage name="employeeData.lastName" component="div" className="error-message" />
+                <label htmlFor="inputLastName" style={{marginTop: '15px'}}>Last Name</label>
+                <Field type="text" className="form-control" id="inputLastName" name="lastName" placeholder="Last Name" />
+                <ErrorMessage name="lastName" component="div" className="error-message" />
               </div>
             </div>
             <div className="row">
               <div className="form-group col-md-4">
-                <label htmlFor="inputGender">Gender</label>
-                <Field as='select' id="inputGender" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.gender}
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, gender: event.target.value});
-                  formik.setFieldValue(employeeData.gender);}
-                }>
+                <label htmlFor="inputGender" style={{marginTop: '15px'}}>Gender</label>
+                <Field as='select' className="form-control" id="inputGender" name="gender" >
                   <option>Choose...</option>
                   <option>Male</option>
                   <option>Female</option>
                   <option>Other</option>
                   <option>Prefer not to say</option>
                 </Field>
-                <ErrorMessage name="employeeData.gender" component="div" className="error-message" />
+                <ErrorMessage name="gender" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-4">
-                <label htmlFor="inputMaritalStatus">Marital Status</label>
-                <Field as='select' id="inputMaritalStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.maritalStatus}
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, maritalStatus: event.target.value});
-                  formik.setFieldValue(employeeData.maritalStatus);}
-                } >
+                <label htmlFor="inputMaritalStatus" style={{marginTop: '15px'}}>Marital Status</label>
+                <Field as='select' className="form-control" id="inputMaritalStatus" name="maritalStatus" >
                   <option>Choose...</option>
                   <option>Married</option>
                   <option>Unmarried</option>
                   <option>Other</option>
                   <option>Prefer not to say</option>
                 </Field>
+                <ErrorMessage name="maritalStatus" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-4">
-                <label htmlFor="inputBirthday">Birthday</label>
-                <Field type="date" className="form-control" id="inputBirthday" placeholder="Birthday" value={employeeData.birthday} style={{ width: '100%', marginBottom: '15px' }} 
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, birthday: event.target.value});
-                  formik.setFieldValue(employeeData.birthday);}
-                } />
+                <label htmlFor="inputBirthday" style={{marginTop: '15px'}}>Birthday</label>
+                <Field type="date" className="form-control" id="inputBirthday" name="birthday" placeholder="Birthday" />
+                <ErrorMessage name="birthday" component="div" className="error-message" />
               </div>
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="inputEmail">Email</label>
-              <Field type="email" className="form-control" id="inputEmail" name="employeeData.email" placeholder="Email" value={employeeData.email} style={{ width: '100%', marginBottom: '15px' }} 
-              onChange={
-                (event) => {setEmployeeData({...employeeData, email: event.target.value});
-                formik.setFieldValue(employeeData.email);}
-              } />
-              <ErrorMessage name="employeeData.email" component="div" className="error-message" />
+              <label htmlFor="inputEmail" style={{marginTop: '15px'}}>Email</label>
+              <Field type="email" className="form-control" id="inputEmail" name="email" placeholder="Email" />
+              <ErrorMessage name="email" component="div" className="error-message" />
             </div>
             <div className="row">
               <div className="form-group col-md-4">
-                <label htmlFor="inputEmploymentStatus">Employment Status</label>
-                <Field as='select' id="inputEmploymentStatus" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.employmentStatus}
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, employmentStatus: event.target.value});
-                  formik.setFieldValue(employeeData.employmentStatus);}
-                } >
+                <label htmlFor="inputEmploymentStatus" style={{marginTop: '15px'}}>Employment Status</label>
+                <Field as='select' className="form-control" id="inputEmploymentStatus" name="employmentStatus" >
                   <option>Choose...</option>
                   {employmentStatusOptions.map(option => (
                     <option key={option.Status_ID}>
@@ -240,28 +159,22 @@ function AddEmployee() {
                     </option>
                   ))}
                 </Field>
+                <ErrorMessage name="employmentStatus" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-4">
-                <label htmlFor="inputJobTitle">Job Title</label>
-                <Field as='select' id="inputJobTitle" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.jobTitle}
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, jobTitle: event.target.value});
-                  formik.setFieldValue(employeeData.jobTitle);}
-                } >
+                <label htmlFor="inputJobTitle" style={{marginTop: '15px'}}>Job Title</label>
+                <Field as='select' className="form-control" id="inputJobTitle" name="jobTitle" >
                   <option>Choose...</option>
                   <option>HR Manager</option>
                   <option>Accountant</option>
                   <option>Software Engineer</option>
                   <option>QA Engineer</option>
                 </Field>
+                <ErrorMessage name="jobTitle" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-4">
-                <label htmlFor="inputPayGrade">Pay Grade</label>
-                <Field as='select' id="inputPayGrade" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.payGrade}
-                onChange={
-                  (event) => {setEmployeeData({...employeeData, payGrade: event.target.value});
-                  formik.setFieldValue(employeeData.payGrade);}
-                } >
+                <label htmlFor="inputPayGrade" style={{marginTop: '15px'}}>Pay Grade</label>
+                <Field as='select' className="form-control" id="inputPayGrade" name="payGrade" >
                   <option>Choose...</option>
                   {payGradeOptions.map(option => (
                     <option key={option.Pay_Grade_ID}>
@@ -269,15 +182,12 @@ function AddEmployee() {
                     </option>
                   ))}
                 </Field>
+                <ErrorMessage name="payGrade" component="div" className="error-message" />
               </div>
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="inputDepartment">Department</label>
-              <Field as='select' id="inputDepartment" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.department}
-              onChange={
-                (event) => {setEmployeeData({...employeeData, department: event.target.value});
-                formik.setFieldValue(employeeData.department);}
-              } >
+              <label htmlFor="inputDepartment" style={{marginTop: '15px'}}>Department</label>
+              <Field as='select' className="form-control" id="inputDepartment" name="department" >
                 <option>Choose...</option>
                 {departmentOptions.map(option => (
                   <option key={option.Dept_ID}>
@@ -285,14 +195,11 @@ function AddEmployee() {
                   </option>
                 ))}
               </Field>
+              <ErrorMessage name="department" component="div" className="error-message" />
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="inputBranch">Branch</label>
-              <Field as='select' id="inputBranch" className="form-control" style={{ width: '100%', marginBottom: '15px' }} value={employeeData.branch}
-              onChange={
-                (event) => {setEmployeeData({...employeeData, branch: event.target.value});
-                formik.setFieldValue(employeeData.branch);}
-              } >
+              <label htmlFor="inputBranch" style={{marginTop: '15px'}}>Branch</label>
+              <Field as='select' className="form-control" id="inputBranch" name="branch" >
                 <option>Choose...</option>
                 {branchOptions.map(option => (
                   <option key={option.Branch_ID}>
@@ -300,11 +207,18 @@ function AddEmployee() {
                   </option>
                 ))}
               </Field>
+              <ErrorMessage name="branch" component="div" className="error-message" />
             </div>
             
             <div>
               <h6 style={{ marginBottom: '30px', marginTop: '50px' }}>Do you want to add dependent</h6>
-              <button type="button"  onClick={handleAddDependent}>
+              <button type="button" onClick={ () => {
+                  // Save the current employee data to local storage
+                  localStorage.setItem('employeeData', JSON.stringify(values));
+                  console.log(values);
+              
+                  navigate(`/PageHR/${id_to_transfer}/AddEmployee/AddDependent`);
+              }}>
                 Add Dependent
               </button>
             </div>
@@ -313,31 +227,22 @@ function AddEmployee() {
               <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Account Information</h4>
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="inputUsername">Username</label>
-              <Field type="text" className="form-control" id="inputUsername" placeholder="New Username" value={accountData.username} style={{ width: '100%', marginBottom: '15px' }} 
-              onChange={
-                (event) => {setAccountData({...accountData, username: event.target.value});
-                formik.setFieldValue(accountData.username);}
-              } />
+              <label htmlFor="inputUsername" style={{marginTop: '15px'}}>Username</label>
+              <Field type="text" className="form-control" id="inputUsername" name="username" placeholder="New Username" />
+              <ErrorMessage name="username" component="div" className="error-message" />
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="inputPassword">Password</label>
-              <Field type="password" className="form-control" id="inputPassword" placeholder="New Password" value={accountData.password} style={{ width: '100%', marginBottom: '15px' }} 
-              onChange={
-                (event) => {setAccountData({...accountData, password: event.target.value});
-                formik.setFieldValue(accountData.password);}
-              } />
+              <label htmlFor="inputPassword" style={{marginTop: '15px'}}>Password</label>
+              <Field type="password" className="form-control" id="inputPassword" name="password" placeholder="New Password" />
+              <ErrorMessage name="password" component="div" className="error-message" />
             </div>
             <div className="form-group col-md-6">
-              <label htmlFor="inputConfirmPassword">Confirm Password</label>
-              <Field type="password" className="form-control" id="inputConfirmPassword" placeholder="Confirm Password" value={accountData.confirmPassword} style={{ width: '100%', marginBottom: '15px' }} 
-              onChange={
-                (event) => {setAccountData({...accountData, confirmPassword: event.target.value});
-                formik.setFieldValue(accountData.confirmPassword);}
-              } />
+              <label htmlFor="inputConfirmPassword" style={{marginTop: '15px'}}>Confirm Password</label>
+              <Field type="password" className="form-control" id="inputConfirmPassword" name="confirmPassword" placeholder="Confirm Password" />
+              <ErrorMessage name="confirmPassword" component="div" className="error-message" />
             </div>
     
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '50px' }}>Submit</button>
+            <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '50px', marginTop: '30px' }}>Submit</button>
           </Form>
         )}
       
