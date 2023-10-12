@@ -160,12 +160,12 @@ function AddEmployee() {
             <div className="row">
               <div className="form-group col-md-6">
                 <label htmlFor="inputFirstName">First Name</label>
-                <Field type="text" className="form-control" id="inputFirstName" placeholder="First Name" value={employeeData.firstName} style={{ width: '100%', marginBottom: '15px' }} 
+                <Field type="text" className="form-control" id="inputFirstName" name="employeeData.firstName" placeholder="First Name" value={employeeData.firstName} style={{ width: '100%', marginBottom: '15px' }} 
                 onChange={
                   (event) => {setEmployeeData({...employeeData, firstName: event.target.value});
                   formik.setFieldValue(employeeData.firstName);}
                 } />
-                <ErrorMessage name="employeeData.firstName" />
+                <ErrorMessage name="employeeData.firstName" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="inputLastName">Last Name</label>
@@ -174,6 +174,7 @@ function AddEmployee() {
                   (event) => {setEmployeeData({...employeeData, lastName: event.target.value});
                   formik.setFieldValue(employeeData.lastName);}
                 } />
+                <ErrorMessage name="employeeData.lastName" component="div" className="error-message" />
               </div>
             </div>
             <div className="row">
@@ -190,6 +191,7 @@ function AddEmployee() {
                   <option>Other</option>
                   <option>Prefer not to say</option>
                 </Field>
+                <ErrorMessage name="employeeData.gender" component="div" className="error-message" />
               </div>
               <div className="form-group col-md-4">
                 <label htmlFor="inputMaritalStatus">Marital Status</label>
@@ -216,11 +218,12 @@ function AddEmployee() {
             </div>
             <div className="form-group col-md-6">
               <label htmlFor="inputEmail">Email</label>
-              <Field type="email" className="form-control" id="inputEmail" placeholder="Email" value={employeeData.email} style={{ width: '100%', marginBottom: '15px' }} 
+              <Field type="email" className="form-control" id="inputEmail" name="employeeData.email" placeholder="Email" value={employeeData.email} style={{ width: '100%', marginBottom: '15px' }} 
               onChange={
                 (event) => {setEmployeeData({...employeeData, email: event.target.value});
                 formik.setFieldValue(employeeData.email);}
               } />
+              <ErrorMessage name="employeeData.email" component="div" className="error-message" />
             </div>
             <div className="row">
               <div className="form-group col-md-4">
