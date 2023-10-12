@@ -95,7 +95,8 @@ app.get("/emp_view/:id_to_transfer", (req, res) => {
   console.log("id_to_transfer:", id_to_transfer);
 
   // Define the SQL query to retrieve the employee record based on the provided ID
-  const sql = "SELECT Employee_ID, First_name, Last_name, Job_Title, Dept_name, Pay_Grade FROM emp_view WHERE Employee_ID = ?";
+  const sql =
+    "SELECT Employee_ID, First_name, Last_name, Job_Title, Dept_name, Pay_Grade FROM emp_view WHERE Employee_ID = ?";
 
   db.query(sql, [id_to_transfer], (err, result) => {
     if (err) {
@@ -108,10 +109,8 @@ app.get("/emp_view/:id_to_transfer", (req, res) => {
         res.status(404).json({ error: "Employee not found" });
       }
     }
-  );
+  }); // Missing closing parenthesis
 });
-
-
 
 app.post("/addEmployee", async (req, res) => {
   const { employeeData, accountData, haveDependent } = req.body;
