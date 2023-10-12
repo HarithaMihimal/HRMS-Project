@@ -11,19 +11,19 @@ function PageEMP() {
 
   const [employee,setEmployee]=useState([]);
 
-
-  const getEmployee = () => {
-    Axios.get("http://localhost:3000/emp_view").then((response) => {
-      setEmployee(response.data[0]);
-    })
-    .catch((error)=>{
-        console.error("Error fectching employee data")
-    });
-  };
-
   useEffect(() => {
-    getEmployee(); // Fetch employee data when the component mounts
-  }, []);
+    const getEmployee = async () => {
+      try{
+        console.log('id_to_transfer in PageEMP:', id_to_transfer);
+        const response = await Axios.get(`http://localhost:3001/emp_view/${id_to_transfer}`);
+        setEmployee(response.data);
+      }
+      catch (error){
+          console.error("Error fectching employee data", error)
+      }
+    };
+    getEmployee();
+  }, [id_to_transfer]);
 
 
   // Handler for the "Leave Request" button click

@@ -81,15 +81,28 @@ app.post("/createLeaveReq", (req, res) => {
 });
 
 //fetching emplyee details
-app.get("/emp_view", (req, res) => {
-  db.query("select employee_id,first_name,last_name,job_title,dept_name,pay_grade from emp_view", (err, result) => {
+app.get("/emp_view/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer;
+  console.log("id_to_transfer:", id_to_transfer);
+
+  // Define the SQL query to retrieve the employee record based on the provided ID
+  const sql = "SELECT Employee_ID, First_name, Last_name, Job_Title, Dept_name, Pay_Grade FROM emp_view WHERE Employee_ID = ?";
+
+  db.query(sql, [id_to_transfer], (err, result) => {
     if (err) {
-      console.log(err);
+      console.error("Error fetching employee data:", err);
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      res.send(result);
+      if (result.length > 0) {
+        res.status(200).json(result[0]); // Return the first record (should be unique by ID)
+      } else {
+        res.status(404).json({ error: "Employee not found" });
+      }
     }
   });
 });
+
+
 
 app.post("/addEmployee", async (req, res) => {
   const { employeeData, accountData, haveDependent } = req.body;
@@ -281,6 +294,6 @@ app.post("/changePassword",(req,res)=>
 });
 
 
-app.listen(3000, () => {
-  console.log("Yey, your server is running on port 3000");
+app.listen(3001, () => {
+  console.log("Yey, your server is running on port 3001");
 });
