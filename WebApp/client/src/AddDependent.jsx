@@ -23,7 +23,6 @@ function AddDependent() {
         initialValues={initialDependentData} 
         validationSchema={addDependentSchema}
         onSubmit={(dependentData) => {
-          console.log(dependentData);
           localStorage.setItem('haveDependent', JSON.stringify(true));
 
           Axios.post("http://localhost:3000/addEmployee/addDependent", dependentData)

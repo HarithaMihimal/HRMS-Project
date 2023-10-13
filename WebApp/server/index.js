@@ -152,6 +152,10 @@ app.post("/addEmployee", async (req, res) => {
     const accountValues = [[employeeID, employeeData.username, employeeData.password]];
     await queryDatabase(accountSql, [accountValues]);
 
+    const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
+    const supervisorValues = [[employeeData.supervisor, employeeID]];
+    await queryDatabase(supervisorSql, [supervisorValues]);
+    
     console.log("Employee Data Inserted.");
     res.status(200).json({ message: "Employee data inserted successfully" });
   } catch (err) {

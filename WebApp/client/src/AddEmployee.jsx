@@ -23,7 +23,9 @@ function AddEmployee() {
     branch: "Choose...",
     username: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    //isSupervisor: false,
+    supervisor: ""
   }
 
   const [savedEmployeeData, setSavedEmployeeData] = useState(() => {
@@ -129,7 +131,7 @@ function AddEmployee() {
           }) 
           .catch(err => console.log(err))
         }}>
-        {({errors, values}) => (
+        {({errors, values, setFieldValue}) => (
           <Form autoComplete="off" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '40px' }}>Employee Information</h4>
@@ -241,9 +243,11 @@ function AddEmployee() {
               </Field>
               <ErrorMessage name="branch" component="div" className="error-message" />
             </div>
-            
+
             <div>
-              <h6 style={{ marginBottom: '30px', marginTop: '50px' }}>Do you want to add dependent</h6>
+              <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent's Details</h4>
+            </div>
+            <div>
               <button type="button" onClick={ () => {
                   // Save the current employee data to local storage
                   localStorage.setItem('employeeData', JSON.stringify(values));
@@ -253,7 +257,51 @@ function AddEmployee() {
                 Add Dependent
               </button>
             </div>
-    
+
+            <div>
+              <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Supervisor Details</h4>
+            </div>
+            {/* <div className="row">
+              <div className="form-group row">
+                <div className="col-md-12">
+                  <div className="form-check">
+                    <Field
+                      type="checkbox"
+                      className="form-check-input"
+                      id="isSupervisor"
+                      name="isSupervisor"
+                      onChange={(e) => {
+                        console.log('checkbox value:', e.target.checked);
+                        setFieldValue('isSupervisor', e.target.checked);
+                        if (!e.target.checked) {
+                          console.log('supervisor field value:', values.supervisor);
+                          setFieldValue('supervisor', '');
+                        }
+                      }}
+                    />
+                    <ErrorMessage name="isSupervisor" component="div" className="error-message" />
+                    <label className="form-check-label" htmlFor="isSupervisor">
+                      <h6>Is this person a supervisor?</h6>
+                    </label>
+                  </div>
+                </div>
+              </div> */}
+
+              {/* {!values.isSupervisor && ( */}
+                <div className="form-group col-md-6">
+                  <label htmlFor="supervisorID" style={{ marginTop: '15px' }}>Supervisor's ID</label>
+                  <Field
+                    type="text"
+                    className="form-control"
+                    id="supervisorID"
+                    name="supervisor"
+                    placeholder="Supervisor's ID"
+                  />
+                  <ErrorMessage name="supervisor" component="div" className="error-message" />
+                </div>
+              {/* )} */}
+            {/* </div> */}
+
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Account Information</h4>
             </div>

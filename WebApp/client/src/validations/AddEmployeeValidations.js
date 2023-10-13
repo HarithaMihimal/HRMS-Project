@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import Axios from 'axios';
 
 export const addEmployeeSchema = Yup.object({
     firstName: Yup.string().required("* First name is required"),
@@ -13,8 +12,11 @@ export const addEmployeeSchema = Yup.object({
     payGrade: Yup.string().notOneOf(['Choose...'], '* Please select a pay grade').required(),
     branch: Yup.string().notOneOf(['Choose...'], '* Please select a branch').required(),
     department: Yup.string().notOneOf(['Choose...'], '* Please select a department').required(),
+    
     username: Yup.string().required('* Username is required'),
     password: Yup.string().required('* Password is required'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], '* Passwords must match'),
-});
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], '* Passwords must match').required('* Confirm password is required'),
+  
+    supervisor: Yup.string().required("* Supervisor's ID is required"),
+  });
 
