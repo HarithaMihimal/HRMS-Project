@@ -112,6 +112,19 @@ app.get("/emp_view/:id_to_transfer", (req, res) => {
   }); // Missing closing parenthesis
 });
 
+app.get("/fetchSupervisors", (req, res) => {
+  const sql = "SELECT DISTINCT Supervisor_ID FROM supervisor";
+
+  db.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error fetching supervisor data:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.post("/addEmployee", async (req, res) => {
   const { employeeData, accountData, haveDependent } = req.body;
   console.log("haveDependent:", haveDependent);
@@ -347,7 +360,8 @@ app.put("/leave_request/:leaveReqID", (req, res) => {
 
 app.get("/pendingLeaveRequests/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
-  const query = "SELECT * FROM leave_request WHERE Employee_ID = ?";
+  const query =
+    "SELECT * FROM leave_request WHERE Employee_ID = ? and Status = 'Pending'";
   db.query(query, [id_to_transfer], (error, results) => {
     if (error) {
       console.error("Error fetching leave requests:", error);
@@ -398,6 +412,6 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("Yey, your server is running on port 3001");
 });
