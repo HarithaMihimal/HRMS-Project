@@ -132,7 +132,7 @@ app.post("/addEmployee", async (req, res) => {
         employeeData.gender,
         employeeData.maritalStatus,
         employeeData.birthday,
-        employeeData.email,
+        (employeeData.email === "" ? null : employeeData.email),
         employeeData.employmentStatus,
         employeeData.jobTitle,
         employeeData.payGrade,

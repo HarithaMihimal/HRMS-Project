@@ -26,13 +26,41 @@ function AddEmployee() {
     confirmPassword: ""
   }
 
+  const [savedEmployeeData, setSavedEmployeeData] = useState(() => {
+    const savedData = localStorage.getItem('employeeData');
+    return savedData ? JSON.parse(savedData) : initialEmployeeData;
+  });
+
   const [haveDependent, setHaveDependent] = useState(false);
+
   useEffect(() => {
     const savedHaveDependent = JSON.parse(localStorage.getItem('haveDependent'));
     if (savedHaveDependent) {
       setHaveDependent(true);
     }
   }, []);
+
+  useEffect(() => {
+    // Listen for the beforeunload event (page refresh)
+    const handleBeforeUnload = (event) => {
+      // Save the current employee data to local storage
+      localStorage.setItem('employeeData', JSON.stringify(savedEmployeeData));
+    };
+
+    // Clear local storage when the page is refreshed
+    const handlePageRefresh = () => {
+      localStorage.clear();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('unload', handlePageRefresh);
+
+    // Clean up the event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('unload', handlePageRefresh);
+    };
+  }, [savedEmployeeData]);
 
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
   useEffect(() => {
@@ -81,9 +109,9 @@ function AddEmployee() {
   return (
     <div>
       <Formik 
-        initialValues={localStorage.getItem('employeeData') && localStorage.getItem('haveDependent') ? JSON.parse(localStorage.getItem('employeeData')) : initialEmployeeData} 
+        initialValues={savedEmployeeData} 
         validationSchema={addEmployeeSchema}
-        onSubmit={(employeeData , { resetForm }) => {
+        onSubmit={(employeeData , { resetForm } ) => {
           const data = {
             employeeData: employeeData,
             haveDependent: haveDependent
@@ -93,12 +121,16 @@ function AddEmployee() {
             console.log(res.data);
             localStorage.removeItem('employeeData');
             localStorage.removeItem('haveDependent');
-            resetForm();
+            resetForm({
+              values: initialEmployeeData // Reset the form with initial values
+            });
+            setSavedEmployeeData(initialEmployeeData); // Update the savedEmployeeData state
+            setHaveDependent(false);
           }) 
           .catch(err => console.log(err))
         }}>
         {({errors, values}) => (
-          <Form style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+          <Form autoComplete="off" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '40px' }}>Employee Information</h4>
             </div>
@@ -215,7 +247,6 @@ function AddEmployee() {
               <button type="button" onClick={ () => {
                   // Save the current employee data to local storage
                   localStorage.setItem('employeeData', JSON.stringify(values));
-                  console.log(values);
               
                   navigate(`/PageHR/${id_to_transfer}/AddEmployee/AddDependent`);
               }}>
