@@ -48,16 +48,16 @@ VALUES
 -- Insert sample values into Pay_Grade table
 INSERT INTO Pay_Grade (Pay_Grade, Basic_Salary)
 VALUES
-  ('Level1', 50000.00),
-  ('Level2', 45000.00),
-  ('Level3', 40000.00),
-  ('Level4', 35000.00),
-  ('Level5', 30000.00),
-  ('Level6', 25000.00),
-  ('Level7', 20000.00),
-  ('Level8', 15000.00),
-  ('Level9', 12000.00),
-  ('Level10', 10000.00);
+  ('Level 1', 50000.00),
+  ('Level 2', 45000.00),
+  ('Level 3', 40000.00),
+  ('Level 4', 35000.00),
+  ('Level 5', 30000.00),
+  ('Level 6', 25000.00),
+  ('Level 7', 20000.00),
+  ('Level 8', 15000.00),
+  ('Level 9', 12000.00),
+  ('Level 10', 10000.00);
 
 -- Insert sample values into Leave_Limit table
 INSERT INTO Leave_Limit (Pay_Grade_ID, Annual, Casual, No_Pay, Maternity_Leave)
@@ -216,8 +216,7 @@ VALUES
   ('EMP0008', '2023-09-15', 30, 'Maternity', 'Approved'),
   ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending');
 
--- Insert sample values into Employee_Leave_Count table
-
+-- Update sample values in the Employee_Leave_Count table
 UPDATE `hrms`.`employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
 UPDATE `hrms`.`employee_leave_count` SET `Casual` = '7' WHERE (`Employee_ID` = 'EMP0004');
 UPDATE `hrms`.`employee_leave_count` SET `Maternity_Leave` = '30' WHERE (`Employee_ID` = 'EMP0008');
