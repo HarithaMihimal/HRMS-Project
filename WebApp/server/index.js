@@ -129,15 +129,26 @@ app.post("/addEmployee", async (req, res) => {
   const { employeeData, haveDependent } = req.body;
 
   try {
-    const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery = "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
+    const employmentStatusQuery =
+      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
+    const payGradeQuery =
+      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
     const branchQuery = "SELECT Branch_ID FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery = "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
+    const departmentQuery =
+      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
 
-    const employmentStatusResult = await queryDatabase(employmentStatusQuery, [employeeData.employmentStatus]);
-    const payGradeResult = await queryDatabase(payGradeQuery, [employeeData.payGrade]);
-    const branchResult = await queryDatabase(branchQuery, [employeeData.branch]);
-    const departmentResult = await queryDatabase(departmentQuery, [employeeData.department]);
+    const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
+      employeeData.employmentStatus,
+    ]);
+    const payGradeResult = await queryDatabase(payGradeQuery, [
+      employeeData.payGrade,
+    ]);
+    const branchResult = await queryDatabase(branchQuery, [
+      employeeData.branch,
+    ]);
+    const departmentResult = await queryDatabase(departmentQuery, [
+      employeeData.department,
+    ]);
 
     employeeData.employmentStatus = employmentStatusResult[0].Status_ID;
     employeeData.payGrade = payGradeResult[0].Pay_Grade_ID;
@@ -163,8 +174,8 @@ app.post("/addEmployee", async (req, res) => {
       }
     }
 
-
-    const sql = "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_ID`, `Dept_ID`, `Dependent_ID`) VALUES ?";
+    const sql =
+      "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_ID`, `Dept_ID`, `Dependent_ID`) VALUES ?";
 
     const values = [
       [
@@ -173,7 +184,7 @@ app.post("/addEmployee", async (req, res) => {
         employeeData.gender,
         employeeData.maritalStatus,
         employeeData.birthday,
-        (employeeData.email === "" ? null : employeeData.email),
+        employeeData.email === "" ? null : employeeData.email,
         employeeData.employmentStatus,
         employeeData.jobTitle,
         employeeData.payGrade,
@@ -190,15 +201,18 @@ app.post("/addEmployee", async (req, res) => {
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
-
-    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [[employeeID, employeeData.username, employeeData.password]];
+    const accountSql =
+      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountValues = [
+      [employeeID, employeeData.username, employeeData.password],
+    ];
     await queryDatabase(accountSql, [accountValues]);
 
-    const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
+    const supervisorSql =
+      "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
     const supervisorValues = [[employeeData.supervisor, employeeID]];
     await queryDatabase(supervisorSql, [supervisorValues]);
-    
+
     console.log("Employee Data Inserted.");
     res.status(200).json({ message: "Employee data inserted successfully" });
   } catch (err) {
@@ -392,6 +406,19 @@ app.get("/pendingLeaveRequests/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
   const query =
     "SELECT * FROM leave_request WHERE Employee_ID = ? and Status = 'Pending'";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave requests:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get("/rejectedLeaveRequests/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query =
+    "SELECT * FROM leave_request WHERE Employee_ID = ? and Status = 'Rejected'";
   db.query(query, [id_to_transfer], (error, results) => {
     if (error) {
       console.error("Error fetching leave requests:", error);
