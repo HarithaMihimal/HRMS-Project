@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 function PasswordChange() {
   const { id_to_transfer } = useParams();
-  // State variables
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,12 +20,13 @@ function PasswordChange() {
     }
 
     // Send a POST request to change the password
-    Axios.post('http://localhost:3000/changePassword', {
-      userId: 'accountant22',
+    Axios.post(`http://localhost:3000/changePassword/${id_to_transfer}`, {
+      id_to_transfer: {id_to_transfer},
       oldPassword: oldPassword,
       newPassword: newPassword,
     })
       .then((response) => {
+        console.log("checking",response);
         if (response.status === 200) {
           // Password change successful
           setMessage('Password changed successfully.');

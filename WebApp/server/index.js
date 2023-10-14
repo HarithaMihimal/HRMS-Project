@@ -313,14 +313,15 @@ app.get("/getPass", (req, res) => {
 });
 
 // password changing
-app.post("/changePassword", (req, res) => {
-  const userId = req.body.userId;
+app.post("/changePassword/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
+  console.log("userId:", id_to_transfer);
 
   db.query(
-    "select password from employee_account where user_id =?",
-    [userId],
+    "select password from employee_account where Employee_ID = ?",
+    [id_to_transfer],
     (err, results) => {
       if (err) {
         console.log(err);
@@ -329,7 +330,7 @@ app.post("/changePassword", (req, res) => {
         res.status(404).json({ message: "User not found" });
       } else {
         const storedPassword = results[0].password;
-        console.log("Received request to change password for userId:", userId);
+        console.log("Received request to change password for userId:", id_to_transfer);
         console.log("Old password provided:", oldPassword);
 
         // Check the stored password
@@ -337,8 +338,8 @@ app.post("/changePassword", (req, res) => {
 
         if (oldPassword == storedPassword) {
           db.query(
-            "update employee_account set password =? where user_id = ?",
-            [newPassword, userId],
+            "update employee_account set password =? where Employee_ID = ?",
+            [newPassword, id_to_transfer],
             (err, updateResult) => {
               if (err) {
                 console.log(err);
@@ -443,5 +444,7 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Yey, your server is running on port 3001");
+
+  console.log("Yey, your server is running on port 3000");
+
 });
