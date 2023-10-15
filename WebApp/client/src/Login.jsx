@@ -28,10 +28,14 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (formData.User_ID === 'Admin' && formData.password === 'Admin') {
+      navigate(`/PageAdmin`);
+    }    
+
     const user_0 = passwordList.find((user) => user.User_ID === formData.User_ID); // Use 'User_ID' instead of 'email'
     const id_to_transfer = user_0.Employee_ID;
     console.log(formData.User_ID);
-    
+
     if (user_0 && formData.password === user_0.Password) {
       if (user_0.Job_Title === 'HR Manager') {
         navigate(`/PageHR/${id_to_transfer}`);

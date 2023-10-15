@@ -1,0 +1,10 @@
+/* LeaveCard.css */
+
+.leave-card.card {
+    background-color: #e0dcdc;
+}
+
+.card-text{
+    align-content: center;
+    text-align: center;
+}
