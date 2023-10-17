@@ -129,13 +129,10 @@ app.post("/addEmployee", async (req, res) => {
   const { employeeData, haveDependent } = req.body;
 
   try {
-    const employmentStatusQuery =
-      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery =
-      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
+    const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
+    const payGradeQuery = "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
     const branchQuery = "SELECT Branch_ID FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery =
-      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
+    const departmentQuery = "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
 
     const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
       employeeData.employmentStatus,
@@ -196,20 +193,17 @@ app.post("/addEmployee", async (req, res) => {
 
     await queryDatabase(sql, [values]);
 
-    const employeeIDQuery =
-      "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
+    const employeeIDQuery = "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
-    const accountSql =
-      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
     const accountValues = [
       [employeeID, employeeData.username, employeeData.password],
     ];
     await queryDatabase(accountSql, [accountValues]);
 
-    const supervisorSql =
-      "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
+    const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
     const supervisorValues = [[employeeData.supervisor, employeeID]];
     await queryDatabase(supervisorSql, [supervisorValues]);
 
@@ -235,8 +229,7 @@ function queryDatabase(sql, params) {
 }
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
-  const sql =
-    "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
+  const sql = "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
   const values = [
     req.body.firstName,
     req.body.lastName,
@@ -306,7 +299,7 @@ app.get("/addEmployee/branch", (req, res) => {
   });
 });
 
-app.get("/employee_data", (req, res) => {
+app.get("/employeeData", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
     if (err) {
       console.log(err);

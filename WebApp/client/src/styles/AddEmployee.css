@@ -1,0 +1,5 @@
+/* Display error messeges in forms (added by deshitha) */ 
+.error-message {
+    color: red;
+    font-size: 14px;
+  }
