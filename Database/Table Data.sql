@@ -238,18 +238,39 @@ VALUES
 -- Insert sample values into Supervisor table
 INSERT INTO Supervisor (Supervisor_ID, Subordinate_ID)
 VALUES
-  ('HRM0001', 'EMP0002'),
-  ('HRM0001', 'EMP0004'),
   ('EMP0003', 'EMP0006'),
-  ('HRM0001', 'EMP0007'),
+  ('EMP0002', 'EMP0007'),
+  ('EMP0004', 'EMP0008'),
   ('EMP0003', 'EMP0010'),
-  ('HRM0001', 'EMP0011'),
-  ('EMP0008', 'EMP0012'),
+  ('EMP0002', 'EMP0011'),
+  ('EMP0004', 'EMP0012'),
   ('EMP0003', 'EMP0014'),
-  ('HRM0001', 'EMP0015'),
-  ('EMP0008', 'EMP0016'),
+  ('EMP0002', 'EMP0015'),
+  ('EMP0004', 'EMP0016'),
   ('EMP0003', 'EMP0018'),
-  ('HRM0001', 'EMP0019');
+  ('EMP0002', 'EMP0019'),
+  ('EMP0002', 'EMP0021'),
+  ('EMP0004', 'EMP0022'),
+  ('EMP0003', 'EMP0024'),
+  ('EMP0002', 'EMP0025'),
+  ('EMP0004', 'EMP0026'),
+  ('EMP0003', 'EMP0028'),
+  ('EMP0002', 'EMP0029'),
+  ('EMP0004', 'EMP0030'),
+  ('EMP0003', 'EMP0032'),
+  ('EMP0002', 'EMP0033'),
+  ('EMP0004', 'EMP0034'),
+  ('EMP0002', 'EMP0035'),
+  ('EMP0004', 'EMP0036'),
+  ('EMP0003', 'EMP0037'),
+  ('EMP0002', 'EMP0038'),
+  ('EMP0004', 'EMP0039'),
+  ('EMP0002', 'EMP0041'),
+  ('EMP0004', 'EMP0042'),
+  ('EMP0003', 'EMP0043'),
+  ('EMP0002', 'EMP0044'),
+  ('EMP0004', 'EMP0045');
+
 
 -- Insert sample values into Custom_Attribute_Definition table
 INSERT INTO Custom_Attribute_Definition (Attribute_Name)
