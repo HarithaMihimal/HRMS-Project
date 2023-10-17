@@ -12,7 +12,7 @@ CREATE TABLE `Branch` (
   `Branch_ID` VARCHAR(10) NOT NULL,     -- BR001
   `Branch_Name` VARCHAR(255) NOT NULL,
   `Address` VARCHAR(255) NOT NULL,
-  `Currency` VARCHAR(3) NOT NULL,
+  `Country` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`Branch_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

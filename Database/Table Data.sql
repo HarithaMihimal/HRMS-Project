@@ -5,11 +5,18 @@ INSERT INTO Organization (Name, Start_Date)
 VALUES ('Jupiter Apparels', '2023-10-07');
 
 -- Insert sample values into Branch table
-INSERT INTO Branch (Branch_Name, Address, Currency)
+INSERT INTO Branch (Branch_Name, Address, Country)
 VALUES
-  ('Sri Lanka', '123 Main Street, Colombo 3, Sri Lanka.', 'LKR'),
-  ('Bangladesh', '456 Elm Street, Dhaka, Bangladesh.', 'BDT'),
-  ('Pakistan', '789 Oak Avenue, Islamabad, Pakistan.', 'PKR');
+  ('Colombo Central Branch', '123 Main Street, Colombo 3.', 'Sri Lanka'),
+  ('Colombo North Branch', '456 Elm Street, Colombo.', 'Sri Lanka'),
+  ('Kandy Downtown Branch', '789 Oak Avenue, Kandy.', 'Sri Lanka'),
+  ('Galle Coastal Branch', '123 Palm Road, Galle.', 'Sri Lanka'),
+  ('Jaffna Northern Branch', '456 Coconut Lane, Jaffna.', 'Sri Lanka'),
+  ('Negombo Seaside Branch', '789 Banana Street, Negombo.', 'Sri Lanka'),
+  ('Dhaka Central Branch', '123 Elm Street, Dhaka.', 'Bangladesh'),
+  ('Chittagong Coastal Branch', '456 Oak Avenue, Chittagong.', 'Bangladesh'),
+  ('Islamabad Capital Branch', '123 Cedar Lane, Islamabad.', 'Pakistan'),
+  ('Lahore Cultural Branch', '456 Pine Street, Lahore.', 'Pakistan');
 
 -- Insert sample values into Department table
 INSERT INTO Department (Dept_Name, Budget)
@@ -214,7 +221,7 @@ VALUES
   ('EMP0007', '2023-12-10', 4, 'Casual', 'Pending'),
   ('EMP0008', '2023-09-15', 30, 'Maternity', 'Approved'),
   ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending');
-  ('EMP0012', '2023-11-25', 40, 'Maternity', 'Pending');
+('EMP0012', '2023-11-25', 40, 'Maternity', 'Pending');
 
 -- Update sample values in the Employee_Leave_Count table
 UPDATE `hrms`.`employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
