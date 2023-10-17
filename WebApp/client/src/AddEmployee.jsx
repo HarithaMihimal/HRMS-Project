@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
+import './styles/addEmployee.css'; // Import the CSS file
 
 function AddEmployee() {
   const { id_to_transfer } = useParams();
