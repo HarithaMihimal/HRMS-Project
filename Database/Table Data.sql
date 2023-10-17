@@ -79,7 +79,22 @@ VALUES
   ('Ava', 'Lee', 9, 'Child', 'Female'),
   ('William', 'Garcia', 14, 'Child', 'Male'),
   ('Isabella', 'Thomas', 22, 'Child', 'Female'),
-  ('Mia', 'White', 18, 'Child', 'Female');
+  ('Mia', 'White', 18, 'Child', 'Female')
+  ('James', 'Smith', 13, 'Child', 'Male'),
+  ('Charlotte', 'Johnson', 24, 'Child', 'Female'),
+  ('Benjamin', 'Harris', 9, 'Child', 'Male'),
+  ('Amelia', 'Wilson', 11, 'Child', 'Female'),
+  ('Lucas', 'Davis', 17, 'Child', 'Male'),
+  ('Lily', 'Garcia', 15, 'Child', 'Female'),
+  ('Michael', 'Brown', 8, 'Child', 'Male'),
+  ('Harper', 'Martinez', 19, 'Child', 'Female'),
+  ('Ethan', 'Jones', 12, 'Child', 'Male'),
+  ('Avery', 'Robinson', 7, 'Child', 'Female'),
+  ('Mason', 'Miller', 16, 'Child', 'Male'),
+  ('Ella', 'Thompson', 25, 'Child', 'Female'),
+  ('Logan', 'Scott', 14, 'Child', 'Male'),
+  ('Aria', 'Young', 20, 'Child', 'Female'),
+  ('Carter', 'Clark', 9, 'Child', 'Male');
 
 -- Insert sample values into Employee_Data table
 INSERT INTO Employee_Data (First_Name, Last_Name, Gender, Marital_Status, Birthday, Email, Employment_Status, Job_Title, Pay_Grade_ID, Branch_ID, Dept_ID, Dependent_ID)
