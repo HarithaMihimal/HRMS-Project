@@ -344,7 +344,10 @@ app.post("/changePassword/:id_to_transfer", (req, res) => {
         res.status(404).json({ message: "User not found" });
       } else {
         const storedPassword = results[0].password;
-        console.log("Received request to change password for userId:", id_to_transfer);
+        console.log(
+          "Received request to change password for userId:",
+          id_to_transfer
+        );
         console.log("Old password provided:", oldPassword);
 
         // Check the stored password
@@ -470,8 +473,18 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
   });
 });
 
+app.get("/fetchLeaveRequests", (req, res) => {
+  const query = "SELECT * FROM leave_request";
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error querying the database: " + error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.listen(3000, () => {
-
   console.log("Yey, your server is running on port 3000");
-
 });
