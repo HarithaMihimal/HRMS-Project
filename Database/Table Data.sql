@@ -16,24 +16,8 @@ INSERT INTO Department (Dept_Name, Budget)
 VALUES
   ('Human Resources', 100000.00),
   ('Finance', 150000.00),
-  ('Marketing', 120000.00),
-  ('Information Technology', 200000.00),
-  ('Sales', 130000.00),
-  ('Research and Development', 180000.00),
-  ('Customer Support', 110000.00),
-  ('Production', 160000.00),
-  ('Quality Assurance', 90000.00),
-  ('Supply Chain', 140000.00),
-  ('Legal', 95000.00),
-  ('Public Relations', 110000.00),
-  ('Design', 75000.00),
-  ('Facilities Management', 80000.00),
-  ('Health and Safety', 70000.00),
-  ('Training and Development', 85000.00),
   ('Engineering', 190000.00),
-  ('Accounting', 120000.00),
-  ('Customer Relations', 105000.00),
-  ('Purchasing', 135000.00);
+  ('Accounting', 120000.00)
 
 -- Insert sample values into Employment_Status table
 INSERT INTO Employment_Status (Status)
