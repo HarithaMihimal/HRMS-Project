@@ -187,26 +187,53 @@ VALUES
 -- Insert sample values into Employee_Account table
 INSERT INTO Employee_Account (User_ID, Employee_ID, Password, Profile_Picture)
 VALUES
-  ('john.doe', 'HRM0001', 'password123', 'profile_pic1.jpg'),
-  ('jane.smith', 'EMP0002', 'secret456', 'profile_pic2.jpg'),
-  ('michael.johnson', 'EMP0003', 'secure789', 'profile_pic3.jpg'),
-  ('emily.davis', 'EMP0004', 'pass1234', 'profile_pic4.jpg'),
-  ('david.wilson', 'HRM0005', 'mysecret789', 'profile_pic5.jpg'),
-  ('sarah.anderson', 'EMP0006', 'toppassword', 'profile_pic6.jpg'),
-  ('daniel.brown', 'EMP0007', 'mypassword123', 'profile_pic7.jpg'),
-  ('olivia.lee', 'EMP0008', 'abc123', 'profile_pic8.jpg'),
-  ('william.martinez', 'HRM0009', 'password456', 'profile_pic9.jpg'),
-  ('sophia.garcia', 'EMP0010', 'p@ssw0rd', 'profile_pic10.jpg'),
-  ('ethan.thomas', 'EMP0011', 'letmein123', 'profile_pic11.jpg'),
-  ('ava.white', 'EMP0012', 'passwordabc', 'profile_pic12.jpg'),
-  ('noah.harris', 'HRM0013', '1234pass', 'profile_pic13.jpg'),
-  ('isabella.martin', 'EMP0014', 'testpass', 'profile_pic14.jpg'),
-  ('james.clark', 'EMP0015', 'abcdefg123', 'profile_pic15.jpg'),
-  ('mia.lewis', 'EMP0016', 'pass123', 'profile_pic16.jpg'),
-  ('liam.walker', 'HRM0017', 'qwerty456', 'profile_pic17.jpg'),
-  ('avery.hall', 'EMP0018', 'password987', 'profile_pic18.jpg'),
-  ('benjamin.adams', 'EMP0019', 'passpass', 'profile_pic19.jpg'),
-  ('calsey.mate', 'HRM0020', 'securepass123', 'profile_pic20.jpg');
+  ('john.doe', 'HRM0001', '$2a$12$3vKi3BJLp6mT8PElgzNguOHZ', 'https://drive.google.com/images/random_image_1.jpg'),
+  ('jane.smith', 'EMP0002', '$2a$12$4UBnZyo.5zTgSMIwUW9Mz', 'https://drive.google.com/images/random_image_2.jpg'),
+  ('michael.johnson', 'EMP0003', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_3.jpg'),
+  ('emily.davis', 'EMP0004', '$2a$12$t8HfC3DltX2DCajY6Tal1', 'https://drive.google.com/images/random_image_4.jpg'),
+  ('david.wilson', 'HRM0005', '$2a$12$.oPpC07zPUMtQHr8QIhwBe', 'https://drive.google.com/images/random_image_5.jpg'),
+  ('sarah.anderson', 'EMP0006', '$2a$12$6bs/C.B/WIa5p0.jZZi2', 'https://drive.google.com/images/random_image_6.jpg'),
+  ('daniel.brown', 'EMP0007', '$2a$12$72IOK/CaWGoU59pG2PM9fO', 'https://drive.google.com/images/random_image_7.jpg'),
+  ('olivia.lee', 'EMP0008', '$2a$12$0VHaBwzhyC8p4vDYwVj3ju', 'https://drive.google.com/images/random_image_8.jpg'),
+  ('william.martinez', 'HRM0009', '$2a$12$YMIwUgjMyRV9ryh7H', 'https://drive.google.com/images/random_image_9.jpg'),
+  ('sophia.garcia', 'EMP0010', '$2a$12$ZMblck3qXaY1uGvXUxxqn', 'https://drive.google.com/images/random_image_10.jpg'),
+  ('ethan.thomas', 'EMP0011', '$2a$12$3QUrwXoMlnKuKv5IyFbZb', 'https://drive.google.com/images/random_image_11.jpg'),
+  ('ava.white', 'EMP0012', '$2a$12$lMCx9iM8/zLjtAvfCvFbRujw', 'https://drive.google.com/images/random_image_12.jpg'),
+  ('noah.harris', 'HRM0013', '$2a$12$Uctw3.wxFb8u2QCEH.pfl', 'https://drive.google.com/images/random_image_13.jpg'),
+  ('isabella.martin', 'EMP0014', '$2a$12$jdcQQ.9qMhYNrSj3HqI', 'https://drive.google.com/images/random_image_14.jpg'),
+  ('james.clark', 'EMP0015', '$2a$12$OkDJ/5SLppnTFP0nOwK49C', 'https://drive.google.com/images/random_image_15.jpg'),
+  ('mia.lewis', 'EMP0016', '$2a$12$pZP9gXo/MG9WqwNjz0b28', 'https://drive.google.com/images/random_image_16.jpg'),
+  ('liam.walker', 'HRM0017', '$2a$12$IsYFtHXkfxfr33Tbplw3', 'https://drive.google.com/images/random_image_17.jpg'),
+  ('avery.hall', 'EMP0018', '$2a$12$OxhQufBl7ts0DrrOMwL', 'https://drive.google.com/images/random_image_18.jpg'),
+  ('benjamin.adams', 'EMP0019', '$2a$12$.L5qfz8WstCL4eE', 'https://drive.google.com/images/random_image_19.jpg'),
+  ('calsey.mate', 'HRM0020', '$2a$12$RwYfqwQK04LpV/zr', 'https://drive.google.com/images/random_image_20.jpg'),
+  ('robert.wright', 'EMP0021', '$2a$12$AeOygoXPOvVJiZnb0l7a', 'https://drive.google.com/images/random_image_21.jpg'),
+  ('lillian.perez', 'EMP0022', '$2a$12$LZQIZdAm3e8vADN8RDBv', 'https://drive.google.com/images/random_image_22.jpg'),
+  ('henry.hall', 'HRM0023', '$2a$12$4DzEdL66NJuh.XKbMfA8', 'https://drive.google.com/images/random_image_23.jpg'),
+  ('ella.king', 'EMP0024', '$2a$12$.9En1yJpA6FUK5MEtu3K', 'https://drive.google.com/images/random_image_24.jpg'),
+  ('alexander.brown', 'EMP0025', '$2a$12$Gd6M0Z6vG0aFJS9CzTYA', 'https://drive.google.com/images/random_image_25.jpg'),
+  ('nora.garcia', 'EMP0026', '$2a$12$EtdD8L7vC0u.WNZRV1yV', 'https://drive.google.com/images/random_image_26.jpg'),
+  ('mason.taylor', 'HRM0027', '$2a$12$JiQhSdNm5zaEXs7ay2u8', 'https://drive.google.com/images/random_image_27.jpg'),
+  ('chloe.hernandez', 'EMP0028', '$2a$12$2YmVpL8xZuRqFbi7Su4C', 'https://drive.google.com/images/random_image_28.jpg'),
+  ('samuel.reed', 'EMP0029', '$2a$12$0EzKwT6tK0vFURKCVa7K', 'https://drive.google.com/images/random_image_29.jpg'),
+  ('lily.ramirez', 'EMP0030', '$2a$12$OZqLjW1tO0eFJWKzWqjK', 'https://drive.google.com/images/random_image_30.jpg'),
+  ('daniel.cook', 'HRM0031', '$2a$12$6FsKvT6sK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_31.jpg'),
+  ('sophia.smith', 'EMP0032', '$2a$12$3EsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_32.jpg'),
+  ('joseph.baker', 'EMP0033', '$2a$12$2FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_33.jpg'),
+  ('aubrey.parker', 'EMP0034', '$2a$12$9GKVtT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_34.jpg'),
+  ('robert.wright', 'EMP0035', '$2a$12$5FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_35.jpg'),
+  ('lillian.perez', 'EMP0036', '$2a$12$4FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_36.jpg'),
+  ('ella.king', 'EMP0037', '$2a$12$6FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_37.jpg'),
+  ('alexander.brown', 'EMP0038', '$2a$12$8FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_38.jpg'),
+  ('nora.garcia', 'EMP0039', '$2a$12$7FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_39.jpg'),
+  ('mason.taylor', 'EMP0040', '$2a$12$9FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_40.jpg'),
+  ('benjamin.cooper', 'HRM0041', '$2a$12$1FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_41.jpg'),
+  ('sophie.turner', 'EMP0042', '$2a$12$2FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_42.jpg'),
+  ('henry.mitchell', 'EMP0043', '$2a$12$3FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_43.jpg'),
+  ('oliver.parker', 'EMP0044', '$2a$12$4FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_44.jpg'),
+  ('grace.barnes', 'HRM0045', '$2a$12$5FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_45.jpg'),
+  ('william.powell', 'EMP0046', '$2a$12$6FsKvT6tK0wFRPKCJa7K', 'https://drive.google.com/images/random_image_46.jpg');
+
 
 -- Insert sample values into Supervisor table
 INSERT INTO Supervisor (Supervisor_ID, Subordinate_ID)
@@ -234,16 +261,16 @@ VALUES
 -- Insert sample values into Employee_Custom_Attribute table
 INSERT INTO Employee_Custom_Attribute (Attribute_ID, Employee_ID, Value)
 VALUES
-  (1, 'HRM0001', 'Leadership Skills'),
-  (2, 'EMP0003', 'English, Sinhala, Tamil'),
+  (1, 'EMP0030', 'Leadership Skills'),
+  (2, 'EMP0018', 'English, Sinhala, Tamil'),
   (3, 'EMP0008', 'Sri Lankan');
 
 -- Insert sample values into Leave_Request table
 INSERT INTO Leave_Request (Employee_ID, Start_Date, No_of_Days, Type, Status)
 VALUES
-  ('HRM0001', '2023-10-10', 5, 'Annual', 'Pending'),
-  ('EMP0002', '2023-11-15', 3, 'Casual', 'Approved'),
-  ('EMP0003', '2023-09-20', 2, 'Annual', 'Pending'),
+  ('EMP0030', '2023-10-10', 5, 'Annual', 'Pending'),
+  ('EMP0018', '2023-11-15', 3, 'Casual', 'Approved'),
+  ('EMP0008', '2023-09-20', 2, 'Annual', 'Pending'),
   ('EMP0004', '2023-10-05', 7, 'Casual', 'Approved'),
   ('EMP0006', '2023-11-01', 1, 'Annual', 'Pending'),
   ('EMP0007', '2023-12-10', 4, 'Casual', 'Pending'),
