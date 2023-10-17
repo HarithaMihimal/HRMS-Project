@@ -435,7 +435,7 @@ app.get("/rejectedLeaveRequests/:id_to_transfer", (req, res) => {
 
 app.get("/fetchAllLeaves/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
-  const query = "SELECT * FROM leave_count WHERE Employee_ID = ?";
+  const query = "SELECT * FROM leave_count_gender WHERE Employee_ID = ?";
   db.query(query, [id_to_transfer], (error, results) => {
     if (error) {
       console.error("Error fetching leave limits:", error);
