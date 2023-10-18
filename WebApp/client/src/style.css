@@ -27,56 +27,61 @@
     margin-bottom: 20px; /* Adjust the margin as needed */
   }
   
-  .App {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .information {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-  
-  }
-  /* Add some margin to the bottom of each form group */
-  .mb-3 {
-    margin-bottom: 20px;
-  }
-  
-  /* Center the submit button */
-  .btn-primary {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  /* Optional: Style the container background or add more styles as needed */
-  .information {
-    background-color: #f5f5f5;
-    padding: 20px;
-  }
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-  input[type="date"] {
-    width: 100%;
-    padding: 0.375rem 2.3rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-    border: 1px solid #ced4da;
-  }
-
-  .form-control[id="leaveType"] {
-    width: 100%;
-    padding: 0.375rem 2.5rem;
-  }
-  
-  .employee{
-    
-  }
+.information {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #d7d6d6;
+  padding: 20px;
 
 
-  /*haritha */
+}
+/* Add some margin to the bottom of each form group */
+.mb-3 {
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center the submit button */
+.btn-primary {
+  display: block;
+  margin: 0 auto;
+  width : 100%;
+  padding: 0.375rem 2.85rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+}
+
+/* Optional: Style the container background or add more styles as needed */
+
+
+input[type="date"] {
+  width: 100%;
+  padding: 0.375rem 2.5rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+}
+
+.form-control[id="leaveType"] {
+  width: 100%;
+  padding: 0.375rem 2.85rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+}
+
+
+
+   /*haritha */
 
   
 /* Style the container */
@@ -177,6 +182,10 @@ td.status-rejected {
   background-color: #e9451d; /* Darker red for Reject */
 }
 
-
-
-  
+.d-flex{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}

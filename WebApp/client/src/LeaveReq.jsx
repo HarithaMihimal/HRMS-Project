@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
+import LeaveCard from "./Components/LeaveCard.jsx"
+import "./style.css";
+import LeaveTable from "./Components/pendingReqTable.jsx"
+import RejectTable from "./Components/rejectedTable.jsx"
 
 function LeaveReq() {
   const { id_to_transfer } = useParams();
@@ -14,19 +18,22 @@ function LeaveReq() {
   const [setAllLeaves, setfetchAllLeaves] = useState({});
   const [settakenLeaves, settakenAllLeaves] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [rejectedRequests, setRejectedRequests] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [pending, allLeaves, takenLeaves] = await Promise.all([
+        const [pending, allLeaves, takenLeaves,rejectedRequests] = await Promise.all([
           Axios.get(`http://localhost:3000/pendingLeaveRequests/${id_to_transfer}`),
           Axios.get(`http://localhost:3000/fetchAllLeaves/${id_to_transfer}`),
           Axios.get(`http://localhost:3000/fetchtakenLeaves/${id_to_transfer}`),
+          Axios.get(`http://localhost:3000/rejectedLeaveRequests/${id_to_transfer}`),
         ]);
 
         setPendingRequests(pending.data);
         setfetchAllLeaves(allLeaves.data);
         settakenAllLeaves(takenLeaves.data);
+        setRejectedRequests(rejectedRequests.data);
 
         setDataLoaded(true);
       } catch (error) {
@@ -90,16 +97,18 @@ function LeaveReq() {
 
   return (
     <div className="container mt-5">
-      <div className="leave-info">
-        <h2>Remaining Leaves:</h2>
-        <ul>
-          <li>Annual: {remainingAnnualLeaves} days</li>
-          <li>Casual: {remainingCasualLeaves} days</li>
-          <li>No Pay: {remainingNoPayLeaves} days</li>
-          <li>Maternity: {remainingMaternityLeaves} days</li>
-        </ul>
+    <div className="leave-info">
+    <h2 style={{ textAlign: 'center' }}>Remaining Leaves</h2>
+          <div className="d-flex flex-row">
+        <LeaveCard title="Annual Leaves" days={remainingAnnualLeaves} />
+        <LeaveCard title="Casual Leaves" days={remainingCasualLeaves} />
+        <LeaveCard title="No Pay Leaves" days={remainingNoPayLeaves} />
+        <LeaveCard title="Maternity Leaves" days={remainingMaternityLeaves} />
       </div>
+    </div>
       <div className="information">
+      <h2 style={{ textAlign: 'center' }}>Leave Request Form</h2>
+
         {errorMessage && <p className="text-danger">{errorMessage}</p>}
         {successMessage && <p className="text-success">{successMessage}</p>}
         <div className="mb-3">
@@ -159,29 +168,20 @@ function LeaveReq() {
             <option value="maternity">Maternity</option>
           </select>
         </div>
+        <div className="mb-3">
         <button className="btn btn-primary" onClick={addEmployee}>
           Submit Request
         </button>
+        </div>
       </div>
 
       <div className="mt-5">
-        <h2>Pending Leave Requests</h2>
-        <ul>
-          {pendingRequests.map((request, index) => (
-            <li key={index}>
-              ID: {request.Employee_ID}, Start Date: {request.start_Date}, No of Days{request.No_of_Days}, Type: {request.Type}
-              <button
-                className="btn btn-danger"
-                onClick={() => deleteRequest(request.Leave_Req_ID)}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+      <LeaveTable pendingRequests={pendingRequests} deleteRequest={deleteRequest} />
+      <RejectTable rejectedRequests={rejectedRequests} />
       </div>
     </div>
   );
 }
+
 
 export default LeaveReq;

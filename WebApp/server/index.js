@@ -112,18 +112,27 @@ app.get("/emp_view/:id_to_transfer", (req, res) => {
   }); // Missing closing parenthesis
 });
 
+app.get("/fetchSupervisors", (req, res) => {
+  const sql = "SELECT DISTINCT Supervisor_ID FROM supervisor";
+
+  db.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error fetching supervisor data:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.post("/addEmployee", async (req, res) => {
-  const { employeeData, accountData, haveDependent } = req.body;
-  console.log("haveDependent:", haveDependent);
+  const { employeeData, haveDependent } = req.body;
 
   try {
-    const employmentStatusQuery =
-      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery =
-      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
-    const branchQuery = "SELECT Branch_No FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery =
-      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
+    const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
+    const payGradeQuery = "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
+    const branchQuery = "SELECT Branch_ID FROM Branch WHERE Branch_Name = ?";
+    const departmentQuery = "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
 
     const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
       employeeData.employmentStatus,
@@ -140,7 +149,7 @@ app.post("/addEmployee", async (req, res) => {
 
     employeeData.employmentStatus = employmentStatusResult[0].Status_ID;
     employeeData.payGrade = payGradeResult[0].Pay_Grade_ID;
-    employeeData.branch = branchResult[0].Branch_No;
+    employeeData.branch = branchResult[0].Branch_ID;
     employeeData.department = departmentResult[0].Dept_ID;
 
     let dependentId = null; // Default to null
@@ -163,7 +172,8 @@ app.post("/addEmployee", async (req, res) => {
     }
 
     const sql =
-      "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_No`, `Dept_ID`, `Dependent_ID`) VALUES ?";
+      "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_ID`, `Dept_ID`, `Dependent_ID`) VALUES ?";
+
     const values = [
       [
         employeeData.firstName,
@@ -171,7 +181,7 @@ app.post("/addEmployee", async (req, res) => {
         employeeData.gender,
         employeeData.maritalStatus,
         employeeData.birthday,
-        employeeData.email,
+        employeeData.email === "" ? null : employeeData.email,
         employeeData.employmentStatus,
         employeeData.jobTitle,
         employeeData.payGrade,
@@ -183,17 +193,19 @@ app.post("/addEmployee", async (req, res) => {
 
     await queryDatabase(sql, [values]);
 
-    const employeeIDQuery =
-      "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
+    const employeeIDQuery = "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
-    const accountSql =
-      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
     const accountValues = [
-      [employeeID, accountData.username, accountData.password],
+      [employeeID, employeeData.username, employeeData.password],
     ];
     await queryDatabase(accountSql, [accountValues]);
+
+    const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
+    const supervisorValues = [[employeeData.supervisor, employeeID]];
+    await queryDatabase(supervisorSql, [supervisorValues]);
 
     console.log("Employee Data Inserted.");
     res.status(200).json({ message: "Employee data inserted successfully" });
@@ -217,8 +229,7 @@ function queryDatabase(sql, params) {
 }
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
-  const sql =
-    "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
+  const sql = "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
   const values = [
     req.body.firstName,
     req.body.lastName,
@@ -236,20 +247,59 @@ app.post("/AddEmployee/AddDependent", (req, res) => {
   });
 });
 
-app.get("/api/employment-status", (req, res) => {
-  const sql = "SELECT Status FROM Employment_Status";
+app.get("/addEmployee/employmentStatus", (req, res) => {
+  const sql = "SELECT * FROM Employment_Status";
 
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
+      res.status(500).send("Error fetching employment statuses");
     } else {
-      const employmentStatuses = result.map((row) => row.Status);
-      res.status(200).json({ employmentStatuses });
+      res.status(200).send(result);
     }
   });
 });
 
-app.get("/employee_data", (req, res) => {
+app.get("/addEmployee/payGrade", (req, res) => {
+  const sql = "SELECT Pay_Grade_ID, Pay_Grade FROM Pay_Grade";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching pay grades");
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.get("/addEmployee/department", (req, res) => {
+  const sql = "SELECT Dept_ID, Dept_Name FROM Department";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching departments");
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.get("/addEmployee/branch", (req, res) => {
+  const sql = "SELECT Branch_ID, Branch_Name FROM Branch";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching branches");
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+app.get("/employeeData", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
     if (err) {
       console.log(err);
@@ -348,7 +398,21 @@ app.put("/leave_request/:leaveReqID", (req, res) => {
 
 app.get("/pendingLeaveRequests/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
-  const query = "SELECT * FROM leave_request WHERE Employee_ID = ?";
+  const query =
+    "SELECT * FROM leave_request WHERE Employee_ID = ? and Status = 'Pending'";
+  db.query(query, [id_to_transfer], (error, results) => {
+    if (error) {
+      console.error("Error fetching leave requests:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get("/rejectedLeaveRequests/:id_to_transfer", (req, res) => {
+  const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
+  const query =
+    "SELECT * FROM leave_request WHERE Employee_ID = ? and Status = 'Rejected'";
   db.query(query, [id_to_transfer], (error, results) => {
     if (error) {
       console.error("Error fetching leave requests:", error);
@@ -400,5 +464,7 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
 });
 
 app.listen(3000, () => {
+
   console.log("Yey, your server is running on port 3000");
+
 });

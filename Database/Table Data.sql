@@ -1,39 +1,30 @@
-use hrms;
+USE HRMS;
 
 -- Insert sample values into Organization table
 INSERT INTO Organization (Name, Start_Date)
 VALUES ('Jupiter Apparels', '2023-10-07');
 
 -- Insert sample values into Branch table
-INSERT INTO Branch (Branch_Name, Address, Currency)
+INSERT INTO Branch (Branch_Name, Address_Line1, Address_Line2, Address_Line3, Country)
 VALUES
-  ('Sri Lanka', '123 Main Street, Colombo 3, Sri Lanka.', 'LKR'),
-  ('Bangladesh', '456 Elm Street, Dhaka, Bangladesh.', 'BDT'),
-  ('Pakistan', '789 Oak Avenue, Islamabad, Pakistan.', 'PKR');
+  ('Colombo Central Branch', 'No. 123', 'Main Street', 'Colombo 3', 'Sri Lanka'),
+  ('Colombo North Branch', 'No. 456', 'Elm Street', 'Colombo', 'Sri Lanka'),
+  ('Kandy Downtown Branch', 'No. 789', 'Oak Avenue', 'Kandy', 'Sri Lanka'),
+  ('Galle Coastal Branch', 'No. 123', 'Palm Road', 'Galle', 'Sri Lanka'),
+  ('Jaffna Northern Branch', 'No. 456', 'Coconut Lane', 'Jaffna', 'Sri Lanka'),
+  ('Negombo Seaside Branch', 'No. 789', 'Banana Street', 'Negombo', 'Sri Lanka'),
+  ('Dhaka Central Branch', 'No. 123', 'Elm Street', 'Dhaka', 'Bangladesh'),
+  ('Chittagong Coastal Branch', 'No. 456', 'Oak Avenue', 'Chittagong', 'Bangladesh'),
+  ('Islamabad Capital Branch', 'No. 123', 'Cedar Lane', 'Islamabad', 'Pakistan'),
+  ('Lahore Cultural Branch', 'No. 456', 'Pine Street', 'Lahore', 'Pakistan');
 
 -- Insert sample values into Department table
 INSERT INTO Department (Dept_Name, Budget)
 VALUES
   ('Human Resources', 100000.00),
   ('Finance', 150000.00),
-  ('Marketing', 120000.00),
-  ('Information Technology', 200000.00),
-  ('Sales', 130000.00),
-  ('Research and Development', 180000.00),
-  ('Customer Support', 110000.00),
-  ('Production', 160000.00),
-  ('Quality Assurance', 90000.00),
-  ('Supply Chain', 140000.00),
-  ('Legal', 95000.00),
-  ('Public Relations', 110000.00),
-  ('Design', 75000.00),
-  ('Facilities Management', 80000.00),
-  ('Health and Safety', 70000.00),
-  ('Training and Development', 85000.00),
   ('Engineering', 190000.00),
-  ('Accounting', 120000.00),
-  ('Customer Relations', 105000.00),
-  ('Purchasing', 135000.00);
+  ('Accounting', 120000.00);
 
 -- Insert sample values into Employment_Status table
 INSERT INTO Employment_Status (Status)
@@ -48,16 +39,16 @@ VALUES
 -- Insert sample values into Pay_Grade table
 INSERT INTO Pay_Grade (Pay_Grade, Basic_Salary)
 VALUES
-  ('Level1', 50000.00),
-  ('Level2', 45000.00),
-  ('Level3', 40000.00),
-  ('Level4', 35000.00),
-  ('Level5', 30000.00),
-  ('Level6', 25000.00),
-  ('Level7', 20000.00),
-  ('Level8', 15000.00),
-  ('Level9', 12000.00),
-  ('Level10', 10000.00);
+  ('Level 1', 50000.00),
+  ('Level 2', 45000.00),
+  ('Level 3', 40000.00),
+  ('Level 4', 35000.00),
+  ('Level 5', 30000.00),
+  ('Level 6', 25000.00),
+  ('Level 7', 20000.00),
+  ('Level 8', 15000.00),
+  ('Level 9', 12000.00),
+  ('Level 10', 10000.00);
 
 -- Insert sample values into Leave_Limit table
 INSERT INTO Leave_Limit (Pay_Grade_ID, Annual, Casual, No_Pay, Maternity_Leave)
@@ -95,31 +86,77 @@ VALUES
   ('Ava', 'Lee', 9, 'Child', 'Female'),
   ('William', 'Garcia', 14, 'Child', 'Male'),
   ('Isabella', 'Thomas', 22, 'Child', 'Female'),
-  ('Mia', 'White', 18, 'Child', 'Female');
+  ('Mia', 'White', 18, 'Child', 'Female'),
+  ('James', 'Smith', 13, 'Child', 'Male'),
+  ('Charlotte', 'Johnson', 24, 'Child', 'Female'),
+  ('Benjamin', 'Harris', 9, 'Child', 'Male'),
+  ('Amelia', 'Wilson', 11, 'Child', 'Female'),
+  ('Lucas', 'Davis', 17, 'Child', 'Male'),
+  ('Lily', 'Garcia', 15, 'Child', 'Female'),
+  ('Michael', 'Brown', 8, 'Child', 'Male'),
+  ('Harper', 'Martinez', 19, 'Child', 'Female'),
+  ('Ethan', 'Jones', 12, 'Child', 'Male'),
+  ('Avery', 'Robinson', 7, 'Child', 'Female'),
+  ('Mason', 'Miller', 16, 'Child', 'Male'),
+  ('Ella', 'Thompson', 25, 'Child', 'Female'),
+  ('Logan', 'Scott', 14, 'Child', 'Male'),
+  ('Aria', 'Young', 20, 'Child', 'Female'),
+  ('Carter', 'Clark', 9, 'Child', 'Male');
 
 -- Insert sample values into Employee_Data table
 INSERT INTO Employee_Data (First_Name, Last_Name, Gender, Marital_Status, Birthday, Email, Employment_Status, Job_Title, Pay_Grade_ID, Branch_ID, Dept_ID, Dependent_ID)
 VALUES
-  ('John', 'Doe', 'Male', 'Married', '1990-05-15', 'john.doe@gmail.com', 1, 'Software Engineer', 1, 'BR001', 'DEPT001', 'DEP0001'),
-  ('Jane', 'Smith', 'Female', 'Unmarried', '1988-08-21', 'jane.smith@gmail.com', 2, 'Software Engineer', 2, 'BR001', 'DEPT002', 'DEP0002'),
+  ('John', 'Doe', 'Male', 'Married', '1990-05-15', 'john.doe@gmail.com', 1, 'HR Manager', 1, 'BR001', 'DEPT001', 'DEP0001'),
+  ('Jane', 'Smith', 'Female', 'Unmarried', '1988-08-21', 'jane.smith@gmail.com', 2, 'Software Engineer', 2, 'BR002', 'DEPT002', 'DEP0002'),
   ('Michael', 'Johnson', 'Male', 'Married', '1995-03-10', 'michael.johnson@gmail.com', 1, 'Accountant', 2, 'BR002', 'DEPT002', 'DEP0003'),
-  ('Emily', 'Davis', 'Female', 'Unmarried', '1992-11-25', 'emily.davis@gmail.com', 1, 'Software Engineer', 1, 'BR001', 'DEPT001', 'DEP0004'),
-  ('David', 'Wilson', 'Male', 'Married', '1987-09-28', 'david.wilson@gmail.com', 3, 'HR Manager', 3, 'BR003', 'DEPT003', 'DEP0005'),
-  ('Sarah', 'Anderson', 'Female', 'Unmarried', '1993-12-07', 'sarah.anderson@gmail.com', 3, 'Accountant', 3, 'BR001', 'DEPT003', 'DEP0006'),
+  ('Emily', 'Davis', 'Female', 'Unmarried', '1992-11-25', 'emily.davis@gmail.com', 1, 'QA Engineer', 2, 'BR004', 'DEPT001', 'DEP0004'),
+  ('Robert', 'Wright', 'Male', 'Married', '1993-07-18', 'robert.wright@gmail.com', 6, 'Software Engineer', 7, 'BR004', 'DEPT001', NULL),
+  ('David', 'Wilson', 'Male', 'Married', '1987-09-28', 'david.wilson@gmail.com', 3, 'HR Manager', 1, 'BR009', 'DEPT003', 'DEP0005'),
+  ('Sarah', 'Anderson', 'Female', 'Unmarried', '1993-12-07', 'sarah.anderson@gmail.com', 3, 'Accountant', 3, 'BR010', 'DEPT003', 'DEP0006'),
   ('Daniel', 'Brown', 'Male', 'Married', '1995-07-14', 'daniel.brown@gmail.com', 4, 'Software Engineer', 4, 'BR001', 'DEPT004', 'DEP0007'),
-  ('Olivia', 'Lee', 'Female', 'Married', '1998-02-18', 'olivia.lee@gmail.com', 4, 'QA Engineer', 4, 'BR001', 'DEPT004', 'DEP0008'),
-  ('William', 'Martinez', 'Male', 'Married', '1994-04-03', 'william.martinez@gmail.com', 5, 'HR Manager', 5, 'BR001', 'DEPT005', 'DEP0009'),
-  ('Sophia', 'Garcia', 'Female', 'Unmarried', '1996-06-20', 'sophia.garcia@gmail.com', 5, 'Accountant', 5, 'BR001', 'DEPT005', 'DEP0010'),
-  ('Ethan', 'Thomas', 'Male', 'Married', '1999-01-12', 'ethan.thomas@gmail.com', 6, 'Software Engineer', 6, 'BR002', 'DEPT006', 'DEP0011'),
-  ('Ava', 'White', 'Female', 'Married', '1991-04-05', 'ava.white@gmail.com', 6, 'QA Engineer', 6, 'BR002', 'DEPT006', 'DEP0012'),
-  ('Noah', 'Harris', 'Male', 'Married', '1997-08-09', 'noah.harris@gmail.com', 1, 'HR Manager', 7, 'BR001', 'DEPT007', 'DEP0013'),
-  ('Isabella', 'Martin', 'Female', 'Unmarried', '1990-03-17', 'isabella.martin@gmail.com', 2, 'Accountant', 7, 'BR001', 'DEPT007', 'DEP0014'),
-  ('James', 'Clark', 'Male', 'Married', '1985-06-30', 'james.clark@gmail.com', 3, 'Software Engineer', 8, 'BR001', 'DEPT008', 'DEP0015'),
-  ('Mia', 'Lewis', 'Female', 'Unmarried', '1989-10-11', 'mia.lewis@gmail.com', 4, 'QA Engineer', 8, 'BR001', 'DEPT008', 'DEP0016'),
-  ('Liam', 'Walker', 'Male', 'Married', '1996-12-25', 'liam.walker@gmail.com', 5, 'HR Manager', 9, 'BR001', 'DEPT009', 'DEP0017'),
-  ('Avery', 'Hall', 'Female', 'Unmarried', '1993-02-14', 'avery.hall@gmail.com', 6, 'Accountant', 9, 'BR003', 'DEPT009', 'DEP0018'),
-  ('Benjamin', 'Adams', 'Male', 'Married', '1992-04-27', 'benjamin.adams@gmail.com', 4, 'Software Engineer', 10, 'BR003', 'DEPT007', 'DEP0019'),
-  ('Calsey', 'Mate', 'Female', 'Unmarried', '1994-07-30', 'calsey.mate@gmail.com', 2, 'HR Manager', 5, 'BR003', 'DEPT001', 'DEP0020');
+  ('Olivia', 'Lee', 'Female', 'Married', '1998-02-18', 'olivia.lee@gmail.com', 4, 'QA Engineer', 4, 'BR008', 'DEPT004', 'DEP0008'),
+  ('Henry', 'Hall', 'Male', 'Married', '1994-02-14', 'henry.hall@gmail.com', 4, 'Software Engineer', 4, 'BR006', 'DEPT002',NULL),
+  ('William', 'Martinez', 'Male', 'Married', '1994-04-03', 'william.martinez@gmail.com', 5, 'QA Engineer', 6, 'BR002', 'DEPT003', 'DEP0009'),
+  ('Sophia', 'Garcia', 'Female', 'Unmarried', '1996-06-20', NULL, 5, 'Accountant', 5, 'BR006', 'DEPT002', 'DEP0010'),
+  ('Benjamin', 'Cooper', 'Male', 'Married', '1994-06-22', 'benjamin.cooper@gmail.com', 1, 'Software Engineer', 7, 'BR009', 'DEPT001', NULL),
+  ('Ethan', 'Thomas', 'Male', 'Married', '1999-01-12', 'ethan.thomas@gmail.com', 6, 'Software Engineer', 6, 'BR007', 'DEPT001', 'DEP0011'),
+  ('Ava', 'White', 'Female', 'Married', '1991-04-05', 'ava.white@gmail.com', 6, 'QA Engineer', 6, 'BR008', 'DEPT003', 'DEP0012'),
+  ('Aces', 'Maxwell', 'Male', 'Married', '1995-02-03', 'aces.maxwell@gmail.com', 3, 'Accountant', 9, 'BR003', 'DEPT002', NULL),
+  ('Noah', 'Harris', 'Male', 'Married', '1997-08-09', 'noah.harris@gmail.com', 1, 'HR Manager', 1, 'BR002', 'DEPT002', 'DEP0013'),
+  ('Isabella', 'Martin', 'Female', 'Unmarried', '1990-03-17', 'isabella.martin@gmail.com', 2, 'Accountant', 7, 'BR001', 'DEPT001', 'DEP0014'),
+  ('James', 'Clark', 'Male', 'Married', '1985-06-30', 'james.clark@gmail.com', 3, 'Software Engineer', 8, 'BR006', 'DEPT001', 'DEP0015'),
+  ('Mia', 'Lewis', 'Female', 'Unmarried', '1989-10-11', 'mia.lewis@gmail.com', 4, 'QA Engineer', 8, 'BR005', 'DEPT002', 'DEP0016'),
+  ('Liam', 'Walker', 'Male', 'Married', '1996-12-25', NULL, 5, 'HR Manager', 1, 'BR001', 'DEPT001', 'DEP0017'),
+  ('Alexander', 'Brown', 'Male', 'Married', '1988-11-11', 'alexander.brown@gmail.com', 1, 'Software Engineer', 9, 'BR001', 'DEPT003', NULL),
+  ('Nora', 'Garcia', 'Female', 'Unmarried', '1990-05-05', 'nora.garcia@gmail.com', 2, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
+  ('Avery', 'Hall', 'Female', 'Unmarried', '1993-02-14', 'avery.hall@gmail.com', 6, 'Accountant', 9, 'BR003', 'DEPT003', 'DEP0018'),
+  ('Benjamin', 'Adams', 'Male', 'Married', '1992-04-27', 'benjamin.adams@gmail.com', 4, 'Software Engineer', 10, 'BR002', 'DEPT002', 'DEP0019'),
+  ('Calsey', 'Mate', 'Female', 'Unmarried', '1994-07-30', 'calsey.mate@gmail.com', 2, 'HR Manager', 1, 'BR004', 'DEPT001', 'DEP0020'),
+  ('Marcony', 'Prera', 'Female', 'Unmarried', '1997-11-30', 'marcony.prera@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
+  ('Lillian', 'Perez', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR005', 'DEPT001', 'DEP0021'),
+  ('Ella', 'Sing', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 1, 'Accountant', 10, 'BR001', 'DEPT002', 'DEP0022'),
+  ('Alexander', 'Black', 'Male', 'Married', '1988-11-11', 'alexander.brown@gmail.com', 1, 'Software Engineer', 9, 'BR010', 'DEPT003', 'DEP0023'),
+  ('Mason', 'Taylor', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'QA Engineer', 3, 'BR002', 'DEPT004', NULL),
+  ('Nora', 'Garcie', 'Female', 'Unmarried', '1990-05-05', 'nora.garcia@gmail.com', 2, 'QA Engineer', 10, 'BR003', 'DEPT003', 'DEP0024'),
+  ('Mason', 'Taylar', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'Accountant', 4, 'BR010', 'DEPT004', 'DEP0025'),
+  ('Grace', 'Barnes', 'Female', 'Unmarried', '1997-11-30', 'grace.barnes@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
+  ('Chloe', 'Hernandez', 'Female', 'Unmarried', '1995-08-07', 'chloe.hernandez@gmail.com', 4, 'Accountant', 8, 'BR007', 'DEPT004', 'DEP0026'),
+  ('Samuel', 'Reed', 'Male', 'Married', '1992-01-23', 'samuel.reed@gmail.com', 5, 'Software Engineer', 7, 'BR008', 'DEPT004', 'DEP0027'),
+  ('Lily', 'Ramirez', 'Female', 'Unmarried', '1987-12-14', 'lily.ramirez@gmail.com', 6, 'QA Engineer', 7, 'BR002', 'DEPT003', 'DEP0028'),
+  ('Oliver', 'Parker', 'Male', 'Married', '1996-09-15', 'oliver.parker@gmail.com', 4, 'Software Engineer', 9, 'BR001', 'DEPT003', NULL),
+  ('Sophie', 'Turner', 'Female', 'Unmarried', '1998-04-17', 'sophie.turner@gmail.com', 2, 'QA Engineer', 7, 'BR003', 'DEPT001', NULL),
+  ('Daniel', 'Cook', 'Male', 'Married', '1989-06-08', NULL, 1, 'Accountant', 5, 'BR003', 'DEPT004', 'DEP0029'),
+  ('Sophia', 'Smith', 'Female', 'Unmarried', '1993-10-02', 'sophia.smith@gmail.com', 2, 'Accountant', 9, 'BR002', 'DEPT003', 'DEP0030'),
+  ('Joseph', 'Baker', 'Male', 'Married', '1996-05-30', 'joseph.baker@gmail.com', 1, 'Software Engineer', 10, 'BR001', 'DEPT003', 'DEP0031'),
+  ('William', 'Powell', 'Male', 'Married', '1993-03-24', 'william.powell@gmail.com', 6, 'Accountant', 6, 'BR005', 'DEPT004', NULL),
+  ('Aubrey', 'Parker', 'Female', 'Unmarried', '1998-09-12', 'aubrey.parker@gmail.com', 2, 'QA Engineer', 10, 'BR002', 'DEPT003', 'DEP0032'),
+  ('Robert', 'Delt', 'Male', 'Married', '1993-07-18', 'robert.wright1@gmail.com', 6, 'Software Engineer', 7, 'BR001', 'DEPT001', 'DEP0033'),
+  ('Henry', 'Mitchell', 'Male', 'Married', '1995-02-03', 'henry.mitchell@gmail.com', 3, 'Accountant', 9, 'BR003', 'DEPT002', NULL),
+  ('Lillian', 'Pere', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR002', 'DEPT001', 'DEP0034'),
+  ('Ella', 'King', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 5, 'Accountant', 9, 'BR003', 'DEPT002', 'DEP0035'),
+  ('gugliElmo', 'Piter', 'Male', 'Married', '1996-09-15', 'gugliElmo.piter@gmail.com', 4, 'Software Engineer', 9, 'BR002', 'DEPT003', NULL),
+  ('Wilson', 'Karu', 'Male', 'Married', '1993-03-24', 'wilson.karu@gmail.com', 6, 'Accountant', 8, 'BR002', 'DEPT004', NULL);
+
 
 -- Insert sample values into Contact_Number_Details table
 INSERT INTO Contact_Number_Details (Employee_ID, Contact_Number)
@@ -214,11 +251,11 @@ VALUES
   ('calsey.mate', 'HRM0026', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_26.jpg'),
   ('marcony.prera', 'EMP0027', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_27.jpg'),
   ('lillian.perez', 'EMP0028', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_28.jpg'),
-  ('ella.king', 'EMP0029', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_29.jpg'),
-  ('alexander.brown', 'EMP0030', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_30.jpg'),
+  ('ella.sing', 'EMP0029', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_29.jpg'),
+  ('alexander.black', 'EMP0030', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_30.jpg'),
   ('mason.taylor', 'EMP0031', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_31.jpg'),
-  ('nora.garcia', 'EMP0032', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_32.jpg'),
-  ('mason.taylor', 'EMP0033', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_33.jpg'),
+  ('nora.garcie', 'EMP0032', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_32.jpg'),
+  ('mason.taylar', 'EMP0033', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_33.jpg'),
   ('grace.barnes', 'EMP0034', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_34.jpg'),
   ('chloe.hernandez', 'EMP0035', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_35.jpg'),
   ('samuel.reed', 'EMP0036', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_36.jpg'),
@@ -230,28 +267,50 @@ VALUES
   ('joseph.baker', 'EMP0042', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_42.jpg'),
   ('william.powell', 'EMP0043', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_43.jpg'),
   ('aubrey.parker', 'EMP0044', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_44.jpg'),
-  ('robert.wright', 'EMP0045', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_45.jpg'),
+  ('robert.delt', 'EMP0045', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_45.jpg'),
   ('henry.mitchell', 'EMP0046', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_46.jpg'),
-  ('lillian.perez', 'EMP0047', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_47.jpg'),
+  ('lillian.pere', 'EMP0047', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_47.jpg'),
   ('ella.king', 'EMP0048', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_48.jpg'),
   ('gugliElmo.piter', 'EMP0049', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_49.jpg'),
   ('wilson.karu', 'EMP0050', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_50.jpg');
 
+
 -- Insert sample values into Supervisor table
 INSERT INTO Supervisor (Supervisor_ID, Subordinate_ID)
 VALUES
-  ('EMP0001', 'EMP0002'),
-  ('EMP0001', 'EMP0004'),
   ('EMP0003', 'EMP0006'),
-  ('EMP0001', 'EMP0007'),
+  ('EMP0002', 'EMP0007'),
+  ('EMP0004', 'EMP0008'),
   ('EMP0003', 'EMP0010'),
-  ('EMP0001', 'EMP0011'),
-  ('EMP0008', 'EMP0012'),
+  ('EMP0002', 'EMP0011'),
+  ('EMP0004', 'EMP0012'),
   ('EMP0003', 'EMP0014'),
-  ('EMP0001', 'EMP0015'),
-  ('EMP0008', 'EMP0016'),
+  ('EMP0002', 'EMP0015'),
+  ('EMP0004', 'EMP0016'),
   ('EMP0003', 'EMP0018'),
-  ('EMP0001', 'EMP0019');
+  ('EMP0002', 'EMP0019'),
+  ('EMP0002', 'EMP0021'),
+  ('EMP0004', 'EMP0022'),
+  ('EMP0003', 'EMP0024'),
+  ('EMP0002', 'EMP0025'),
+  ('EMP0004', 'EMP0026'),
+  ('EMP0003', 'EMP0028'),
+  ('EMP0002', 'EMP0029'),
+  ('EMP0004', 'EMP0030'),
+  ('EMP0003', 'EMP0032'),
+  ('EMP0002', 'EMP0033'),
+  ('EMP0004', 'EMP0034'),
+  ('EMP0002', 'EMP0035'),
+  ('EMP0004', 'EMP0036'),
+  ('EMP0003', 'EMP0037'),
+  ('EMP0002', 'EMP0038'),
+  ('EMP0004', 'EMP0039'),
+  ('EMP0002', 'EMP0041'),
+  ('EMP0004', 'EMP0042'),
+  ('EMP0003', 'EMP0043'),
+  ('EMP0002', 'EMP0044'),
+  ('EMP0004', 'EMP0045');
+
 
 -- Insert sample values into Custom_Attribute_Definition table
 INSERT INTO Custom_Attribute_Definition (Attribute_Name)
@@ -263,25 +322,24 @@ VALUES
 -- Insert sample values into Employee_Custom_Attribute table
 INSERT INTO Employee_Custom_Attribute (Attribute_ID, Employee_ID, Value)
 VALUES
-  (1, 'EMP0001', 'Leadership Skills'),
-  (2, 'EMP0003', 'English, Sinhala, Tamil'),
+  (1, 'EMP0030', 'Leadership Skills'),
+  (2, 'EMP0018', 'English, Sinhala, Tamil'),
   (3, 'EMP0008', 'Sri Lankan');
 
 -- Insert sample values into Leave_Request table
 INSERT INTO Leave_Request (Employee_ID, Start_Date, No_of_Days, Type, Status)
 VALUES
-  ('EMP0001', '2023-10-10', 5, 'Annual', 'Pending'),
-  ('EMP0002', '2023-11-15', 3, 'Casual', 'Approved'),
-  ('EMP0003', '2023-09-20', 2, 'Annual', 'Pending'),
+  ('EMP0030', '2023-10-10', 5, 'Annual', 'Pending'),
+  ('EMP0018', '2023-11-15', 3, 'Casual', 'Approved'),
+  ('EMP0008', '2023-09-20', 2, 'Annual', 'Pending'),
   ('EMP0004', '2023-10-05', 7, 'Casual', 'Approved'),
   ('EMP0006', '2023-11-01', 1, 'Annual', 'Pending'),
   ('EMP0007', '2023-12-10', 4, 'Casual', 'Pending'),
   ('EMP0008', '2023-09-15', 30, 'Maternity', 'Approved'),
-  ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending');
+  ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending'),
   ('EMP0012', '2023-11-25', 40, 'Maternity', 'Pending');
 
--- Insert sample values into Employee_Leave_Count table
-
-UPDATE `hrms`.`employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
-UPDATE `hrms`.`employee_leave_count` SET `Casual` = '7' WHERE (`Employee_ID` = 'EMP0004');
-UPDATE `hrms`.`employee_leave_count` SET `Maternity_Leave` = '30' WHERE (`Employee_ID` = 'EMP0008');
+-- Update sample values in the Employee_Leave_Count table
+UPDATE `employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
+UPDATE `employee_leave_count` SET `Casual` = '7' WHERE (`Employee_ID` = 'EMP0004');
+UPDATE `employee_leave_count` SET `Maternity_Leave` = '30' WHERE (`Employee_ID` = 'EMP0008');

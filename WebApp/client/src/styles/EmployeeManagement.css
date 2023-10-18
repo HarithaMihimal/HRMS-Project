@@ -1,0 +1,78 @@
+
+.container {
+    max-width: 100%; /* Allow the container to adjust to the window size */
+    overflow-x: auto; /* Enable horizontal scrolling when content overflows */
+}
+
+.table-container {
+    margin: 20px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.custom-pagination-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 1px 7px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 2px;
+    outline: none;
+    font-size: 14px;
+  }
+
+.custom-pagination-button:hover {
+    background-color: #0069d9;
+  }
+
+/* Position the search bar at the top right corner of the table */
+
+  
+/* Style for the flex container */
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: end; /* Align items to the right */
+  }
+
+.flex-container2 {
+    display: flex;
+    flex-direction: row; /* Stack items vertically */
+    justify-content: space-between; /* Distribute items vertically with space in between */
+}
+
+/* Style for the search input */
+.search-bar {
+    flex-grow: 1; /* Takes up remaining space to the right */
+}
+
+/* Style for the search input */
+.search-bar input[type="text"] {
+    /* Adjust the width as needed */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+  

@@ -9,7 +9,7 @@ function PageHR() {
 
   // Handler for the "Leave Request" button click
   const handleLeaveRequestClick_1 = () => {
-    navigate(`/PageHR/${id_to_transfer}/AddEmployee`);
+    navigate(`/PageHR/${id_to_transfer}/EmployeeManagement`);
   };
   const handleLeaveRequestClick_2 = () => {
     navigate(`/PageHR/${id_to_transfer}/AddCustom`); 
@@ -23,7 +23,7 @@ function PageHR() {
       <h1>Page for the HR</h1>
       <div className="d-flex justify-content-center">
         <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1}>
-          Add Employee
+          Employee Management
         </button>
       </div>
       <div className="d-flex justify-content-center">
