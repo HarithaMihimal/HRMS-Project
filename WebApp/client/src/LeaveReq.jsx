@@ -65,6 +65,7 @@ if (Object.values(setAllLeaves)[0].Gender === 'Female') {
       if (id === id_to_transfer ) {
         console.log(id,type)
         if ((type == "annual" && day_no <= remainingAnnualLeaves) | (type == "casual" && day_no <= remainingCasualLeaves) | (type == "no_pay" && day_no <= remainingNoPayLeaves) | (type == "maternity" && day_no <= remainingMaternityLeaves)) {
+          if((type == "maternity" && Object.values(setAllLeaves)[0].Gender === 'Female') | (type != "maternity")){
         await Axios.post("http://localhost:3000/createLeaveReq", {
           id: id,
           startDate: startDate,
@@ -74,7 +75,10 @@ if (Object.values(setAllLeaves)[0].Gender === 'Female') {
         setSuccessMessage("Your request submitted");
         setErrorMessage("");
         window.location.reload();
-      }
+      }else{
+        setErrorMessage("You can't reqest maternity leaves");
+        setSuccessMessage("");
+      }} 
       else{
         setErrorMessage("You don't have enough leaves");
         setSuccessMessage("");
