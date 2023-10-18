@@ -1,0 +1,72 @@
+
+
+  /*haritha */
+/* Style the table */
+.table_leavereqACCEPTreject {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style table headers */
+.TableHead {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style table data cells */
+td {
+  padding: 5px;
+  vertical-align: middle; /* Center align content vertically */
+}
+
+/* Style action buttons */
+.button1 {
+  cursor: pointer;
+}
+.button2 {
+  cursor: pointer;
+}
+/* Style accepted status */
+td.status-accepted {
+  font-weight: bold; /* Make the text bold for emphasis */
+  color: green;
+}
+
+/* Style rejected status */
+td.status-rejected {
+  font-weight: bold; /* Make the text bold for emphasis */
+  color: red;
+}
+
+
+
+/* Accept button styles */
+.button1 {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+/* Reject button styles */
+.button2 {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #FF5733; /* Red */
+  color: white;
+}
+
+
