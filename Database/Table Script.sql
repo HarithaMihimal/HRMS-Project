@@ -1,5 +1,5 @@
-create database HRMS;
-use hrms;
+CREATE DATABASE HRMS;
+USE HRMS;
 
 CREATE TABLE `Organization` (
   `Registration_No` VARCHAR(15) NOT NULL,     -- ORG/2023/001
@@ -11,8 +11,10 @@ CREATE TABLE `Organization` (
 CREATE TABLE `Branch` (
   `Branch_ID` VARCHAR(10) NOT NULL,     -- BR001
   `Branch_Name` VARCHAR(255) NOT NULL,
-  `Address` VARCHAR(255) NOT NULL,
-  `Currency` VARCHAR(3) NOT NULL,
+  `Address_Line1` VARCHAR(255) NOT NULL,
+  `Address_Line2` VARCHAR(255),
+  `Address_Line3` VARCHAR(255),
+  `Country` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`Branch_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -140,4 +142,4 @@ CREATE TABLE `Leave_Request` (
   FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-show tables;
+SHOW TABLES;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
-import PageEMP from './PageEMP'; 
+import PageEMP from './PageEMP';
 import PageHR from './PageHR';
 import LeaveReq from './LeaveReq';
 import PasswordChange from './PasswordChange';

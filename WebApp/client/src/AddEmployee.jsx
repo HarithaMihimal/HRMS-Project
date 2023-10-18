@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
+import './styles/addEmployee.css'; // Import the CSS file
+
+import { BsTelephonePlusFill, BsFillTelephoneMinusFill } from 'react-icons/bs'; // Import the icons
 
 function AddEmployee() {
   const { id_to_transfer } = useParams();
@@ -15,6 +17,7 @@ function AddEmployee() {
     gender: "Choose...",
     maritalStatus: "Choose...",
     birthday: "",
+    contact: [""],
     email: "",
     employmentStatus: "Choose...",
     jobTitle: "Choose...",
@@ -109,7 +112,7 @@ function AddEmployee() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <Formik 
         initialValues={savedEmployeeData} 
         validationSchema={addEmployeeSchema}
@@ -177,6 +180,39 @@ function AddEmployee() {
                 <ErrorMessage name="birthday" component="div" className="error-message" />
               </div>
             </div>
+            {/* <div className="form-group col-md-4">
+              <label htmlFor="inputContact" style={{marginTop: '15px'}}>Contact Number</label>
+              <Field type="text" className="form-control" id="inputContact" name="contact" placeholder="Contact Number" />
+              <ErrorMessage name="contact" component="div" className="error-message" />
+            </div> */}
+
+            <div className="form-group col-md-5">
+              <FieldArray name="contact">{
+                (fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { contact } = values;
+                  return <div>
+                    <label style={{marginTop: '15px'}}>Contact Numbers</label>
+                    {contact.map((number, index) => (
+                      <div key={index}>
+                        
+                        <div className="d-flex justify-content-between">
+                          <Field type="text" className="form-control col-md-4" id={`inputContact[${index}]`} name={`contact[${index}]`} placeholder="Contact Number" style={{marginTop: "5px"}} />
+                          {
+                            index > 0 &&
+                            <button type="button" className="btn btn-secondary" style={{marginLeft: "5px", marginTop: "5px"}} onClick={() => remove(index)}><BsFillTelephoneMinusFill /></button>
+                          }
+                          <button type="button" className="btn btn-secondary" style={{marginLeft: "5px", marginTop: "5px"}} onClick={() => push('')}><BsTelephonePlusFill /></button>
+                        </div>
+                        <ErrorMessage name={`contact[${index}]`} component="div" className="error-message" />
+                      </div>
+                    ))}
+                  </div>
+                }
+              }</FieldArray>
+            </div>
+
             <div className="form-group col-md-6">
               <label htmlFor="inputEmail" style={{marginTop: '15px'}}>Email</label>
               <Field type="email" className="form-control" id="inputEmail" name="email" placeholder="Email" />
@@ -248,11 +284,11 @@ function AddEmployee() {
               <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent's Details</h4>
             </div>
             <div>
-              <button type="button" onClick={ () => {
+              <button type="button" className="btn btn-success" onClick={ () => {
                   // Save the current employee data to local storage
                   localStorage.setItem('employeeData', JSON.stringify(values));
               
-                  navigate(`/PageHR/${id_to_transfer}/AddEmployee/AddDependent`);
+                  navigate(`/PageHR/${id_to_transfer}/EmployeeManagement/AddEmployee/AddDependent`);
               }}>
                 Add Dependent
               </button>

@@ -1,3 +1,4 @@
+-- Trigger for update employee leave count
 DELIMITER //
 CREATE TRIGGER UpdateEmployeeLeaveCount
 AFTER UPDATE ON leave_request
@@ -68,6 +69,7 @@ END;
 DELIMITER ;
 
 
+-- Trigger for insert new employee leave count
 DELIMITER //
 CREATE TRIGGER InsertNewEmployee
 AFTER INSERT ON employee_data
@@ -80,6 +82,7 @@ END;
 DELIMITER ;
 
 
+-- Trigger for auto increment employee ID
 DELIMITER $$
 CREATE TRIGGER EmployeeInsert
 BEFORE INSERT ON employee_data
@@ -107,6 +110,7 @@ $$
 DELIMITER ;
 
 
+-- Trigger for auto increment dependent ID
 DELIMITER $$
 CREATE TRIGGER DependentInsert
 BEFORE INSERT ON dependent_information
@@ -127,6 +131,7 @@ $$
 DELIMITER ;
 
 
+-- Trigger for auto increment branch ID
 DELIMITER $$
 CREATE TRIGGER BranchInsert
 BEFORE INSERT ON branch
@@ -147,6 +152,7 @@ $$
 DELIMITER ;
 
 
+-- Trigger for auto increment department ID
 DELIMITER $$
 CREATE TRIGGER DepartmentInsert
 BEFORE INSERT ON department
@@ -167,6 +173,7 @@ $$
 DELIMITER ;
 
 
+-- Trigger for auto increment organization ID
 DELIMITER $$
 CREATE TRIGGER OrganizationInsert
 BEFORE INSERT ON organization
