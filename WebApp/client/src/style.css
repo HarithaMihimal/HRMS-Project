@@ -79,14 +79,3 @@ input[type="date"] {
   border: 1px solid #ced4da;
 }
 
-
-
-
-
-.d-flex{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-}

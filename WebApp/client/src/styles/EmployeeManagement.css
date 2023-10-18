@@ -75,4 +75,11 @@
     font-size: 16px;
 }
 
+.d-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
   
