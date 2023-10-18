@@ -2,7 +2,7 @@ USE HRMS;
 
 -- Insert sample values into Organization table
 INSERT INTO Organization (Name, Start_Date)
-VALUES ('Jupiter Apparels', '2023-10-07');
+VALUES ('Jupiter Apparels', '2023-01-01');
 
 -- Insert sample values into Branch table
 INSERT INTO Branch (Branch_Name, Address_Line1, Address_Line2, Address_Line3, Country)
@@ -35,7 +35,7 @@ VALUES
   ('Contract (Part-time)'),
   ('Permanent'),
   ('Freelance');
-  
+
 -- Insert sample values into Pay_Grade table
 INSERT INTO Pay_Grade (Pay_Grade, Basic_Salary)
 VALUES
@@ -134,11 +134,11 @@ VALUES
   ('Calsey', 'Mate', 'Female', 'Unmarried', '1994-07-30', 'calsey.mate@gmail.com', 2, 'HR Manager', 1, 'BR004', 'DEPT001', 'DEP0020'),
   ('Marcony', 'Prera', 'Female', 'Unmarried', '1997-11-30', 'marcony.prera@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
   ('Lillian', 'Perez', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR005', 'DEPT001', 'DEP0021'),
-  ('Ella', 'Sing', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 1, 'Accountant', 10, 'BR001', 'DEPT002', 'DEP0022'),
-  ('Alexander', 'Black', 'Male', 'Married', '1988-11-11', 'alexander.brown@gmail.com', 1, 'Software Engineer', 9, 'BR010', 'DEPT003', 'DEP0023'),
+  ('Ella', 'Sing', 'Female', 'Unmarried', '1991-09-25', 'ella.sing@gmail.com', 1, 'Accountant', 10, 'BR001', 'DEPT002', 'DEP0022'),
+  ('Alexander', 'Black', 'Male', 'Married', '1988-11-11', 'alexander.black@gmail.com', 1, 'Software Engineer', 9, 'BR010', 'DEPT003', 'DEP0023'),
   ('Mason', 'Taylor', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'QA Engineer', 3, 'BR002', 'DEPT004', NULL),
   ('Nora', 'Garcie', 'Female', 'Unmarried', '1990-05-05', 'nora.garcia@gmail.com', 2, 'QA Engineer', 10, 'BR003', 'DEPT003', 'DEP0024'),
-  ('Mason', 'Taylar', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'Accountant', 4, 'BR010', 'DEPT004', 'DEP0025'),
+  ('Mason', 'Taylar', 'Male', 'Married', '1997-03-19', 'mason.taylar@gmail.com', 3, 'Accountant', 4, 'BR010', 'DEPT004', 'DEP0025'),
   ('Grace', 'Barnes', 'Female', 'Unmarried', '1997-11-30', 'grace.barnes@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
   ('Chloe', 'Hernandez', 'Female', 'Unmarried', '1995-08-07', 'chloe.hernandez@gmail.com', 4, 'Accountant', 8, 'BR007', 'DEPT004', 'DEP0026'),
   ('Samuel', 'Reed', 'Male', 'Married', '1992-01-23', 'samuel.reed@gmail.com', 5, 'Software Engineer', 7, 'BR008', 'DEPT004', 'DEP0027'),
@@ -150,13 +150,12 @@ VALUES
   ('Joseph', 'Baker', 'Male', 'Married', '1996-05-30', 'joseph.baker@gmail.com', 1, 'Software Engineer', 10, 'BR001', 'DEPT003', 'DEP0031'),
   ('William', 'Powell', 'Male', 'Married', '1993-03-24', 'william.powell@gmail.com', 6, 'Accountant', 6, 'BR005', 'DEPT004', NULL),
   ('Aubrey', 'Parker', 'Female', 'Unmarried', '1998-09-12', 'aubrey.parker@gmail.com', 2, 'QA Engineer', 10, 'BR002', 'DEPT003', 'DEP0032'),
-  ('Robert', 'Delt', 'Male', 'Married', '1993-07-18', 'robert.wright1@gmail.com', 6, 'Software Engineer', 7, 'BR001', 'DEPT001', 'DEP0033'),
+  ('Robert', 'Delt', 'Male', 'Married', '1993-07-18', NULL, 6, 'Software Engineer', 7, 'BR001', 'DEPT001', 'DEP0033'),
   ('Henry', 'Mitchell', 'Male', 'Married', '1995-02-03', 'henry.mitchell@gmail.com', 3, 'Accountant', 9, 'BR003', 'DEPT002', NULL),
   ('Lillian', 'Pere', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR002', 'DEPT001', 'DEP0034'),
   ('Ella', 'King', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 5, 'Accountant', 9, 'BR003', 'DEPT002', 'DEP0035'),
   ('gugliElmo', 'Piter', 'Male', 'Married', '1996-09-15', 'gugliElmo.piter@gmail.com', 4, 'Software Engineer', 9, 'BR002', 'DEPT003', NULL),
   ('Wilson', 'Karu', 'Male', 'Married', '1993-03-24', 'wilson.karu@gmail.com', 6, 'Accountant', 8, 'BR002', 'DEPT004', NULL);
-
 
 -- Insert sample values into Contact_Number_Details table
 INSERT INTO Contact_Number_Details (Employee_ID, Contact_Number)
@@ -219,7 +218,6 @@ VALUES
   ('EMP0049', '0990123456'),
   ('EMP0050', '0911234567');
  
-
 -- Insert sample values into Employee_Account table
 INSERT INTO Employee_Account (User_ID, Employee_ID, Password, Profile_Picture)
 VALUES
@@ -274,7 +272,6 @@ VALUES
   ('gugliElmo.piter', 'EMP0049', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_49.jpg'),
   ('wilson.karu', 'EMP0050', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_50.jpg');
 
-
 -- Insert sample values into Supervisor table
 INSERT INTO Supervisor (Supervisor_ID, Subordinate_ID)
 VALUES
@@ -320,7 +317,6 @@ VALUES
   ('EMP0003', 'EMP0048'),
   ('EMP0002', 'EMP0049'),
   ('EMP0003', 'EMP0050');
-
 
 -- Insert sample values into Custom_Attribute_Definition table
 INSERT INTO Custom_Attribute_Definition (Attribute_Name)

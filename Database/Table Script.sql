@@ -142,4 +142,4 @@ CREATE TABLE `Leave_Request` (
   FOREIGN KEY (`Employee_ID`) REFERENCES `Employee_Data`(`Employee_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-show tables;
+SHOW TABLES;
