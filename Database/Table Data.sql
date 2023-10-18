@@ -5,18 +5,18 @@ INSERT INTO Organization (Name, Start_Date)
 VALUES ('Jupiter Apparels', '2023-10-07');
 
 -- Insert sample values into Branch table
-INSERT INTO Branch (Branch_Name, Address, Country)
+INSERT INTO Branch (Branch_Name, Address_Line1, Address_Line2, Address_Line3, Country)
 VALUES
-  ('Colombo Central Branch', '123 Main Street, Colombo 3.', 'Sri Lanka'),
-  ('Colombo North Branch', '456 Elm Street, Colombo.', 'Sri Lanka'),
-  ('Kandy Downtown Branch', '789 Oak Avenue, Kandy.', 'Sri Lanka'),
-  ('Galle Coastal Branch', '123 Palm Road, Galle.', 'Sri Lanka'),
-  ('Jaffna Northern Branch', '456 Coconut Lane, Jaffna.', 'Sri Lanka'),
-  ('Negombo Seaside Branch', '789 Banana Street, Negombo.', 'Sri Lanka'),
-  ('Dhaka Central Branch', '123 Elm Street, Dhaka.', 'Bangladesh'),
-  ('Chittagong Coastal Branch', '456 Oak Avenue, Chittagong.', 'Bangladesh'),
-  ('Islamabad Capital Branch', '123 Cedar Lane, Islamabad.', 'Pakistan'),
-  ('Lahore Cultural Branch', '456 Pine Street, Lahore.', 'Pakistan');
+  ('Colombo Central Branch', 'No. 123', 'Main Street', 'Colombo 3', 'Sri Lanka'),
+  ('Colombo North Branch', 'No. 456', 'Elm Street', 'Colombo', 'Sri Lanka'),
+  ('Kandy Downtown Branch', 'No. 789', 'Oak Avenue', 'Kandy', 'Sri Lanka'),
+  ('Galle Coastal Branch', 'No. 123', 'Palm Road', 'Galle', 'Sri Lanka'),
+  ('Jaffna Northern Branch', 'No. 456', 'Coconut Lane', 'Jaffna', 'Sri Lanka'),
+  ('Negombo Seaside Branch', 'No. 789', 'Banana Street', 'Negombo', 'Sri Lanka'),
+  ('Dhaka Central Branch', 'No. 123', 'Elm Street', 'Dhaka', 'Bangladesh'),
+  ('Chittagong Coastal Branch', 'No. 456', 'Oak Avenue', 'Chittagong', 'Bangladesh'),
+  ('Islamabad Capital Branch', 'No. 123', 'Cedar Lane', 'Islamabad', 'Pakistan'),
+  ('Lahore Cultural Branch', 'No. 456', 'Pine Street', 'Lahore', 'Pakistan');
 
 -- Insert sample values into Department table
 INSERT INTO Department (Dept_Name, Budget)
@@ -134,11 +134,11 @@ VALUES
   ('Calsey', 'Mate', 'Female', 'Unmarried', '1994-07-30', 'calsey.mate@gmail.com', 2, 'HR Manager', 1, 'BR004', 'DEPT001', 'DEP0020'),
   ('Marcony', 'Prera', 'Female', 'Unmarried', '1997-11-30', 'marcony.prera@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
   ('Lillian', 'Perez', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR005', 'DEPT001', 'DEP0021'),
-  ('Ella', 'King', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 1, 'Accountant', 10, 'BR001', 'DEPT002', 'DEP0022'),
-  ('Alexander', 'Brown', 'Male', 'Married', '1988-11-11', 'alexander.brown@gmail.com', 1, 'Software Engineer', 9, 'BR010', 'DEPT003', 'DEP0023'),
+  ('Ella', 'Sing', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 1, 'Accountant', 10, 'BR001', 'DEPT002', 'DEP0022'),
+  ('Alexander', 'Black', 'Male', 'Married', '1988-11-11', 'alexander.brown@gmail.com', 1, 'Software Engineer', 9, 'BR010', 'DEPT003', 'DEP0023'),
   ('Mason', 'Taylor', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'QA Engineer', 3, 'BR002', 'DEPT004', NULL),
-  ('Nora', 'Garcia', 'Female', 'Unmarried', '1990-05-05', 'nora.garcia@gmail.com', 2, 'QA Engineer', 10, 'BR003', 'DEPT003', 'DEP0024'),
-  ('Mason', 'Taylor', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'Accountant', 4, 'BR010', 'DEPT004', 'DEP0025'),
+  ('Nora', 'Garcie', 'Female', 'Unmarried', '1990-05-05', 'nora.garcia@gmail.com', 2, 'QA Engineer', 10, 'BR003', 'DEPT003', 'DEP0024'),
+  ('Mason', 'Taylar', 'Male', 'Married', '1997-03-19', 'mason.taylor@gmail.com', 3, 'Accountant', 4, 'BR010', 'DEPT004', 'DEP0025'),
   ('Grace', 'Barnes', 'Female', 'Unmarried', '1997-11-30', 'grace.barnes@gmail.com', 5, 'QA Engineer', 10, 'BR001', 'DEPT003', NULL),
   ('Chloe', 'Hernandez', 'Female', 'Unmarried', '1995-08-07', 'chloe.hernandez@gmail.com', 4, 'Accountant', 8, 'BR007', 'DEPT004', 'DEP0026'),
   ('Samuel', 'Reed', 'Male', 'Married', '1992-01-23', 'samuel.reed@gmail.com', 5, 'Software Engineer', 7, 'BR008', 'DEPT004', 'DEP0027'),
@@ -150,9 +150,9 @@ VALUES
   ('Joseph', 'Baker', 'Male', 'Married', '1996-05-30', 'joseph.baker@gmail.com', 1, 'Software Engineer', 10, 'BR001', 'DEPT003', 'DEP0031'),
   ('William', 'Powell', 'Male', 'Married', '1993-03-24', 'william.powell@gmail.com', 6, 'Accountant', 6, 'BR005', 'DEPT004', NULL),
   ('Aubrey', 'Parker', 'Female', 'Unmarried', '1998-09-12', 'aubrey.parker@gmail.com', 2, 'QA Engineer', 10, 'BR002', 'DEPT003', 'DEP0032'),
-  ('Robert', 'Wright', 'Male', 'Married', '1993-07-18', 'robert.wright1@gmail.com', 6, 'Software Engineer', 7, 'BR001', 'DEPT001', 'DEP0033'),
+  ('Robert', 'Delt', 'Male', 'Married', '1993-07-18', 'robert.wright1@gmail.com', 6, 'Software Engineer', 7, 'BR001', 'DEPT001', 'DEP0033'),
   ('Henry', 'Mitchell', 'Male', 'Married', '1995-02-03', 'henry.mitchell@gmail.com', 3, 'Accountant', 9, 'BR003', 'DEPT002', NULL),
-  ('Lillian', 'Perez', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR002', 'DEPT001', 'DEP0034'),
+  ('Lillian', 'Pere', 'Female', 'Unmarried', '1996-04-30', 'lillian.perez@gmail.com', 5, 'QA Engineer', 7, 'BR002', 'DEPT001', 'DEP0034'),
   ('Ella', 'King', 'Female', 'Unmarried', '1991-09-25', 'ella.king@gmail.com', 5, 'Accountant', 9, 'BR003', 'DEPT002', 'DEP0035'),
   ('gugliElmo', 'Piter', 'Male', 'Married', '1996-09-15', 'gugliElmo.piter@gmail.com', 4, 'Software Engineer', 9, 'BR002', 'DEPT003', NULL),
   ('Wilson', 'Karu', 'Male', 'Married', '1993-03-24', 'wilson.karu@gmail.com', 6, 'Accountant', 8, 'BR002', 'DEPT004', NULL);
@@ -218,11 +218,11 @@ VALUES
   ('calsey.mate', 'HRM0026', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_26.jpg'),
   ('marcony.prera', 'EMP0027', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_27.jpg'),
   ('lillian.perez', 'EMP0028', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_28.jpg'),
-  ('ella.king', 'EMP0029', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_29.jpg'),
-  ('alexander.brown', 'EMP0030', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_30.jpg'),
+  ('ella.sing', 'EMP0029', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_29.jpg'),
+  ('alexander.black', 'EMP0030', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_30.jpg'),
   ('mason.taylor', 'EMP0031', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_31.jpg'),
-  ('nora.garcia', 'EMP0032', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_32.jpg'),
-  ('mason.taylor', 'EMP0033', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_33.jpg'),
+  ('nora.garcie', 'EMP0032', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_32.jpg'),
+  ('mason.taylar', 'EMP0033', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_33.jpg'),
   ('grace.barnes', 'EMP0034', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_34.jpg'),
   ('chloe.hernandez', 'EMP0035', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_35.jpg'),
   ('samuel.reed', 'EMP0036', '$2a$12$AEMK1SokwY7E3eLmFE', 'https://drive.google.com/images/random_image_36.jpg'),
@@ -234,9 +234,9 @@ VALUES
   ('joseph.baker', 'EMP0042', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_42.jpg'),
   ('william.powell', 'EMP0043', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_43.jpg'),
   ('aubrey.parker', 'EMP0044', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_44.jpg'),
-  ('robert.wright', 'EMP0045', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_45.jpg'),
+  ('robert.delt', 'EMP0045', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_45.jpg'),
   ('henry.mitchell', 'EMP0046', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_46.jpg'),
-  ('lillian.perez', 'EMP0047', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_47.jpg'),
+  ('lillian.pere', 'EMP0047', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_47.jpg'),
   ('ella.king', 'EMP0048', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_48.jpg'),
   ('gugliElmo.piter', 'EMP0049', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_49.jpg'),
   ('wilson.karu', 'EMP0050', '$2a$12$AEMK1SokwY7l3eLmFE', 'https://drive.google.com/images/random_image_50.jpg');
