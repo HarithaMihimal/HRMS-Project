@@ -197,10 +197,18 @@ app.post("/addEmployee", async (req, res) => {
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
+    if (!employeeData.contact || !Array.isArray(employeeData.contact)) {
+      return res.status(400).json({ error: 'Invalid data' });
+    }
+  
+    // Insert each contact number into the database
+    const contactSql = "INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`) VALUES ?";
+    employeeData.contact.forEach(async (number) => {
+      await queryDatabase(contactSql, [[[employeeID, number]]]);
+    });
+
     const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [
-      [employeeID, employeeData.username, employeeData.password],
-    ];
+    const accountValues = [[employeeID, employeeData.username, employeeData.password]];
     await queryDatabase(accountSql, [accountValues]);
 
     const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";

@@ -45,6 +45,7 @@ function EmployeeManagement() {
   const filteredEmployees = employees.filter((employee) =>
     employee.First_Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.Last_Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.Job_Title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.Employee_ID.includes(searchTerm)
   );
 
@@ -57,7 +58,7 @@ function EmployeeManagement() {
     <div>
       <h1>Page the Employee Management</h1>
       <div className="d-flex justify-content-between">
-        <button type="button" className="btn btn-success my-3" onClick={handleAddEmployee}>
+        <button type="button" className="btn btn-success my-3" style={{ margin: '30px' }} onClick={handleAddEmployee}>
           Add New Employee
         </button>
       

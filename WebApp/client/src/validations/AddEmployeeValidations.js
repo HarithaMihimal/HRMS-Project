@@ -6,6 +6,7 @@ export const addEmployeeSchema = Yup.object({
     gender: Yup.string().notOneOf(['Choose...'], '* Please select a gender').required(),
     maritalStatus: Yup.string().notOneOf(['Choose...'], '* Please select a marital status').required(),
     birthday: Yup.date().required('* Birthday is required'),
+    contact: Yup.array().of(Yup.string().max(15, '* Contact number is too long').required('* Contact number is required')),
     email: Yup.string().email('* Email must be a valid email'),
     employmentStatus: Yup.string().notOneOf(['Choose...'], '* Please select a employment status').required(),
     jobTitle: Yup.string().notOneOf(['Choose...'], '* Please select a job title').required(),

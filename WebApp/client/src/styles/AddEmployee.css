@@ -1,3 +1,10 @@
+.container {
+    max-width: 100%; /* Allow the container to adjust to the window size */
+    overflow-x: auto; /* Enable horizontal scrolling when content overflows */
+    margin: 30px;
+}
+
+
 /* Display error messeges in forms (added by deshitha) */ 
 .error-message {
     color: red;
