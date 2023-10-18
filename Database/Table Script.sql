@@ -1,5 +1,5 @@
-create database HRMS;
-use hrms;
+CREATE DATABASE HRMS;
+USE HRMS;
 
 CREATE TABLE `Organization` (
   `Registration_No` VARCHAR(15) NOT NULL,     -- ORG/2023/001
