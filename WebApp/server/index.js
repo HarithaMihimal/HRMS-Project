@@ -345,7 +345,10 @@ app.post("/changePassword/:id_to_transfer", (req, res) => {
         res.status(404).json({ message: "User not found" });
       } else {
         const storedPassword = results[0].password;
-        console.log("Received request to change password for userId:", id_to_transfer);
+        console.log(
+          "Received request to change password for userId:",
+          id_to_transfer
+        );
         console.log("Old password provided:", oldPassword);
 
         // Check the stored password
@@ -433,7 +436,7 @@ app.get("/rejectedLeaveRequests/:id_to_transfer", (req, res) => {
 
 app.get("/fetchAllLeaves/:id_to_transfer", (req, res) => {
   const id_to_transfer = req.params.id_to_transfer; // Correctly access the parameter
-  const query = "SELECT * FROM leave_count WHERE Employee_ID = ?";
+  const query = "SELECT * FROM leave_count_gender WHERE Employee_ID = ?";
   db.query(query, [id_to_transfer], (error, results) => {
     if (error) {
       console.error("Error fetching leave limits:", error);
@@ -471,8 +474,45 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
   });
 });
 
+app.get("/fetchLeaveRequests", (req, res) => {
+  const query = "SELECT * FROM leave_request";
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error querying the database: " + error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/fetchLeaveRequestsDept", (req, res) => {
+  const time = req.query.time; // Assuming the "time" variable is sent from the front end as a query parameter
+  console.log("time:", time);
+  let interval = ""; // Define an empty interval string
+
+  if (time === "month") {
+    interval = "1 MONTH";
+  } else if (time === "year") {
+    interval = "1 YEAR";
+  } else {
+    // Handle invalid or missing "time" parameter
+    return res
+      .status(400)
+      .json({ error: "Invalid or missing 'time' parameter" });
+  }
+
+  const query = `SELECT * FROM leave_req_dept_2 WHERE start_date BETWEEN DATE_SUB(CURDATE(), INTERVAL ${interval}) AND CURDATE()`;
+
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error("Error querying the database: " + error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.listen(3000, () => {
-
   console.log("Yey, your server is running on port 3000");
-
 });
