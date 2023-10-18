@@ -185,7 +185,7 @@ VALUES
   ('EMP0018', '0889012345'),
   ('EMP0019', '0890123456'),
   ('EMP0020', '0901234567'),
-  ('EMP0020', '0748834592'); 
+  ('EMP0020', '0748834592'), 
   ('HRM0021', '0712345378'),
   ('EMP0022', '0723456789'),
   ('EMP0023', '0734267890'),
@@ -211,13 +211,13 @@ VALUES
   ('EMP0042', '0889112345'),
   ('EMP0043', '0890883456'),
   ('EMP0044', '0909994567'),
-  ('EMP0045', '0748834592'); 
-  ('EMP0045', '0748831136');
+  ('EMP0045', '0748834592'), 
+  ('EMP0045', '0748831136'),
   ('EMP0046', '0108901234'),
   ('EMP0047', '0118901234'),
   ('EMP0048', '0119012345'),
   ('EMP0049', '0990123456'),
-  ('EMP0050', '0911234567'),
+  ('EMP0050', '0911234567');
  
 
 -- Insert sample values into Employee_Account table
@@ -329,15 +329,20 @@ VALUES
 -- Insert sample values into Leave_Request table
 INSERT INTO Leave_Request (Employee_ID, Start_Date, No_of_Days, Type, Status)
 VALUES
-  ('EMP0030', '2023-10-10', 5, 'Annual', 'Pending'),
-  ('EMP0018', '2023-11-15', 3, 'Casual', 'Approved'),
-  ('EMP0008', '2023-09-20', 2, 'Annual', 'Pending'),
+  ('EMP0001', '2023-10-10', 5, 'Annual', 'Pending'),
+  ('EMP0002', '2023-11-15', 3, 'Casual', 'Approved'),
+  ('EMP0003', '2023-09-20', 2, 'Annual', 'Pending'),
+  ('EMP0015', '2023-09-28', 2, 'Annual', 'Approved'),
   ('EMP0004', '2023-10-05', 7, 'Casual', 'Approved'),
-  ('EMP0006', '2023-11-01', 1, 'Annual', 'Pending'),
+  ('EMP0018', '2023-11-01', 1, 'Annual', 'Pending'),
+  ('EMP0008', '2023-11-16', 5, 'Annual', 'Pending'),
   ('EMP0007', '2023-12-10', 4, 'Casual', 'Pending'),
-  ('EMP0008', '2023-09-15', 30, 'Maternity', 'Approved'),
+  ('EMP0009', '2023-09-15', 30, 'Maternity', 'Approved'),
   ('EMP0010', '2023-11-20', 2, 'Annual', 'Pending'),
-  ('EMP0012', '2023-11-25', 40, 'Maternity', 'Pending');
+  ('EMP0012', '2023-11-25', 40, 'Maternity','Pending'),
+  ('EMP0033', '2023-11-10', 2, 'Casual', 'Pending'),
+  ('EMP0035', '2023-11-01', 3, 'Annual', 'Pending'),
+  ('EMP0040', '2023-11-15', 2, 'Casual', 'Pending');
 
 -- Update sample values in the Employee_Leave_Count table
 UPDATE `employee_leave_count` SET `Casual` = '3' WHERE (`Employee_ID` = 'EMP0002');
