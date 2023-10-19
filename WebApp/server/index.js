@@ -307,6 +307,35 @@ app.get("/addEmployee/branch", (req, res) => {
   });
 });
 
+app.get('/employeeDetailForHR/:id', (req, res) => {
+  const employeeId = req.params.id;
+  const empQuery = "SELECT * FROM Employee_Details WHERE Employee_ID = ?";
+  const contactQuery = "SELECT * FROM Contact_Number_Details WHERE Employee_ID = ?";
+
+  // Perform the employee details query
+  db.query(empQuery, [employeeId], (err, employeeResult) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    // Perform the contact details query
+    db.query(contactQuery, [employeeId], (err, contactResult) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      // Combine the results into a single response
+      const output = { employee: employeeResult[0], contact: contactResult };
+
+      // Send the response with the combined data
+      res.status(200).json(output);
+    });
+  });
+});
+
+
 app.get("/employeeData", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
     if (err) {

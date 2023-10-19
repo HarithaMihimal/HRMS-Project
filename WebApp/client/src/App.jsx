@@ -19,6 +19,8 @@ import Report5 from './Report5';
 import PageAdmin from './PageAdmin';
 import AddHR from './AddHR';
 import CreateHRAccount from './CreateHRAccount';
+import ViewEmployee from './ViewEmployee';
+import EditEmployee from './EditEmployee';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
         <Route path="/PageHR/:id_to_transfer/ReportGenaration/Report5" element={<Report5 />} />
 
         <Route path="/PageHR/:id_to_transfer/EmployeeManagement/AddEmployee/AddDependent" element={<AddDependent />} />
+        <Route path="/PageHR/:id_to_transfer/EmployeeManagement/ViewEmployee/:id_to_view" element={<ViewEmployee />} />
+        <Route path="/PageHR/:id_to_transfer/EmployeeManagement/EditEmployee/:id_to_edit" element={<EditEmployee />} />
         <Route path="/PageHR/:id_to_transfer/AddCustom" element={<AddCustom />} />
         <Route path="/PageAdmin" element={<PageAdmin />} />
         <Route path="/PageAdmin/AddHR" element={<AddHR />} />
