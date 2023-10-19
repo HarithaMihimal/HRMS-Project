@@ -49,7 +49,8 @@ function Report1() {
           <option value="year">Last Year</option>
         </select>
       </div>
-      <h1>Total leaves in a given period by department</h1>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20vh' }}>
+      <h1>Total leaves in a given period by department</h1> </div>
       <div>
         <h2>Human Resources Department</h2>
         <ReportOneTable allRequests={hrLeaveRequests} />

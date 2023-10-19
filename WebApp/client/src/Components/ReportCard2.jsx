@@ -14,8 +14,8 @@ function ReportCard2() {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
-        <Card.Title>Report 1</Card.Title>
-        <Card.Text>Generate Report 1</Card.Text>
+        <Card.Title className="text-center">Employee Report</Card.Title>
+        <Card.Text>Generate a report based on the employee records grouped by job title, department, pay grade, branch.</Card.Text>
         <Button variant="primary" onClick={handleGenerateReport}>Generate Report</Button>
       </Card.Body>
     </Card>

@@ -11,21 +11,38 @@ function ReportGeneration() {
 
   return (
     <div>
-      <h1>Here we can generate reports</h1>
-      <div className="d-flex justify-content-center">
-        <ReportCard1 />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20vh' }}>
+        <h1>Report Generation Page</h1>
       </div>
-      <div className="d-flex justify-content-center">
-        <ReportCard2 />
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard1 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <ReportCard3 />
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard2 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <ReportCard4 />
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard3 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <ReportCard5 />
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard4 />
+        </div>
+      </div>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard5 />
+        </div>
       </div>
     </div>
   );
