@@ -8,7 +8,7 @@ function ReportCard2() {
   const navigate = useNavigate();
 
   const handleGenerateReport = () => {
-    navigate(`/PageHR/${id_to_transfer}/ReportGeneration/Report1`);
+    navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report2`);
   };
 
   return (
