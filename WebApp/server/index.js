@@ -316,23 +316,24 @@ app.get('/employeeDetailForHR/:id', (req, res) => {
   db.query(empQuery, [employeeId], (err, employeeResult) => {
     if (err) {
       console.error(err);
-      return res.status(500).json({ error: 'Internal server error' });
+      res.status(500).send("Error fetching employee details");
     }
+    else {
 
     // Perform the contact details query
     db.query(contactQuery, [employeeId], (err, contactResult) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json("Error fetching contact details");
       }
 
       // Combine the results into a single response
       const output = { employee: employeeResult[0], contact: contactResult };
 
       // Send the response with the combined data
-      res.status(200).json(output);
+      res.status(200).send(output);
     });
-  });
+  }});
 });
 
 
