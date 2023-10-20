@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import { format, parseISO } from 'date-fns';
 import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
 import './styles/addEmployee.css'; // Import the CSS file
 
@@ -11,27 +12,8 @@ function EditEmployee() {
   const { id_to_transfer, id_to_edit } = useParams();
   const navigate = useNavigate();
 
-  const initialEmployeeData = {
-    firstName: "",
-    lastName: "",
-    gender: "Choose...",
-    maritalStatus: "Choose...",
-    birthday: "",
-    contact: [""],
-    email: "",
-    employmentStatus: "Choose...",
-    jobTitle: "Choose...",
-    payGrade: "Choose...",
-    department: "Choose...",
-    branch: "Choose...",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    supervisor: ""
-  }
-
-  const [employeeData, setEmployeeData] = useState(initialEmployeeData); // State to store employee data
-  console.log(employeeData);
+  const [employeeData, setEmployeeData] = useState(null);
+  const [contactNumbers, setContactNumbers] = useState(null);
 
   useEffect(() => {
     // Fetch employee data based on id_to_edit when the component mounts
@@ -40,13 +22,20 @@ function EditEmployee() {
         // Set the fetched data to the state
         setEmployeeData(response.data.employee);
 
-        // You can also set other form-related data if needed
+        // Set the contact numbers to the state
+        const initialContactNumbers = response.data.contact.map(contact => contact.Contact_Number);
+        setContactNumbers(initialContactNumbers || []);
       })
       .catch(error => {
         console.error('Error fetching employee data:', error);
       });
   }, [id_to_edit]);
 
+  useEffect(() => {
+    // This useEffect watches for changes in employeeData
+    console.log("employeeData: ", employeeData);
+    console.log("contactNumbers: ", contactNumbers);
+  }, [employeeData, contactNumbers]);
 
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
   useEffect(() => {
@@ -91,6 +80,36 @@ function EditEmployee() {
         console.error('Error fetching data:', error);
       });
   }, []);
+
+  if (employeeData === null || contactNumbers === null) {
+    return <div>Loading...</div>;
+  }
+
+  const formattedDate = format(parseISO(employeeData.Birthday), 'yyyy-MM-dd');
+  
+  const initialEmployeeData = {
+    firstName: employeeData.First_Name,
+    lastName: employeeData.Last_Name,
+    gender: employeeData.Gender,
+    maritalStatus: employeeData.Marital_Status,
+    birthday: formattedDate,
+    contact: contactNumbers,
+    email: employeeData.Email || "",
+    employmentStatus: employeeData.Employment_Status,
+    jobTitle: employeeData.Job_Title,
+    payGrade: employeeData.Pay_Grade,
+    department: employeeData.Dept_Name,
+    branch: employeeData.Branch_Name,
+
+    dFirstName: employeeData.dFirst_Name,
+    dLastName: employeeData.dLast_Name,
+    dGender: employeeData.dGender,
+    age: employeeData.Age,
+    relation: employeeData.Relation,
+
+    username: employeeData.User_ID,
+
+  }
 
   return (
     <div>
@@ -172,7 +191,7 @@ function EditEmployee() {
                         <div key={index}>
                             
                             <div className="d-flex justify-content-between">
-                            <Field type="text" className="form-control col-md-4" id={`inputContact[${index}]`} name={`contact[${index}]`} placeholder="Contact Number" style={{marginTop: "5px"}} />
+                            <Field type="text" className="form-control col-md-4" id={`inputContact[${index}]`} name={`contact[${index}]`} placeholder="Contact Number" value={contact[index] || ''} style={{marginTop: "5px"}} />
                             {
                                 index > 0 &&
                                 <button type="button" className="btn btn-secondary" style={{marginLeft: "5px", marginTop: "5px"}} onClick={() => remove(index)}><BsFillTelephoneMinusFill /></button>
@@ -254,9 +273,50 @@ function EditEmployee() {
                 <ErrorMessage name="branch" component="div" className="error-message" />
                 </div>
 
-                <div>
-                <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent's Details</h4>
-                </div>
+                {employeeData.Dependent_ID != null ? (
+                    <div>
+                        <div>
+                            <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent Information</h4>
+                        </div>
+                        <div className="row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputDependentFirstName" style={{ marginTop: '15px' }}>First Name</label>
+                                <Field type="text" className="form-control" id="inputDependentFirstName" name="dFirstName" placeholder="Dependent's First Name" />
+                                <ErrorMessage name="dFirstName" component="div" className="error-message" />
+                            </div>
+                            
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputDependentLastName" style={{ marginTop: '15px' }}>Last Name</label>
+                                <Field type="text" className="form-control" id="inputDependentLastName" name="dLastName" placeholder="Dependent's Last Name" />
+                                <ErrorMessage name="dLastName" component="div" className="error-message" />
+                            </div>
+                        </div>
+                        <div className="form-group col-md-4">
+                            <label htmlFor="inputDependentGender" style={{ marginTop: '15px' }}>Gender</label>
+                            <Field as='select' id="inputDependentGender" name="dGender" className="form-control" >
+                                <option>Choose...</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                                <option>Prefer not to say</option>
+                            </Field>
+                            <ErrorMessage name="dGender" component="div" className="error-message" />
+                        </div>
+                        
+                        <div className="form-group col-md-5">
+                            <label htmlFor="inputDependentAge" style={{ marginTop: '15px' }}>Age</label>
+                            <Field type="number" className="form-control" id="inputDependentAge" name="age" placeholder="Age" />
+                            <ErrorMessage name="age" component="div" className="error-message" />
+                        </div>
+                        
+                        <div className="form-group col-md-5">
+                            <label htmlFor="inputRelation" style={{ marginTop: '15px' }}>Relation</label>
+                            <Field type="text" className="form-control" id="inputRelation" name="relation" placeholder="Relation" />
+                            <ErrorMessage name="relation" component="div" className="error-message" />
+                        </div>
+                    </div>
+                ) : null }
+                
                 
 
                 <div>
