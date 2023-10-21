@@ -65,7 +65,7 @@ function Login() {
           </h1>
   
           <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
-          Jupiter Apparels is a multinational apparel corporation operating across Sri Lanka, Bangladesh, and Pakistan. With a workforce of over 1000 employees, they are a prominent player in the fashion industry.
+            Jupiter Apparels is a multinational apparel corporation operating across Sri Lanka, Bangladesh, and Pakistan. With a workforce of over 1000 employees, they are a prominent player in the fashion industry.
           </p>
         </MDBCol>
   
@@ -74,20 +74,37 @@ function Login() {
           <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong" style={{ top: '8%', right: '20%' }}></div>
           <div id="radius-shape-2" className="position-absolute shadow-5-strong" style={{ top: '60%', right: '10%' }}></div>
   
-          <MDBCard className='my-5 bg-glass' style={{ maxWidth: '400px' }}>
-            <MDBCardBody className='p-5'>
-              {/* Email field */}
-              <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' />
-  
-              {/* Password field */}
-              <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' />
+          <MDBCard className='my-5 bg-glass' style={{ maxWidth: '400px', height: '450px'}}>
+            <MDBCardBody className='p-5 justify-content-center ' style={{ maxWidth: '400px', height: '450px'}}>
+              <form>
+                <div className='mb-4'> {/* Increased margin-bottom */}
+                  <input
+                    type='text'
+                    placeholder='Enter Username'
+                    name='User_ID'
+                    className='form-control rounded-0'
+                    autoComplete='off'
+                    value={formData.User_ID}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className='mb-4'> {/* Increased margin-bottom */}
+                  <input
+                    type='password'
+                    placeholder='Enter Password'
+                    name='password'
+                    className='form-control rounded-0'
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </form>
   
               <div className='d-flex justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
               </div>
   
-              <MDBBtn className='w-100 mb-4' size='md'>Sign up</MDBBtn>
-  
+              <button type='submit' className='btn btn-primary w-100 rounded-0' onClick={handleSubmit}>Log in</button>
               <div className="text-center">
                 <p>You agree to our terms and conditions</p>
                 <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
@@ -110,10 +127,6 @@ function Login() {
       </MDBRow>
     </MDBContainer>
   );
-  
-  
-  
-  
 }
 
 export default Login;
