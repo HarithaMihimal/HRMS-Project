@@ -51,13 +51,21 @@ function LeaveReq() {
   const remainingAnnualLeaves = Object.values(setAllLeaves)[0].Annual - Object.values(settakenLeaves)[0].Annual;
   const remainingCasualLeaves = Object.values(setAllLeaves)[0].Casual - Object.values(settakenLeaves)[0].Casual;
   const remainingNoPayLeaves = Object.values(setAllLeaves)[0].No_Pay - Object.values(settakenLeaves)[0].No_Pay;
-  const remainingMaternityLeaves = Object.values(setAllLeaves)[0].Maternity_Leave - Object.values(settakenLeaves)[0].Maternity_Leave;
+  let remainingMaternityLeaves;
+
+if (Object.values(setAllLeaves)[0].Gender === 'Female') {
+  console.log("Isara");
+  remainingMaternityLeaves = Object.values(setAllLeaves)[0].Maternity_Leave - Object.values(settakenLeaves)[0].Maternity_Leave;
+} else {
+  remainingMaternityLeaves = "Undefined";
+}
 
   const addEmployee = async () => {
     try {
       if (id === id_to_transfer ) {
         console.log(id,type)
         if ((type == "annual" && day_no <= remainingAnnualLeaves) | (type == "casual" && day_no <= remainingCasualLeaves) | (type == "no_pay" && day_no <= remainingNoPayLeaves) | (type == "maternity" && day_no <= remainingMaternityLeaves)) {
+          if((type == "maternity" && Object.values(setAllLeaves)[0].Gender === 'Female') | (type != "maternity")){
         await Axios.post("http://localhost:3000/createLeaveReq", {
           id: id,
           startDate: startDate,
@@ -67,7 +75,10 @@ function LeaveReq() {
         setSuccessMessage("Your request submitted");
         setErrorMessage("");
         window.location.reload();
-      }
+      }else{
+        setErrorMessage("You can't reqest maternity leaves");
+        setSuccessMessage("");
+      }} 
       else{
         setErrorMessage("You don't have enough leaves");
         setSuccessMessage("");
