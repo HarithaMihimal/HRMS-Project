@@ -95,12 +95,22 @@ function EmployeeManagement() {
                 <td>
                   <div style={{margin: "0px"}} className="d-flex custom-button-container">
                     <div style={{margin: "0px"}} className="mx-1">
-                      <button type="button" className="btn btn-success">
+                      <button type="button" className="btn btn-success" onClick={
+                        () => {
+                          const id_to_view = employee.Employee_ID;
+                          navigate(`/PageHR/${id_to_transfer}/EmployeeManagement/ViewEmployee/${id_to_view}`)
+                        }
+                      }>
                         View
                       </button>
                     </div>
                     <div style={{margin: "0px"}} className="mx-1">
-                      <button type="button" className="btn btn-warning">
+                      <button type="button" className="btn btn-warning" onClick={
+                        () => {
+                          const id_to_edit = employee.Employee_ID;
+                          navigate(`/PageHR/${id_to_transfer}/EmployeeManagement/EditEmployee/${id_to_edit}`)
+                        }
+                      }>
                         Edit
                       </button>
                     </div>

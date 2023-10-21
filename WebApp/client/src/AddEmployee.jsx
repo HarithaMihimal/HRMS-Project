@@ -27,7 +27,6 @@ function AddEmployee() {
     username: "",
     password: "",
     confirmPassword: "",
-    //isSupervisor: false,
     supervisor: ""
   }
 
@@ -123,7 +122,6 @@ function AddEmployee() {
           }
           Axios.post("http://localhost:3000/addEmployee", data)
           .then(res => {
-            console.log(res.data);
             localStorage.removeItem('employeeData');
             localStorage.removeItem('haveDependent');
             resetForm({
@@ -132,7 +130,9 @@ function AddEmployee() {
             setSavedEmployeeData(initialEmployeeData); // Update the savedEmployeeData state
             setHaveDependent(false);
           }) 
-          .catch(err => console.log(err))
+          .catch(error => console.error('Error fetching data:', error))
+          console.log("Employee data inserted successfully!");
+          navigate(-1);
         }}>
         {({errors, values, setFieldValue}) => (
           <Form autoComplete="off" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
@@ -180,11 +180,6 @@ function AddEmployee() {
                 <ErrorMessage name="birthday" component="div" className="error-message" />
               </div>
             </div>
-            {/* <div className="form-group col-md-4">
-              <label htmlFor="inputContact" style={{marginTop: '15px'}}>Contact Number</label>
-              <Field type="text" className="form-control" id="inputContact" name="contact" placeholder="Contact Number" />
-              <ErrorMessage name="contact" component="div" className="error-message" />
-            </div> */}
 
             <div className="form-group col-md-5">
               <FieldArray name="contact">{
@@ -297,46 +292,18 @@ function AddEmployee() {
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Supervisor Details</h4>
             </div>
-            {/* <div className="row">
-              <div className="form-group row">
-                <div className="col-md-12">
-                  <div className="form-check">
-                    <Field
-                      type="checkbox"
-                      className="form-check-input"
-                      id="isSupervisor"
-                      name="isSupervisor"
-                      onChange={(e) => {
-                        console.log('checkbox value:', e.target.checked);
-                        setFieldValue('isSupervisor', e.target.checked);
-                        if (!e.target.checked) {
-                          console.log('supervisor field value:', values.supervisor);
-                          setFieldValue('supervisor', '');
-                        }
-                      }}
-                    />
-                    <ErrorMessage name="isSupervisor" component="div" className="error-message" />
-                    <label className="form-check-label" htmlFor="isSupervisor">
-                      <h6>Is this person a supervisor?</h6>
-                    </label>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* {!values.isSupervisor && ( */}
-                <div className="form-group col-md-6">
-                  <label htmlFor="supervisorID" style={{ marginTop: '15px' }}>Supervisor's ID</label>
-                  <Field
-                    type="text"
-                    className="form-control"
-                    id="supervisorID"
-                    name="supervisor"
-                    placeholder="Supervisor's ID"
-                  />
-                  <ErrorMessage name="supervisor" component="div" className="error-message" />
-                </div>
-              {/* )} */}
-            {/* </div> */}
+            
+            <div className="form-group col-md-6">
+              <label htmlFor="supervisorID" style={{ marginTop: '15px' }}>Supervisor's ID</label>
+              <Field
+                type="text"
+                className="form-control"
+                id="supervisorID"
+                name="supervisor"
+                placeholder="Supervisor's ID"
+              />
+              <ErrorMessage name="supervisor" component="div" className="error-message" />
+            </div>
 
             <div>
               <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Account Information</h4>
