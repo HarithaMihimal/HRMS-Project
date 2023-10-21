@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { format, parseISO } from 'date-fns';
-import { addEmployeeSchema } from "./validations/AddEmployeeValidations";
+import { editEmployeeSchema } from "./validations/EditEmployeeValidations";
 import './styles/addEmployee.css'; // Import the CSS file
 
 import { BsTelephonePlusFill, BsFillTelephoneMinusFill } from 'react-icons/bs'; // Import the icons
@@ -110,6 +110,7 @@ function EditEmployee() {
         <div className="container">
         <Formik
             initialValues={initialEmployeeData} 
+            validationSchema={editEmployeeSchema}
             onSubmit={(employeeData , { resetForm } ) => {
             Axios.post("http://localhost:3000/editEmployee", employeeData)
             .then(res => {
