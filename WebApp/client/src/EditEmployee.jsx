@@ -31,12 +31,6 @@ function EditEmployee() {
       });
   }, [id_to_edit]);
 
-  useEffect(() => {
-    // This useEffect watches for changes in employeeData
-    console.log("employeeData: ", employeeData);
-    console.log("contactNumbers: ", contactNumbers);
-  }, [employeeData, contactNumbers]);
-
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]);
   useEffect(() => {
     Axios.get("http://localhost:3000/addEmployee/employmentStatus")
@@ -88,6 +82,7 @@ function EditEmployee() {
   const formattedDate = format(parseISO(employeeData.Birthday), 'yyyy-MM-dd');
   
   const initialEmployeeData = {
+    employeeID: employeeData.Employee_ID,
     firstName: employeeData.First_Name,
     lastName: employeeData.Last_Name,
     gender: employeeData.Gender,
@@ -101,41 +96,41 @@ function EditEmployee() {
     department: employeeData.Dept_Name,
     branch: employeeData.Branch_Name,
 
+    dependentID: employeeData.Dependent_ID,
     dFirstName: employeeData.dFirst_Name,
     dLastName: employeeData.dLast_Name,
     dGender: employeeData.dGender,
     age: employeeData.Age,
-    relation: employeeData.Relation,
-
-    username: employeeData.User_ID,
+    relation: employeeData.Relation
 
   }
 
   return (
     <div>
-        <h1>This is the Edit Employee page</h1>
         <div className="container">
         <Formik
             initialValues={initialEmployeeData} 
-            validationSchema={addEmployeeSchema}
             onSubmit={(employeeData , { resetForm } ) => {
-            const data = {
-                employeeData: employeeData,
-                haveDependent: haveDependent
-            }
-            Axios.post("http://localhost:3000/addEmployee", data)
+            Axios.post("http://localhost:3000/editEmployee", employeeData)
             .then(res => {
                 resetForm({
                     values: initialEmployeeData // Reset the form with initial values
                 });
             }) 
             .catch(err => console.log(err))
+            console.log("Employee data updated successfully!");
+            navigate(-1);
             }}>
 
             {({errors, values, setFieldValue}) => (
             <Form autoComplete="off" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
                 <div>
                 <h4 style={{ marginBottom: '30px', marginTop: '40px' }}>Employee Information</h4>
+                </div>
+                <div className="form-group col-md-4">
+                    <label htmlFor="inputEmployeeID" style={{marginTop: '15px'}}>Employee ID</label>
+                    <Field type="text" className="form-control" id="inputEmployeeID" name="employeeID" placeholder="Employee ID" disabled={true} />
+                    <ErrorMessage name="employeeID" component="div" className="error-message" />
                 </div>
                 <div className="row">
                 <div className="form-group col-md-6">
@@ -226,7 +221,7 @@ function EditEmployee() {
                 </div>
                 <div className="form-group col-md-4">
                     <label htmlFor="inputJobTitle" style={{marginTop: '15px'}}>Job Title</label>
-                    <Field as='select' className="form-control" id="inputJobTitle" name="jobTitle" >
+                    <Field as='select' className="form-control" id="inputJobTitle" name="jobTitle" disabled={true} >
                     <option>Choose...</option>
                     <option>HR Manager</option>
                     <option>Accountant</option>
@@ -278,6 +273,11 @@ function EditEmployee() {
                         <div>
                             <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Dependent Information</h4>
                         </div>
+                        <div className="form-group col-md-4">
+                            <label htmlFor="inputDependentID" style={{marginTop: '15px'}}>Dependent ID</label>
+                            <Field type="text" className="form-control" id="inputDependentID" name="dependentID" placeholder="Dependent ID" disabled={true} />
+                            <ErrorMessage name="dependentID" component="div" className="error-message" />
+                        </div>
                         <div className="row">
                             <div className="form-group col-md-6">
                                 <label htmlFor="inputDependentFirstName" style={{ marginTop: '15px' }}>First Name</label>
@@ -316,33 +316,6 @@ function EditEmployee() {
                         </div>
                     </div>
                 ) : null }
-                
-                
-
-                <div>
-                <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Supervisor Details</h4>
-                </div>
-                
-                <div className="form-group col-md-6">
-                <label htmlFor="supervisorID" style={{ marginTop: '15px' }}>Supervisor's ID</label>
-                <Field
-                    type="text"
-                    className="form-control"
-                    id="supervisorID"
-                    name="supervisor"
-                    placeholder="Supervisor's ID"
-                />
-                <ErrorMessage name="supervisor" component="div" className="error-message" />
-                </div>
-
-                <div>
-                <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Employee Account Information</h4>
-                </div>
-                <div className="form-group col-md-6">
-                <label htmlFor="inputUsername" style={{marginTop: '15px'}}>Username</label>
-                <Field type="text" className="form-control" id="inputUsername" name="username" placeholder="New Username" />
-                <ErrorMessage name="username" component="div" className="error-message" />
-                </div>
                 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '50px', marginTop: '30px' }}>Submit</button>
             </Form>

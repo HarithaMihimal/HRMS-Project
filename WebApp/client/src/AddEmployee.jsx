@@ -122,7 +122,6 @@ function AddEmployee() {
           }
           Axios.post("http://localhost:3000/addEmployee", data)
           .then(res => {
-            console.log(res.data);
             localStorage.removeItem('employeeData');
             localStorage.removeItem('haveDependent');
             resetForm({
@@ -131,7 +130,9 @@ function AddEmployee() {
             setSavedEmployeeData(initialEmployeeData); // Update the savedEmployeeData state
             setHaveDependent(false);
           }) 
-          .catch(err => console.log(err))
+          .catch(error => console.error('Error fetching data:', error))
+          console.log("Employee data inserted successfully!");
+          navigate(-1);
         }}>
         {({errors, values, setFieldValue}) => (
           <Form autoComplete="off" style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
