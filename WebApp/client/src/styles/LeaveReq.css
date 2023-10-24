@@ -1,0 +1,94 @@
+/* LeaveReq.css */
+
+/* Overall page styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .leave-info {
+    margin-bottom: 20px;
+  }
+  
+  .leave-info h2 {
+    text-align: center;
+  }
+  
+  .information h2 {
+    text-align: center;
+  }
+  
+  /* Form styling */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Error and success message styling */
+  .text-danger {
+    color: #d9534f;
+    font-weight: bold;
+  }
+  
+  .text-success {
+    color: #5bc0de;
+    font-weight: bold;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Leave card styling */
+  .leave-card {
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Table styling (for LeaveTable and RejectTable) */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  /* Table header styling */
+  table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Add more styles as needed for your specific application */
+  
+  

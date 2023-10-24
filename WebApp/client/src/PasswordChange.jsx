@@ -21,12 +21,11 @@ function PasswordChange() {
 
     // Send a POST request to change the password
     Axios.post(`http://localhost:3000/changePassword/${id_to_transfer}`, {
-      id_to_transfer: {id_to_transfer},
+      id_to_transfer: { id_to_transfer },
       oldPassword: oldPassword,
       newPassword: newPassword,
     })
       .then((response) => {
-        console.log("checking",response);
         if (response.status === 200) {
           // Password change successful
           setMessage('Password changed successfully.');
@@ -48,42 +47,55 @@ function PasswordChange() {
   };
 
   return (
-    <div>
-      <h1>Here you can change your password</h1>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label>Old password: </label>
-          <input
-            type="password"
-            placeholder="Enter your old password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-          />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-4">
+          <div className="card mt-5">
+            <div className="card-body">
+              <h1 className="text-center mb-4">Password Reset</h1>
+              {message && <div className="alert alert-info">{message}</div>}
+              <form onSubmit={handleFormSubmit}>
+                <div className="form-group">
+                  <label>Old Password:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Enter your old password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>New Password:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Enter your new password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Confirm Password:</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Confirm your new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary btn-block mt-4">
+                  Change Password
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label>New password: </label>
-          <input
-            type="password"
-            placeholder="Enter your new password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            placeholder="Confirm your new password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Change the password</button>
-      </form>
+      </div>
     </div>
   );
 }
