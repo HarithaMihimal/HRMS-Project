@@ -129,10 +129,13 @@ app.post("/addEmployee", async (req, res) => {
   const { employeeData, haveDependent } = req.body;
 
   try {
-    const employmentStatusQuery = "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery = "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
+    const employmentStatusQuery =
+      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
+    const payGradeQuery =
+      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
     const branchQuery = "SELECT Branch_ID FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery = "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
+    const departmentQuery =
+      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
 
     const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
       employeeData.employmentStatus,
@@ -193,25 +196,31 @@ app.post("/addEmployee", async (req, res) => {
 
     await queryDatabase(sql, [values]);
 
-    const employeeIDQuery = "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
+    const employeeIDQuery =
+      "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
     const employeeIDResult = await queryDatabase(employeeIDQuery);
     const employeeID = employeeIDResult[0].Employee_ID;
 
     if (!employeeData.contact || !Array.isArray(employeeData.contact)) {
-      return res.status(400).json({ error: 'Invalid data' });
+      return res.status(400).json({ error: "Invalid data" });
     }
-  
+
     // Insert each contact number into the database
-    const contactSql = "INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`) VALUES ?";
+    const contactSql =
+      "INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`) VALUES ?";
     employeeData.contact.forEach(async (number) => {
       await queryDatabase(contactSql, [[[employeeID, number]]]);
     });
 
-    const accountSql = "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [[employeeID, employeeData.username, employeeData.password]];
+    const accountSql =
+      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
+    const accountValues = [
+      [employeeID, employeeData.username, employeeData.password],
+    ];
     await queryDatabase(accountSql, [accountValues]);
 
-    const supervisorSql = "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
+    const supervisorSql =
+      "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
     const supervisorValues = [[employeeData.supervisor, employeeID]];
     await queryDatabase(supervisorSql, [supervisorValues]);
 
@@ -237,7 +246,8 @@ function queryDatabase(sql, params) {
 }
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
-  const sql = "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
+  const sql =
+    "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
   const values = [
     req.body.firstName,
     req.body.lastName,
@@ -307,37 +317,38 @@ app.get("/addEmployee/branch", (req, res) => {
   });
 });
 
-app.get('/employeeDetailForHR/:id', (req, res) => {
+app.get("/employeeDetailForHR/:id", (req, res) => {
   const employeeId = req.params.id;
   const empQuery = "SELECT * FROM Employee_Details WHERE Employee_ID = ?";
-  const contactQuery = "SELECT * FROM Contact_Number_Details WHERE Employee_ID = ?";
+  const contactQuery =
+    "SELECT * FROM Contact_Number_Details WHERE Employee_ID = ?";
 
   // Perform the employee details query
   db.query(empQuery, [employeeId], (err, employeeResult) => {
     if (err) {
       console.error(err);
-      res.status(500).json({error: "Error fetching employee details"});
+      res.status(500).json({ error: "Error fetching employee details" });
+    } else {
+      // Perform the contact details query
+      db.query(contactQuery, [employeeId], (err, contactResult) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: "Error fetching contact details" });
+        }
+
+        // Combine the results into a single response
+        const output = { employee: employeeResult[0], contact: contactResult };
+
+        // Send the response with the combined data
+        res.status(200).json(output);
+      });
     }
-    else {
-
-    // Perform the contact details query
-    db.query(contactQuery, [employeeId], (err, contactResult) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({error: "Error fetching contact details"});
-      }
-
-      // Combine the results into a single response
-      const output = { employee: employeeResult[0], contact: contactResult };
-
-      // Send the response with the combined data
-      res.status(200).json(output);
-    });
-  }});
+  });
 });
 
 app.post("/editEmployee", async (req, res) => {
-  db.query('CALL Update_Employee_Data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+  db.query(
+    "CALL Update_Employee_Data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       req.body.employeeID,
       req.body.firstName,
@@ -363,14 +374,13 @@ app.post("/editEmployee", async (req, res) => {
     ],
     (error, results, fields) => {
       if (error) {
-        console.error('Error updating employee data:', error);
+        console.error("Error updating employee data:", error);
       } else {
-        console.log('Employee data updated successfully.');
+        console.log("Employee data updated successfully.");
       }
-  
-    })
+    }
+  );
 });
-
 
 app.get("/employeeData", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
@@ -445,8 +455,10 @@ app.post("/changePassword/:id_to_transfer", (req, res) => {
 
 // Route to fetch leave requests
 app.get("/leave_request", (req, res) => {
-  const query = "SELECT * FROM leave_request";
-  db.query(query, (error, results) => {
+  const id = req.query.id_to_transfer;
+  console.log("id:", id);
+  const query = "SELECT * FROM supervisor_leave_accept where Supervisor_ID = ?";
+  db.query(query, [id], (error, results) => {
     if (error) {
       console.error("Error fetching leave requests:", error);
       res.status(500).json({ error: "Internal Server Error" });

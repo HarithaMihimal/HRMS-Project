@@ -1,40 +1,44 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import './styles/PageHR.css'; // Import the CSS file
 
 function PageHR() {
   const { id_to_transfer } = useParams();
   console.log('id_to_transfer in PageHR:', id_to_transfer);
   const navigate = useNavigate(); // Define the navigate function
 
-  // Handler for the "Leave Request" button click
-  const handleLeaveRequestClick_1 = () => {
-    navigate(`/PageHR/${id_to_transfer}/EmployeeManagement`);
-  };
-  const handleLeaveRequestClick_2 = () => {
-    navigate(`/PageHR/${id_to_transfer}/AddCustom`); 
-  };
-  const handleLeaveRequestClick_3 = () => {
-    navigate(`/PageHR/${id_to_transfer}/ReportGenaration`); 
+  // Handler for the sidebar navigation
+  const handleSidebarLinkClick = (path) => {
+    navigate(path);
   };
 
   return (
-    <div>
-      <h1>Page for the HR</h1>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1}>
-          Employee Management
-        </button>
+    <div className="page-container">
+      <div className="sidebar">
+      <div style={{ marginTop: '20px',marginBottom:'40px',display: 'flex',alignItems: 'center',textAlign: 'center' }}>
+        <h2>Jupiter Apparels</h2></div>
+        <ul>
+          <li>
+            <NavLink to={`/PageHR/${id_to_transfer}/EmployeeManagement`} activeClassName="active-link">
+              Employee Management
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={`/PageHR/${id_to_transfer}/AddCustom`} activeClassName="active-link">
+              Add Custom Attribute
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={`/PageHR/${id_to_transfer}/ReportGenaration`} activeClassName="active-link">
+              Report Generation
+            </NavLink>
+          </li>
+        </ul>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_2}>
-          Add Custom Attribute
-        </button>
-      </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_3}>
-          Report Generation
-        </button>
+      <div className="content">
+        <h1>Isara</h1>
+        <Outlet />
       </div>
     </div>
   );
