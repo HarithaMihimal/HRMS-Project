@@ -68,3 +68,6 @@ JOIN Department dept ON e.Dept_ID = dept.Dept_ID;
 
 
 
+create view supervisor_leave_accept as
+select Leave_Req_ID,Employee_ID,Supervisor_ID,Start_Date,No_of_Days,Type,Status
+from leave_request join supervisor where leave_request.Employee_ID = supervisor.Subordinate_ID

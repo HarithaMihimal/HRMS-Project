@@ -1,15 +1,22 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const LeaveRequest = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id_to_transfer = queryParams.get('id_to_transfer');
+  console.log('id_to_transfer in Page Supervisor:', id_to_transfer);
+
   // State to store the leave request data
   const [leaveRequests, setLeaveRequests] = useState([]);
-  
+
   // Function to fetch leave requests from your API
   const fetchLeaveRequests = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/leave_request'); // Replace with your API endpoint
+      const response = await axios.get('http://localhost:3000/leave_request', {
+        params: { id_to_transfer }
+      }); // Replace with your API endpoint
       setLeaveRequests(response.data);
     } catch (error) {
       console.error('Error fetching leave requests:', error);
@@ -19,7 +26,9 @@ const LeaveRequest = () => {
   // Function to update the status of a leave request
   const updateStatus = async (leaveReqID, newStatus) => {
     try {
-      await axios.put(`http://localhost:3000/leave_request/${leaveReqID}`, { status: newStatus }); // Replace with your API endpoint
+      await axios.put(`http://localhost:3000/leave_request/${leaveReqID}`, {
+        status: newStatus
+      }); // Replace with your API endpoint
       // Update the status locally without making another request
       setLeaveRequests((prevLeaveRequests) =>
         prevLeaveRequests.map((request) =>
@@ -38,9 +47,10 @@ const LeaveRequest = () => {
   }, []); // Fetch leave requests when the component mounts
 
   return (
-    <div >
-      <h1>Leave Requests</h1>
-      <table>
+    <div className="d-flex flex-column align-items-center">
+      <div style={{ marginTop: '20px',marginBottom:'20px' }}>
+      <h1>Leave Requests</h1></div>
+      <table className="table table-striped custom-table " style={{ width: '90%', margin: '0 auto' }}>
         <thead>
           <tr>
             <th>Leave Request ID</th>
@@ -64,12 +74,14 @@ const LeaveRequest = () => {
               <td>
                 {request.Status === 'Pending' && (
                   <div>
-                    <button className='button1'
+                    <button
+                      className="btn btn-success"
                       onClick={() => updateStatus(request.Leave_Req_ID, 'Approved')}
                     >
                       Approve
                     </button>
-                    <button className='button2'
+                    <button
+                      className="btn btn-danger"
                       onClick={() => updateStatus(request.Leave_Req_ID, 'Rejected')}
                     >
                       Reject
