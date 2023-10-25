@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
+import EmployeeCard from './Components/EmployeeCard.jsx';
+import './styles/PageEMP.css'; // Import the CSS file
 
 function PageEMP() {
   const { id_to_transfer } = useParams();
@@ -41,25 +43,17 @@ function PageEMP() {
 
   const handleLeaveRequestClick_3 = () => {
     if (supervisors.some(supervisor => supervisor.Supervisor_ID === id_to_transfer)) {
-      navigate(`/PageEMP/${id_to_transfer}/Supervisor`);
+      navigate(`/PageEMP/${id_to_transfer}/Supervisor?id_to_transfer=${id_to_transfer}`);
     }
   };
 
   return (
     <div>
-      <h1>Page for the Employee</h1>
-
-      <h2> Employee Details</h2>
       <div className='employee'>
-        <h3>Employee ID: {employee.Employee_ID}</h3>
-        <h3>First Name: {employee.First_name}</h3>
-        <h3>Last Name: {employee.Last_name}</h3>
-        <h3>Job title: {employee.Job_Title}</h3>
-        <h3>Department: {employee.dept_name}</h3>
-        <h3>Pay Grade: {employee.pay_grade}</h3>
+        <EmployeeCard employee={employee} />
       </div>
       <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1}>
+        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1} disabled={supervisors.some(supervisor => supervisor.Supervisor_ID === id_to_transfer)}>
           Leave Request
         </button>
       </div>
@@ -69,12 +63,7 @@ function PageEMP() {
         </button>
       </div>
       <div className="d-flex justify-content-center">
-        <button
-          type="button"
-          className="btn btn-primary btn-lg custom-button"
-          onClick={handleLeaveRequestClick_3}
-          disabled={!supervisors.some(supervisor => supervisor.Supervisor_ID === id_to_transfer)}
-        >
+        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_3} disabled={!supervisors.some(supervisor => supervisor.Supervisor_ID === id_to_transfer)}>
           Supervisor
         </button>
       </div>

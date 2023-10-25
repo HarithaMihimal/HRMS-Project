@@ -160,7 +160,8 @@ app.post("/addEmployee", async (req, res) => {
 });
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
-  const sql = "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
+  const sql =
+    "INSERT INTO `Dependent_Information` (`First_name`, `Last_name`, `Gender`, `Age`, `Relation`) VALUES (?)";
   const values = [
     req.body.firstName,
     req.body.lastName,
@@ -230,37 +231,38 @@ app.get("/addEmployee/branch", (req, res) => {
   });
 });
 
-app.get('/employeeDetailForHR/:id', (req, res) => {
+app.get("/employeeDetailForHR/:id", (req, res) => {
   const employeeId = req.params.id;
   const empQuery = "SELECT * FROM Employee_Details WHERE Employee_ID = ?";
-  const contactQuery = "SELECT * FROM Contact_Number_Details WHERE Employee_ID = ?";
+  const contactQuery =
+    "SELECT * FROM Contact_Number_Details WHERE Employee_ID = ?";
 
   // Perform the employee details query
   db.query(empQuery, [employeeId], (err, employeeResult) => {
     if (err) {
       console.error(err);
-      res.status(500).json({error: "Error fetching employee details"});
+      res.status(500).json({ error: "Error fetching employee details" });
+    } else {
+      // Perform the contact details query
+      db.query(contactQuery, [employeeId], (err, contactResult) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: "Error fetching contact details" });
+        }
+
+        // Combine the results into a single response
+        const output = { employee: employeeResult[0], contact: contactResult };
+
+        // Send the response with the combined data
+        res.status(200).json(output);
+      });
     }
-    else {
-
-    // Perform the contact details query
-    db.query(contactQuery, [employeeId], (err, contactResult) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({error: "Error fetching contact details"});
-      }
-
-      // Combine the results into a single response
-      const output = { employee: employeeResult[0], contact: contactResult };
-
-      // Send the response with the combined data
-      res.status(200).json(output);
-    });
-  }});
+  });
 });
 
 app.post("/editEmployee", async (req, res) => {
-  db.query('CALL Update_Employee_Data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+  db.query(
+    "CALL Update_Employee_Data(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       req.body.employeeID,
       req.body.firstName,
@@ -286,14 +288,13 @@ app.post("/editEmployee", async (req, res) => {
     ],
     (error, results, fields) => {
       if (error) {
-        console.error('Error updating employee data:', error);
+        console.error("Error updating employee data:", error);
       } else {
-        console.log('Employee data updated successfully.');
+        console.log("Employee data updated successfully.");
       }
-  
-    })
+    }
+  );
 });
-
 
 app.get("/employeeData", (req, res) => {
   db.query("SELECT * FROM employee_data", (err, result) => {
@@ -368,8 +369,10 @@ app.post("/changePassword/:id_to_transfer", (req, res) => {
 
 // Route to fetch leave requests
 app.get("/leave_request", (req, res) => {
-  const query = "SELECT * FROM leave_request";
-  db.query(query, (error, results) => {
+  const id = req.query.id_to_transfer;
+  console.log("id:", id);
+  const query = "SELECT * FROM supervisor_leave_accept where Supervisor_ID = ?";
+  db.query(query, [id], (error, results) => {
     if (error) {
       console.error("Error fetching leave requests:", error);
       res.status(500).json({ error: "Internal Server Error" });

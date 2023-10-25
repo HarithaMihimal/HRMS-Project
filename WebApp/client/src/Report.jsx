@@ -1,53 +1,51 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import ReportCard1 from "./Components/ReportCard1";
+import ReportCard2 from "./Components/ReportCard2";
+import ReportCard3 from "./Components/ReportCard3";
+import ReportCard4 from "./Components/ReportCard4";
+import ReportCard5 from "./Components/ReportCard5";
 
-
-function ReportGenaration() {
-    const { id_to_transfer } = useParams();
-    const navigate = useNavigate(); // Define the navigate function
-    const handleLeaveRequestClick_1 = () => {
-        navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report1`);
-      };
-    const handleLeaveRequestClick_2 = () => {
-        navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report2`);      };
-    const handleLeaveRequestClick_3 = () => {
-        navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report3`);      };
-    const handleLeaveRequestClick_4 = () => {
-            navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report4`);      };
-    const handleLeaveRequestClick_5 = () => {
-                navigate(`/PageHR/${id_to_transfer}/ReportGenaration/Report5`);      };
+function ReportGeneration() {
+  const { id_to_transfer } = useParams();
 
   return (
     <div>
-      <h1>Here we can generate reports</h1>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1}>
-          Report 1
-        </button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20vh' }}>
+        <h1>Report Generation Page</h1>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_2}>
-        Report 2
-        </button>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard1 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_3}>
-        Report 3
-        </button>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard2 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_4}>
-        Report 4
-        </button>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard3 />
+        </div>
       </div>
-      <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_5}>
-        Report 5
-        </button>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard4 />
+        </div>
+      </div>
+
+      <div className="d-flex justify-content-center mb-4">
+        <div className="dark-border"> {/* Apply the dark-border class */}
+          <ReportCard5 />
+        </div>
       </div>
     </div>
   );
 }
 
-export default ReportGenaration;
+export default ReportGeneration;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import './styles/LeaveReq.css'; // Import the CSS file
 import { useParams } from "react-router-dom";
 import LeaveCard from "./Components/LeaveCard.jsx"
-import "./style.css";
 import LeaveTable from "./Components/pendingReqTable.jsx"
 import RejectTable from "./Components/rejectedTable.jsx"
 
