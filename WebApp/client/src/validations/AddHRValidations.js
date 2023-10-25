@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const addEmployeeSchema = Yup.object({
+export const addHRSchema = Yup.object({
     firstName: Yup.string().required("* First name is required"),
     lastName: Yup.string().required("* Last name is required"),
     gender: Yup.string().notOneOf(['Choose...'], '* Please select a gender').required(),
@@ -16,6 +16,6 @@ export const addEmployeeSchema = Yup.object({
     
     username: Yup.string().required('* Username is required'),
     password: Yup.string().required('* Password is required'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], '* Passwords must match').required('* Confirm password is required')
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], '* Passwords must match').required('* Confirm password is required'),
   });
 

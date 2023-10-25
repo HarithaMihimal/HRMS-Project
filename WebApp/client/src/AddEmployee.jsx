@@ -26,8 +26,7 @@ function AddEmployee() {
     branch: "Choose...",
     username: "",
     password: "",
-    confirmPassword: "",
-    supervisor: ""
+    confirmPassword: ""
   }
 
   const [savedEmployeeData, setSavedEmployeeData] = useState(() => {
@@ -287,22 +286,6 @@ function AddEmployee() {
               }}>
                 Add Dependent
               </button>
-            </div>
-
-            <div>
-              <h4 style={{ marginBottom: '30px', marginTop: '50px' }}>Supervisor Details</h4>
-            </div>
-            
-            <div className="form-group col-md-6">
-              <label htmlFor="supervisorID" style={{ marginTop: '15px' }}>Supervisor's ID</label>
-              <Field
-                type="text"
-                className="form-control"
-                id="supervisorID"
-                name="supervisor"
-                placeholder="Supervisor's ID"
-              />
-              <ErrorMessage name="supervisor" component="div" className="error-message" />
             </div>
 
             <div>

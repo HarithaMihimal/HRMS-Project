@@ -28,6 +28,7 @@ function AddDependent() {
           Axios.post("http://localhost:3000/addEmployee/addDependent", dependentData)
           .then(res => console.log(res.data))
           .catch(err => console.log(err));
+          console.log("Dependent data added successfully!");
           navigate(-1);
         }}
       >
