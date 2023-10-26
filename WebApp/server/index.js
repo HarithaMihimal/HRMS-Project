@@ -128,122 +128,36 @@ app.get("/fetchSupervisors", (req, res) => {
 app.post("/addEmployee", async (req, res) => {
   const { employeeData, haveDependent } = req.body;
 
-  try {
-    const employmentStatusQuery =
-      "SELECT Status_ID FROM Employment_Status WHERE Status = ?";
-    const payGradeQuery =
-      "SELECT Pay_Grade_ID FROM Pay_Grade WHERE Pay_Grade = ?";
-    const branchQuery = "SELECT Branch_ID FROM Branch WHERE Branch_Name = ?";
-    const departmentQuery =
-      "SELECT Dept_ID FROM Department WHERE Dept_name = ?";
-
-    const employmentStatusResult = await queryDatabase(employmentStatusQuery, [
+  db.query('CALL AddEmployee(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [
+      employeeData.firstName,
+      employeeData.lastName,
+      employeeData.gender,
+      employeeData.maritalStatus,
+      employeeData.birthday,
+      employeeData.email,
       employeeData.employmentStatus,
-    ]);
-    const payGradeResult = await queryDatabase(payGradeQuery, [
+      employeeData.jobTitle,
       employeeData.payGrade,
-    ]);
-    const branchResult = await queryDatabase(branchQuery, [
       employeeData.branch,
-    ]);
-    const departmentResult = await queryDatabase(departmentQuery, [
       employeeData.department,
-    ]);
 
-    employeeData.employmentStatus = employmentStatusResult[0].Status_ID;
-    employeeData.payGrade = payGradeResult[0].Pay_Grade_ID;
-    employeeData.branch = branchResult[0].Branch_ID;
-    employeeData.department = departmentResult[0].Dept_ID;
+      haveDependent,
 
-    let dependentId = null; // Default to null
-    if (haveDependent === true) {
-      const dependentQuery =
-        "SELECT Dependent_ID FROM Dependent_Information ORDER BY Timestamp DESC LIMIT 1";
-      const dependentResult = await queryDatabase(dependentQuery);
+      employeeData.username,
+      employeeData.password,
 
-      // Check if dependentResult exists and has a valid Dependent_ID property
-      if (
-        dependentResult &&
-        dependentResult[0] &&
-        dependentResult[0].Dependent_ID !== undefined
-      ) {
-        dependentId = dependentResult[0].Dependent_ID;
+      JSON.stringify(employeeData.contact), // You may need to stringify the JSON object
+    ],
+    (error, results, fields) => {
+      if (error) {
+        console.error('Error updating employee data:', error);
       } else {
-        console.error("Error fetching Dependent_ID or no dependent found.");
-        // Handle the error or provide a default value if needed.
+        console.log('Employee data inserted successfully.');
       }
-    }
-
-    const sql =
-      "INSERT INTO `Employee_Data` (`First_name`, `Last_name`, `Gender`, `Marital_status`, `Birthday`, `Email`, `Employment_status`, `Job_Title`, `Pay_Grade_ID`, `Branch_ID`, `Dept_ID`, `Dependent_ID`) VALUES ?";
-
-    const values = [
-      [
-        employeeData.firstName,
-        employeeData.lastName,
-        employeeData.gender,
-        employeeData.maritalStatus,
-        employeeData.birthday,
-        employeeData.email === "" ? null : employeeData.email,
-        employeeData.employmentStatus,
-        employeeData.jobTitle,
-        employeeData.payGrade,
-        employeeData.branch,
-        employeeData.department,
-        dependentId,
-      ],
-    ];
-
-    await queryDatabase(sql, [values]);
-
-    const employeeIDQuery =
-      "SELECT Employee_ID FROM Employee_Data ORDER BY Timestamp DESC LIMIT 1";
-    const employeeIDResult = await queryDatabase(employeeIDQuery);
-    const employeeID = employeeIDResult[0].Employee_ID;
-
-    if (!employeeData.contact || !Array.isArray(employeeData.contact)) {
-      return res.status(400).json({ error: "Invalid data" });
-    }
-
-    // Insert each contact number into the database
-    const contactSql =
-      "INSERT INTO `Contact_Number_Details` (`Employee_ID`, `Contact_Number`) VALUES ?";
-    employeeData.contact.forEach(async (number) => {
-      await queryDatabase(contactSql, [[[employeeID, number]]]);
-    });
-
-    const accountSql =
-      "INSERT INTO `Employee_account` (`Employee_ID`, `User_ID`, `Password`) VALUES ?";
-    const accountValues = [
-      [employeeID, employeeData.username, employeeData.password],
-    ];
-    await queryDatabase(accountSql, [accountValues]);
-
-    const supervisorSql =
-      "INSERT INTO `Supervisor` (`Supervisor_ID`, `Subordinate_ID`) VALUES ?";
-    const supervisorValues = [[employeeData.supervisor, employeeID]];
-    await queryDatabase(supervisorSql, [supervisorValues]);
-
-    console.log("Employee Data Inserted.");
-    res.status(200).json({ message: "Employee data inserted successfully" });
-  } catch (err) {
-    console.error("Error:", err.message);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  
+    })
 });
-
-// Utility function to perform database queries with a Promise-based API
-function queryDatabase(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.query(sql, params, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-}
 
 app.post("/AddEmployee/AddDependent", (req, res) => {
   const sql =

@@ -18,7 +18,6 @@ import Report4 from './Report4';
 import Report5 from './Report5';
 import PageAdmin from './PageAdmin';
 import AddHR from './AddHR';
-import CreateHRAccount from './CreateHRAccount';
 import ViewEmployee from './ViewEmployee';
 import EditEmployee from './EditEmployee';
 
@@ -48,7 +47,7 @@ function App() {
         <Route path="/PageHR/:id_to_transfer/AddCustom" element={<AddCustom />} />
         <Route path="/PageAdmin" element={<PageAdmin />} />
         <Route path="/PageAdmin/AddHR" element={<AddHR />} />
-        <Route path="/PageAdmin/CreateHRAccount" element={<CreateHRAccount />} />
+        <Route path="/PageAdmin/AddHR/AddDependent" element={<AddDependent />} />
       </Routes>
     </BrowserRouter>
   );

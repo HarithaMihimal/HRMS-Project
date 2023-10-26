@@ -192,3 +192,28 @@ BEGIN
 END;
 $$
 DELIMITER ;
+
+
+-- Trigger for set supervisor
+DELIMITER $$
+CREATE TRIGGER Set_Supervisor
+AFTER INSERT ON employee_data
+FOR EACH ROW
+BEGIN
+	DECLARE first_employee_id VARCHAR(10);
+    
+    IF NEW.job_title != 'HR Manager' THEN
+        SELECT employee_id INTO first_employee_id
+        FROM employee_data
+        WHERE job_title = NEW.job_title
+        ORDER BY employee_id
+        LIMIT 1;
+
+        IF first_employee_id IS NOT NULL THEN
+            INSERT INTO supervisor (supervisor_id, subordinate_id)
+            VALUES (first_employee_id, NEW.employee_id);
+        END IF;
+    END IF;
+END $$
+DELIMITER ;
+

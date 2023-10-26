@@ -8,9 +8,6 @@ function PageAdmin() {
     const handleLeaveRequestClick_1 = () => {
       navigate(`/PageAdmin/AddHR`);
     };
-    const handleLeaveRequestClick_2 = () => {
-      navigate(`/PageAdmin/CreateHRAccount`); 
-    };
 
     return (
       <div>
@@ -18,11 +15,6 @@ function PageAdmin() {
         <div className="d-flex justify-content-center">
           <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_1}>
             Add HR Manager
-          </button>
-        </div>
-        <div className="d-flex justify-content-center">
-          <button type="button" className="btn btn-primary btn-lg custom-button" onClick={handleLeaveRequestClick_2}>
-            Create HR account
           </button>
         </div>
       </div>
