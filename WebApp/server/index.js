@@ -463,6 +463,201 @@ app.delete("/deleteLeaveRequest/:requestId", (req, res) => {
   });
 });
 
+
+
+
+
+//Job Title Viwes
+// Route to fetch leave requests
+app.get('/employee_data_Title_HRManager', (req, res) => {
+  const query = 'SELECT * FROM HRManagerEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching1:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get('/employee_data_Title_SoftwareEngineer', (req, res) => {
+  const query = 'SELECT * FROM SoftwareEngineerEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching1:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get('/employee_data_Title_Accountant', (req, res) => {
+  const query = 'SELECT * FROM AccountantEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching1:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get('/employee_data_Title_QA_Engineer', (req, res) => {
+  const query = 'SELECT * FROM QA_EngineerEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching1:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+
+
+
+
+
+//Department Viwe
+// Route to fetch leave requests
+app.get('/employee_data_FinanceDepartmentEmployeeData', (req, res) => {
+  const query = 'SELECT * FROM FinanceDepartmentEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching2:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get('/employee_data_HRDepartmentEmployeeData', (req, res) => {
+  const query = 'SELECT * FROM HRDepartmentEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching2:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get('/employee_data_AccountingDepartmentEmployeeData', (req, res) => {
+  const query = 'SELECT * FROM AccountingDepartmentEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching2:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+app.get('/employee_data_EngineeringDepartmentEmployeeData', (req, res) => {
+  const query = 'SELECT * FROM EngineeringDepartmentEmployeeData';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching2:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+//PayGrade Viwe
+// Route to fetch leave requests
+app.get('/employee_data3', (req, res) => {
+  const query = 'SELECT * FROM EmployeeReportByPayGrade';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching3:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+//Branch Viwe
+// Route to fetch leave requests
+app.get('/employee_data4', (req, res) => {
+  const query = 'SELECT * FROM EmployeeReportByBranch';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching4:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+// Route to fetch leave requests
+app.get('/leave_request', (req, res) => {
+  const query = 'SELECT * FROM Leave_Request';
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching leave requests:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+
+
+
+// Route to update the status of a leave request
+app.put('/leave_request/:leaveReqID', (req, res) => {
+  const { leaveReqID } = req.params;
+  const { status } = req.body;
+
+  const query = 'UPDATE leave_request SET Status = ? WHERE Leave_Req_ID = ?';
+  db.query(query, [status, leaveReqID], (error, results) => {
+    if (error) {
+      console.error('Error updating status:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json({ message: 'Status updated successfully' });
+    }
+  });
+});
+
+
+
+/////////////////////
+
+// Route to fetch and display employee reports
+app.get('/employee_reports', (req, res) => {
+  const query = `
+    SELECT
+      e.Job_Title,
+      d.Dept_Name,
+      pg.Pay_Grade,
+      b.Branch_Name,
+      COUNT(*) AS EmployeeCount
+    FROM Employee_Data e
+    INNER JOIN Department d ON e.Dept_ID = d.Dept_ID
+    INNER JOIN Pay_Grade pg ON e.Pay_Grade_ID = pg.Pay_Grade_ID
+    INNER JOIN Branch b ON e.Branch_ID = b.Branch_ID
+    GROUP BY e.Job_Title, d.Dept_Name, pg.Pay_Grade, b.Branch_Name;
+  `;
+
+  db.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching employee reports:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 app.listen(3000, () => {
 
   console.log("Yey, your server is running on port 3000");
