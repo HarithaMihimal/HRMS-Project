@@ -549,7 +549,7 @@ app.get('/employee_data3', (req, res) => {
   fetchEmployeeData(req, res, query);
 });
 
-//Branch Viwe
+//Branch route
 // Route to fetch leave requests
 app.get('/employee_data4', (req, res) => {
   const query = 'SELECT * FROM EmployeeReportByBranch';
@@ -572,8 +572,6 @@ app.get('/leave_request', (req, res) => {
 });
 
 
-
-
 // Route to update the status of a leave request
 app.put('/leave_request/:leaveReqID', (req, res) => {
   const { leaveReqID } = req.params;
@@ -590,35 +588,6 @@ app.put('/leave_request/:leaveReqID', (req, res) => {
   });
 });
 
-
-
-/////////////////////
-
-// Route to fetch and display employee reports
-app.get('/employee_reports', (req, res) => {
-  const query = `
-    SELECT
-      e.Job_Title,
-      d.Dept_Name,
-      pg.Pay_Grade,
-      b.Branch_Name,
-      COUNT(*) AS EmployeeCount
-    FROM Employee_Data e
-    INNER JOIN Department d ON e.Dept_ID = d.Dept_ID
-    INNER JOIN Pay_Grade pg ON e.Pay_Grade_ID = pg.Pay_Grade_ID
-    INNER JOIN Branch b ON e.Branch_ID = b.Branch_ID
-    GROUP BY e.Job_Title, d.Dept_Name, pg.Pay_Grade, b.Branch_Name;
-  `;
-
-  db.query(query, (error, results) => {
-    if (error) {
-      console.error('Error fetching employee reports:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      res.status(200).json(results);
-    }
-  });
-});
 
 app.listen(3000, () => {
 
